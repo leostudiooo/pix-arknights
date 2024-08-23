@@ -3,7 +3,7 @@ project(HelloSFML)
 
 # 找到SFML库
 set(SFML_DIR "/opt/homebrew/Cellar/sfml/2.6.1/sfml/lib/cmake/SFML")
-find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 
 # 添加可执行文件
 add_executable(HelloSFML main.cpp)
