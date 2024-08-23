@@ -1,2 +1,7 @@
 .vscode/*
-build/*
+build/
+*.sln
+*.vcxproj
+*.vcxproj.filters
+*.user
+.DS_Store
