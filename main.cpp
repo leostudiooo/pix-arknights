@@ -1,33 +1,25 @@
-#include "raylib.h"
+#include <SFML/Graphics.hpp>
+#include <iostream>
 
-const Color myWhite = { 255, 255, 255, 255 };
+int main()
+{
+	sf::RenderWindow window(sf::VideoMode(800, 600), "SFML works!");
+	sf::CircleShape shape(100.f);
+	shape.setFillColor(sf::Color::Green);
 
-int main() {
-    // 初始化窗口
-    InitWindow(800, 600, "Pixel Art Example");
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
 
-    // 加载像素艺术图像
-    Texture2D texture = LoadTexture("pixel_art.png");
+		window.clear();
+		window.draw(shape);
+		window.display();
+	}
 
-    // 设置纹理滤镜为点过滤（保持像素清晰）
-    SetTextureFilter(texture, 0);
-
-    SetTargetFPS(60);
-
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(myWhite);
-
-        // 绘制像素艺术图像
-        DrawTexture(texture, 0, 0, myWhite);
-
-        EndDrawing();
-    }
-
-    // 卸载图像
-    UnloadTexture(texture);
-
-    CloseWindow();
-
-    return 0;
+	return 0;
 }
