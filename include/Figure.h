@@ -12,7 +12,7 @@
  * - `attackInterval`: the time interval between each attack (in frames)
  * - `defenseAmount`: the amount of damage the character can block
  */
-class Figure
+class Figure : public sf::Sprite
 {
 private:
 	const std::string name;
