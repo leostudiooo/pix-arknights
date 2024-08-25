@@ -1,3 +1,4 @@
+// Figure.h
 #pragma once
 
 #include <SFML/Graphics.hpp>
@@ -12,7 +13,7 @@
  * - `attackInterval`: the time interval between each attack (in frames)
  * - `defenseAmount`: the amount of damage the character can block
  */
-class Figure : public sf::Sprite
+class Figure
 {
 private:
 	const std::string name;

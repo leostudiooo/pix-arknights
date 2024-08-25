@@ -1,3 +1,4 @@
+// Operator.h
 #pragma once
 
 #include "Figure.h"
@@ -48,11 +49,12 @@ private:
 	int direction[2];
 	int position[2];
 
-	// Operator image[2]: 32*32 px, status {regular, attack}
-	// TODO: image data type?
-
 	int deployCost;
 	int redeployInterval; // in frames
+
+	// Operator image[2]: 32*32 px, status {regular, attack}
+	sf::Texture operatorTexture[2];
+	sf::Sprite operatorSprite;
 
 public:
 	Operator(int maxHealth, int attackDamage, int attackInterval, int defenseAmount, OperatorType type, OperatorBranch branch, int blockNumber, int attackRange[2], int direction[2], int position[2], int deployCost, int redeployInterval) : Figure(maxHealth, attackDamage, attackInterval, defenseAmount), type(type), branch(branch), blockNumber(blockNumber), deployCost(deployCost), redeployInterval(redeployInterval)
@@ -64,7 +66,7 @@ public:
 		this->position[0] = position[0];
 		this->position[1] = position[1];
 	}
-	void deploy();
+	void deploy(int x, int y);
 	void retreat();
 	~Operator();
 };
