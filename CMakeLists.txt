@@ -5,6 +5,7 @@ if(MACOSX)
 	set(SFML_DIR "/opt/homebrew/Cellar/sfml/2.6.1/lib/cmake/SFML")
 	find_package(SFML 2.6 COMPONENTS graphics window system REQUIRED)
 else()
+	set(SFML_DIR "C:/sfml/2.6.1/lib/cmake/SFML")
 	find_package(SFML COMPONENTS graphics window system REQUIRED)
 endif()
 
