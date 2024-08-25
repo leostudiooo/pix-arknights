@@ -6,12 +6,16 @@
 class Button
 {
 private:
-	sf::Texture normalTexture;
-	sf::Texture hoverTexture;
-	sf::Texture pressedTexture;
 	sf::Sprite buttonSprite;
+	std::vector<std::shared_ptr<sf::Texture>> textures;
+	bool isPressed = false;
 
 public:
-	Button(sf::Texture normalTexture, sf::Texture hoverTexture, sf::Texture pressedTexture, sf::Vector2f position);
+	Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> pressed_texture, sf::Vector2f position);
+	// hover and press events
+	void hover();
+	void press();
+	void release();
+
 	~Button();
 };

@@ -10,10 +10,11 @@ class SplashScreen
 {
 private:
 	sf::Sprite backgroundSprite;
-	sf::Texture backgroundTexture;
-	sf::Music backgroundMusic;
+	std::shared_ptr<sf::Music> backgroundMusic;
+
 	Button startButton;
+
 public:
-	SplashScreen(sf::Sprite backgroundSprite, sf::Texture backgroundTexture, sf::Music backgroundMusic, Button startButton);
+	SplashScreen(std::shared_ptr<sf::Texture> bg_texture, std::shared_ptr<sf::Music> bg_music);
 	~SplashScreen();
 };
