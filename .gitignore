@@ -10,3 +10,7 @@ CMakeCache.txt
 cmake_install.cmake
 CMakeFiles/
 .vs/
+x64/
+Pixnights.dir/
+Debug/
+Release/
