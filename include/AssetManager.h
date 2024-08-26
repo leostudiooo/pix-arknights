@@ -7,6 +7,13 @@
 #include <cstdlib>
 #include <iostream>
 
+enum AssetType
+{
+	TEXTURE,
+	MUSIC,
+	FONT
+};
+
 class AssetManager
 {
 private:
