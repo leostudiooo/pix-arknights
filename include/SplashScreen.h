@@ -1,6 +1,7 @@
 // SplashScreen.h
 #pragma once
 
+#include "UserInterface.h"
 #include "Button.h"
 #include "Game.h"
 
@@ -9,7 +10,7 @@
 
 #include <iostream>
 
-class SplashScreen
+class SplashScreen : public UserInterface
 {
 private:
 	sf::Sprite backgroundSprite;
