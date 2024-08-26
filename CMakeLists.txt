@@ -12,5 +12,5 @@ endif()
 # 添加可执行文件
 add_executable(Pixnights main.cpp)
 
-# 链接SFML库
+# 添加链接库
 target_link_libraries(Pixnights sfml-graphics sfml-window sfml-system)
