@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
+
 class Button
 {
 private:
@@ -10,12 +11,16 @@ private:
 	std::vector<std::shared_ptr<sf::Texture>> textures;
 	bool isPressed = false;
 
+	std::function<void()> onClick;
+
 public:
-	Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> pressed_texture, sf::Vector2f position);
-	// hover and press events
-	void hover();
-	void press();
-	void release();
+	Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> pressed_texture, sf::Vector2f position, std::function<void()> onClick);
+
+	void draw(sf::RenderWindow &window);
+
+	bool isMouseOver(sf::Vector2f mousePosition);
+
+	void handleEvent(const sf::Event &event);
 
 	~Button();
 };
