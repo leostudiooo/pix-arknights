@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 
 #include <cstdlib>
+#include <iostream>
 
 class AssetManager
 {
