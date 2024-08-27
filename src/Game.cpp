@@ -38,10 +38,8 @@ void Game::update()
 }
 
 void Game::render() // prototype, DON'T USE
-{
-	UserInterface *userInterface;
-	userInterface->draw();
-}
+{}
+
 
 void Game::handleInput()
 {
@@ -53,6 +51,7 @@ void Game::loadAssets()
 	{
 		loadSingleAsset(type, name, ASSET_PREFIX + filename);
 	};
+
 }
 
 void Game::loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename)

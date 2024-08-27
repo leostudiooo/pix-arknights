@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-class SplashScreen : public UserInterface
+class SplashScreen
 {
 private:
 	sf::Sprite backgroundSprite;
