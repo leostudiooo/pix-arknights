@@ -1,8 +1,7 @@
 // Figure.h
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <cstdlib>
+#include "Game.h"
 
 /*
  * `Figure` class is the base class for all characters in the game.
@@ -12,6 +11,7 @@
  * - `attackDamage`: the amount of damage the character can cause
  * - `attackInterval`: the time interval between each attack (in frames)
  * - `defenseAmount`: the amount of damage the character can block
+ * - `figureSprite`: the sprite of the character
  */
 class Figure
 {
@@ -23,6 +23,7 @@ private:
 	const int attackInterval;
 	const int defenseAmount;
 
+	sf::Sprite figureSprite;
 public:
 	Figure(int maxHealth, int attackDamage, int attackInterval, int defenseAmount) : maxHealth(maxHealth), attackDamage(attackDamage), attackInterval(attackInterval), defenseAmount(defenseAmount)
 	{

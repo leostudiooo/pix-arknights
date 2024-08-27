@@ -76,12 +76,17 @@ void Game::init()
 	stateStack.push(SPLASH_SCREEN);
 	currState = SPLASH_SCREEN;
 
-	loadSingleAsset(TEXTURE, "splash_bg_img", ASSET_PREFIX + "image/splash_bg.png");
-	loadSingleAsset(MUSIC, "splash_bg_music", ASSET_PREFIX + "audio/m_sys_title_combine.mp3");
+	auto load = [&](AssetType type, std::string name, std::string filename)
+	{
+		loadSingleAsset(type, name, ASSET_PREFIX + filename);
+	};
 
-	loadSingleAsset(TEXTURE, "start_normal", ASSET_PREFIX + "image/start_normal.png");
-	loadSingleAsset(TEXTURE, "start_hover", ASSET_PREFIX + "image/start_hover.png");
-	loadSingleAsset(TEXTURE, "start_click", ASSET_PREFIX + "image/start_click.png");
+	load(TEXTURE, "splash_bg_img", "image/splash_bg.png");
+	load(MUSIC, "splash_bg_music", "audio/m_sys_title_combine.mp3");
+
+	load(TEXTURE, "start_normal", "image/start_normal.png");
+	load(TEXTURE, "start_hover", "image/start_hover.png");
+	load(TEXTURE, "start_click", "image/start_click.png");
 
 	splashScreen = std::make_unique<SplashScreen>(
 		assetManager.getTexture("splash_bg_img"),
