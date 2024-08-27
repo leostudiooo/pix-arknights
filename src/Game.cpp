@@ -49,14 +49,14 @@ void Game::handleInput()
 
 void Game::loadAssets()
 {
-}
-
-void Game::loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename)
-{
 	auto load = [&](AssetType type, std::string name, std::string filename)
 	{
 		loadSingleAsset(type, name, ASSET_PREFIX + filename);
 	};
+}
+
+void Game::loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename)
+{
 	switch (assetType)
 	{
 	case TEXTURE:
