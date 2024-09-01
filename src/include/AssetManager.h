@@ -4,7 +4,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include <cstdlib>
+#include <memory>
+#include <unordered_map>
 #include <iostream>
 
 enum AssetType
