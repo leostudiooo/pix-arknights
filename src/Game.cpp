@@ -84,12 +84,12 @@ void Game::init()
 		loadSingleAsset(type, name, ASSET_PREFIX + filename);
 	};
 
-	load(TEXTURE, "splash_bg_img", "image/splash_bg.png");
+	load(TEXTURE, "splash_bg_img", "image/splash/bg.png");
 	load(MUSIC, "splash_bg_music", "audio/m_sys_title_combine.mp3");
 
-	load(TEXTURE, "start_normal", "image/start_normal.png");
-	load(TEXTURE, "start_hover", "image/start_hover.png");
-	load(TEXTURE, "start_click", "image/start_click.png");
+	load(TEXTURE, "start_normal", "image/splash/start_normal.png");
+	load(TEXTURE, "start_hover", "image/splash/start_hover.png");
+	load(TEXTURE, "start_click", "image/splash/start_click.png");
 
 	splashScreen = std::make_unique<SplashScreen>(
 		assetManager.getTexture("splash_bg_img"),
