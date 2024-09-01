@@ -18,7 +18,7 @@ SplashScreen::SplashScreen(
 		  sf::Vector2f(100, 100),
 		  [game]()
 		  {
-			  game->pushState(std::make_unique<MainMenu>());
+			//   game->pushState(std::make_unique<MainMenu>());
 			  std::clog << "Button clicked! Switching to MainMenu." << std::endl;
 		  })
 {
