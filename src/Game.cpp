@@ -3,6 +3,8 @@
 #include "SplashScreen.h"
 #include "MainMenu.h"
 
+#include <iostream>
+
 Game::Game()
 {
 	window.create(sf::VideoMode(1280, 720), "Pixnights");
@@ -22,24 +24,38 @@ Game::~Game()
 
 void Game::updateView()
 {
-	sf::Vector2f windowSize(window.getSize());
+    sf::Vector2f windowSize(window.getSize());
+    sf::Vector2f targetSize(192, 108);
 
-	sf::Vector2f targetSize(192, 108);
+    // 计算窗口和目标的宽高比
+    float windowRatio = windowSize.x / windowSize.y;
+    float targetRatio = targetSize.x / targetSize.y;
+    sf::FloatRect viewport;
 
-	float scale = std::min(windowSize.x / targetSize.x, windowSize.y / targetSize.y);
+    if (windowRatio > targetRatio)
+    {
+        // 窗口宽于目标宽高比
+        float scale = windowSize.y / targetSize.y;
+        float width = targetSize.x * scale;
+        float left = (windowSize.x - width) / 2.0f / windowSize.x;
+        viewport = sf::FloatRect(left, 0.0f, width / windowSize.x, 1.0f);
+    }
+    else
+    {
+        // 窗口高于目标宽高比
+        float scale = windowSize.x / targetSize.x;
+        float height = targetSize.y * scale;
+        float top = (windowSize.y - height) / 2.0f / windowSize.y;
+        viewport = sf::FloatRect(0.0f, top, 1.0f, height / windowSize.y);
+    }
 
-	view.setSize(targetSize.x * scale, targetSize.y * scale);
+    view.setSize(targetSize);
+    view.setCenter(targetSize.x / 2, targetSize.y / 2);
+    view.setViewport(viewport);
 
-	view.setCenter(targetSize.x / 2, targetSize.y / 2);
-	sf::FloatRect viewport(
-		(windowSize.x - view.getSize().x) / 2 / windowSize.x,
-		(windowSize.y - view.getSize().y) / 2 / windowSize.y,
-		view.getSize().x / windowSize.x,
-		view.getSize().y / windowSize.y);
-	view.setViewport(viewport);
-
-	window.setView(view);
+    window.setView(view);
 }
+
 
 sf::Vector2f Game::getMousePosition()
 {
