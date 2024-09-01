@@ -1,4 +1,7 @@
 #include "Game.h"
+#include "UserInterface.h"
+#include "SplashScreen.h"
+#include "MainMenu.h"
 
 Game::Game()
 {

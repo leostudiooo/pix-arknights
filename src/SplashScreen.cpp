@@ -1,4 +1,8 @@
 #include "UserInterface.h"
+#include "SplashScreen.h"
+#include "MainMenu.h"
+#include "Game.h"
+#include "Button.h"
 
 SplashScreen::SplashScreen(
 	std::shared_ptr<sf::Texture> bg_texture,
