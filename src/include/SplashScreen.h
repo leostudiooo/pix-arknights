@@ -1,16 +1,13 @@
 // SplashScreen.h
 #pragma once
 
-#include "UserInterface.h"
 #include "Button.h"
-#include "GameState.h"
-
-#include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
+#include "Game.h"
+#include "UserInterface.h"
 
 #include <iostream>
 
-class SplashScreen
+class SplashScreen: public UserInterface
 {
 private:
 	sf::Sprite backgroundSprite;
@@ -26,8 +23,9 @@ public:
 		std::shared_ptr<sf::Texture> btn_normal_texture,
 		std::shared_ptr<sf::Texture> btn_hover_texture,
 		std::shared_ptr<sf::Texture> btn_click_texture,
-		GameState &gameState);
-	void draw(sf::RenderWindow &window);
-	void stop();
+		Game *game);
+	void handleEvent(const sf::Event &event);
+	void update();
+	void render(sf::RenderWindow &window);
 	~SplashScreen();
 };

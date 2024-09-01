@@ -1,4 +1,4 @@
-#include "SplashScreen.h"
+#include "UserInterface.h"
 
 SplashScreen::SplashScreen(
 	std::shared_ptr<sf::Texture> bg_texture,
@@ -6,31 +6,31 @@ SplashScreen::SplashScreen(
 	std::shared_ptr<sf::Texture> btn_normal_texture,
 	std::shared_ptr<sf::Texture> btn_hover_texture,
 	std::shared_ptr<sf::Texture> btn_click_texture,
-	GameState &gameState)
+	Game *game)
 	: startButton(
 		  btn_normal_texture,
 		  btn_hover_texture,
 		  btn_click_texture,
 		  sf::Vector2f(100, 100),
-		  [&gameState]()
+		  [game]()
 		  {
-			  gameState = GameState::MAIN_MENU;
+			  game->pushState(std::make_unique<MainMenu>());
 			  std::clog << "Button clicked! Switching to MainMenu." << std::endl;
 		  })
 {
 	backgroundSprite.setTexture(*bg_texture);
 	backgroundMusic = bg_music;
-}
-
-void SplashScreen::draw(sf::RenderWindow &window)
-{
-	window.draw(backgroundSprite);
-	startButton.draw(window);
 	backgroundMusic->setLoop(true);
 	backgroundMusic->play();
 }
 
-void SplashScreen::stop()
+void SplashScreen::handleEvent(const sf::Event &event)
 {
-	backgroundMusic->stop();
+	startButton.handleEvent(event);
+}
+
+void SplashScreen::render(sf::RenderWindow &window)
+{
+	window.draw(backgroundSprite);
+	startButton.draw(window);
 }
