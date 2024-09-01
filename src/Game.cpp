@@ -20,6 +20,33 @@ Game::~Game()
 	}
 }
 
+void Game::updateView()
+{
+	sf::Vector2f windowSize(window.getSize());
+
+	sf::Vector2f targetSize(192, 108);
+
+	float scale = std::min(windowSize.x / targetSize.x, windowSize.y / targetSize.y);
+
+	view.setSize(targetSize.x * scale, targetSize.y * scale);
+
+	view.setCenter(targetSize.x / 2, targetSize.y / 2);
+	sf::FloatRect viewport(
+		(windowSize.x - view.getSize().x) / 2 / windowSize.x,
+		(windowSize.y - view.getSize().y) / 2 / windowSize.y,
+		view.getSize().x / windowSize.x,
+		view.getSize().y / windowSize.y);
+	view.setViewport(viewport);
+
+	window.setView(view);
+}
+
+sf::Vector2f Game::getMousePosition()
+{
+	sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+	return window.mapPixelToCoords(mousePosition);
+}
+
 void Game::pushState(std::unique_ptr<UserInterface> ui)
 {
 	uiStack.push(std::move(ui));
@@ -30,13 +57,40 @@ void Game::popState()
 	uiStack.pop();
 }
 
+void Game::init()
+{
+	auto load = [&](AssetType type, std::string name, std::string filename)
+	{
+		loadSingleAsset(type, name, ASSET_PREFIX + filename);
+	};
+
+	load(TEXTURE, "splash_bg_img", "image/splash/bg.png");
+	load(MUSIC, "splash_bg_music", "audio/m_sys_title_combine.mp3");
+
+	load(TEXTURE, "start_normal", "image/splash/start_normal.png");
+	load(TEXTURE, "start_hover", "image/splash/start_hover.png");
+	load(TEXTURE, "start_click", "image/splash/start_click.png");
+
+	pushState(std::make_unique<SplashScreen>(
+		assetManager.getTexture("splash_bg_img"),
+		assetManager.getMusic("splash_bg_music"),
+		assetManager.getTexture("start_normal"),
+		assetManager.getTexture("start_hover"),
+		assetManager.getTexture("start_click"),
+		shared_from_this()));
+
+	loadAssets();
+}
+
 void Game::run()
 {
 	while (window.isOpen())
 	{
 		handleEvent();
+		window.clear();
 		if (!uiStack.empty())
 		{
+			window.setView(view);
 			uiStack.top()->update();
 			uiStack.top()->render(window);
 		}
@@ -44,6 +98,7 @@ void Game::run()
 		{
 			window.close();
 		}
+		window.display();
 	}
 }
 
@@ -56,7 +111,10 @@ void Game::handleEvent()
 		{
 			window.close();
 		}
-
+		else if (event.type == sf::Event::Resized)
+		{
+			updateView();
+		}
 		if (!uiStack.empty())
 		{
 			uiStack.top()->handleEvent(event);
@@ -91,29 +149,4 @@ void Game::loadSingleAsset(const AssetType assetType, const std::string &name, c
 	default:
 		break;
 	}
-}
-
-void Game::init()
-{
-	auto load = [&](AssetType type, std::string name, std::string filename)
-	{
-		loadSingleAsset(type, name, ASSET_PREFIX + filename);
-	};
-
-	load(TEXTURE, "splash_bg_img", "image/splash/bg.png");
-	load(MUSIC, "splash_bg_music", "audio/m_sys_title_combine.mp3");
-
-	load(TEXTURE, "start_normal", "image/splash/start_normal.png");
-	load(TEXTURE, "start_hover", "image/splash/start_hover.png");
-	load(TEXTURE, "start_click", "image/splash/start_click.png");
-
-	pushState(std::make_unique<SplashScreen>(
-		assetManager.getTexture("splash_bg_img"),
-		assetManager.getMusic("splash_bg_music"),
-		assetManager.getTexture("start_normal"),
-		assetManager.getTexture("start_hover"),
-		assetManager.getTexture("start_click"),
-		shared_from_this()));
-
-	loadAssets();
 }

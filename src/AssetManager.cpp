@@ -12,6 +12,7 @@ void AssetManager::loadTexture(const std::string& name, const std::string& filen
 		std::cerr << "Failed to load texture: " << filename << std::endl;
 		exit(1);
 	}
+	texture->setSmooth(false); // disable texture smoothing for pixel art
 	textures[name] = texture;
 }
 

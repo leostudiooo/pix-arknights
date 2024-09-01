@@ -20,7 +20,7 @@ private:
 	sf::RenderWindow window;
 	sf::View view;
 
-	const std::string ASSET_PREFIX = "../assets/";
+	const std::string ASSET_PREFIX = "assets/";
 	AssetManager assetManager;
 	std::stack<std::unique_ptr<UserInterface> > uiStack;
 
@@ -30,12 +30,15 @@ public:
 	Game();
 	~Game();
 
+	void updateView();
+	sf::Vector2f Game::getMousePosition();
+
 	void pushState(std::unique_ptr<UserInterface> ui);
 	void popState();
 
+	void init();
 	void run();
 	void handleEvent();
 	void loadAssets();
 	void loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename);
-	void init();
 };
