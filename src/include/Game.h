@@ -8,6 +8,7 @@
 #include <SFML/Audio.hpp>
 
 #include <cstdlib>
+#include <stack>
 
 enum GameState
 {
@@ -24,7 +25,7 @@ enum GameState
 class Game
 {
 private:
-	std::string ASSET_PREFIX = "../assets/";
+	const std::string ASSET_PREFIX = "../assets/";
 	std::stack<GameState> stateStack;
 	sf::RenderWindow window;
 	AssetManager assetManager;

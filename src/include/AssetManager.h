@@ -17,9 +17,9 @@ enum AssetType
 class AssetManager
 {
 private:
-	std::unordered_map<std::string, std::shared_ptr<sf::Texture>> textures;
-	std::unordered_map<std::string, std::shared_ptr<sf::Music>> music;
-	std::unordered_map<std::string, std::shared_ptr<sf::Font>> fonts;
+	std::unordered_map<std::string, std::shared_ptr<sf::Texture> > textures;
+	std::unordered_map<std::string, std::shared_ptr<sf::Music> > music;
+	std::unordered_map<std::string, std::shared_ptr<sf::Font> > fonts;
 
 public:
 	AssetManager();

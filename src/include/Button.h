@@ -1,16 +1,15 @@
 // Button.h
 #pragma once
 
+#include <functional>
 #include <SFML/Graphics.hpp>
-
 
 class Button
 {
 private:
 	sf::Sprite buttonSprite;
-	std::vector<std::shared_ptr<sf::Texture>> textures;
+	std::vector<std::shared_ptr<sf::Texture> > textures;
 	bool isPressed = false;
-
 	std::function<void()> onClick;
 
 public:
