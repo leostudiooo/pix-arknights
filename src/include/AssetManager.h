@@ -17,7 +17,7 @@ private:
 
 public:
 	AssetManager();
-	~AssetManager();
+	~AssetManager() = default;
 
 	void loadTexture(const std::string& name, const std::string& filename);
 	std::shared_ptr<sf::Texture> getTexture(const std::string& name);

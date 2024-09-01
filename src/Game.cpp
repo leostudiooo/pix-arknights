@@ -34,7 +34,7 @@ void Game::run()
 {
 	while (window.isOpen())
 	{
-		handleInput();
+		handleEvent();
 		if (!uiStack.empty())
 		{
 			uiStack.top()->update();

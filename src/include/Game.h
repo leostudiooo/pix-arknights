@@ -35,7 +35,6 @@ public:
 
 	void run();
 	void handleEvent();
-	void handleInput();
 	void loadAssets();
 	void loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename);
 	void init();

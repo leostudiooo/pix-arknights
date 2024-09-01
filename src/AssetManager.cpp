@@ -1,5 +1,9 @@
 #include "AssetManager.h"
 
+AssetManager::AssetManager()
+{
+}
+
 void AssetManager::loadTexture(const std::string& name, const std::string& filename)
 {
 	auto texture = std::make_shared<sf::Texture>();

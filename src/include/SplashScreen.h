@@ -27,8 +27,8 @@ public:
 		std::shared_ptr<sf::Texture> btn_hover_texture,
 		std::shared_ptr<sf::Texture> btn_click_texture,
 		std::shared_ptr<Game> game);
-	void handleEvent(const sf::Event &event);
-	void update();
-	void render(sf::RenderWindow &window);
-	~SplashScreen();
+	void handleEvent(const sf::Event &event) override;
+	void update() override;
+	void render(sf::RenderWindow &window) override;
+	~SplashScreen() override = default;
 };

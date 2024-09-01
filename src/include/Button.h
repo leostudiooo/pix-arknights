@@ -23,5 +23,5 @@ public:
 
 	void handleEvent(const sf::Event &event);
 
-	~Button();
+	~Button() = default;
 };

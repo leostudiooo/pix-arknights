@@ -15,10 +15,10 @@ SplashScreen::SplashScreen(
 		  btn_normal_texture,
 		  btn_hover_texture,
 		  btn_click_texture,
-		  sf::Vector2f(100, 100),
+		  sf::Vector2f(69, 60),
 		  [game]()
 		  {
-			//   game->pushState(std::make_unique<MainMenu>());
+			  //   game->pushState(std::make_unique<MainMenu>());
 			  std::clog << "Button clicked! Switching to MainMenu." << std::endl;
 		  })
 {
@@ -31,6 +31,10 @@ SplashScreen::SplashScreen(
 void SplashScreen::handleEvent(const sf::Event &event)
 {
 	startButton.handleEvent(event);
+}
+
+void SplashScreen::update()
+{
 }
 
 void SplashScreen::render(sf::RenderWindow &window)
