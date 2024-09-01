@@ -2,34 +2,34 @@
 #pragma once
 
 #include "AssetManager.h"
-#include "SplashScreen.h"
-#include "GameState.h"
+#include "UserInterface.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Window.hpp>
 
 #include <stack>
 #include <memory>
 
-class Game
+class Game: public std::enable_shared_from_this<Game>
 {
 private:
 	const std::string ASSET_PREFIX = "../assets/";
-	std::stack<GameState> stateStack;
 	sf::RenderWindow window;
 	AssetManager assetManager;
-	std::unique_ptr<SplashScreen> splashScreen;
+	std::stack<std::unique_ptr<UserInterface> > uiStack;
+
+	std::shared_ptr<Game> sharedThis() { return shared_from_this(); }
 
 public:
-	GameState currState;
-
 	Game();
 	~Game();
 
+	void pushState(std::unique_ptr<UserInterface> ui);
+	void popState();
+
 	void run();
-	void handleEvent(const sf::Event &event);
-	void update();
-	void render();
+	void handleEvent();
 	void handleInput();
 	void loadAssets();
 	void loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename);

@@ -8,6 +8,20 @@ Game::Game()
 
 Game::~Game()
 {
+	while (!uiStack.empty())
+	{
+		uiStack.pop();
+	}
+}
+
+void Game::pushState(std::unique_ptr<UserInterface> ui)
+{
+	uiStack.push(std::move(ui));
+}
+
+void Game::popState()
+{
+	uiStack.pop();
 }
 
 void Game::run()
@@ -15,34 +29,33 @@ void Game::run()
 	while (window.isOpen())
 	{
 		handleInput();
-		update();
-		render();
-	}
-}
-
-void Game::handleEvent(const sf::Event &event)
-{
-	sf::Event e = event;
-	while (window.pollEvent(e))
-	{
-		if (e.type == sf::Event::Closed)
+		if (!uiStack.empty())
+		{
+			uiStack.top()->update();
+			uiStack.top()->render(window);
+		}
+		else
 		{
 			window.close();
 		}
-		handleInput();
 	}
 }
 
-void Game::update()
+void Game::handleEvent()
 {
-}
+	sf::Event event;
+	while (window.pollEvent(event))
+	{
+		if (event.type == sf::Event::Closed)
+		{
+			window.close();
+		}
 
-void Game::render() // prototype, DON'T USE
-{}
-
-
-void Game::handleInput()
-{
+		if (!uiStack.empty())
+		{
+			uiStack.top()->handleEvent(event);
+		}
+	}
 }
 
 void Game::loadAssets()
@@ -51,7 +64,7 @@ void Game::loadAssets()
 	{
 		loadSingleAsset(type, name, ASSET_PREFIX + filename);
 	};
-
+	// load global assets here, TODO
 }
 
 void Game::loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename)
@@ -76,9 +89,6 @@ void Game::loadSingleAsset(const AssetType assetType, const std::string &name, c
 
 void Game::init()
 {
-	stateStack.push(SPLASH_SCREEN);
-	currState = SPLASH_SCREEN;
-
 	auto load = [&](AssetType type, std::string name, std::string filename)
 	{
 		loadSingleAsset(type, name, ASSET_PREFIX + filename);
@@ -91,13 +101,13 @@ void Game::init()
 	load(TEXTURE, "start_hover", "image/splash/start_hover.png");
 	load(TEXTURE, "start_click", "image/splash/start_click.png");
 
-	splashScreen = std::make_unique<SplashScreen>(
+	pushState(std::make_unique<SplashScreen>(
 		assetManager.getTexture("splash_bg_img"),
 		assetManager.getMusic("splash_bg_music"),
 		assetManager.getTexture("start_normal"),
 		assetManager.getTexture("start_hover"),
 		assetManager.getTexture("start_click"),
-		currState);
+		shared_from_this()));
 
 	loadAssets();
 }

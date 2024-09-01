@@ -2,9 +2,7 @@
 
 int main()
 {
-	Game game;
-	game.init();
-	game.run();
-
-	return 0;
+	auto game = std::make_shared<Game>();
+	game->run();
+	game->init();
 }

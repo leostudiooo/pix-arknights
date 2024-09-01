@@ -6,7 +6,7 @@ SplashScreen::SplashScreen(
 	std::shared_ptr<sf::Texture> btn_normal_texture,
 	std::shared_ptr<sf::Texture> btn_hover_texture,
 	std::shared_ptr<sf::Texture> btn_click_texture,
-	Game *game)
+	std::shared_ptr<Game> game)
 	: startButton(
 		  btn_normal_texture,
 		  btn_hover_texture,
