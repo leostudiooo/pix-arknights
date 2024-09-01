@@ -50,6 +50,7 @@ void Button::handleEvent(const sf::Event &event)
 	}
 	else if (event.type == sf::Event::MouseMoved)
 	{
+		if (isPressed) return;
 		if (isMouseOver(game->getMousePosition()))
 		{
 			buttonSprite.setTexture(*textures[1]);
