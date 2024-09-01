@@ -8,10 +8,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # 平台检测和设置
 if(APPLE)
     set(SFML_DIR "/opt/homebrew/Cellar/sfml/2.6.1/lib/cmake/SFML")
-    find_package(SFML 2.6 COMPONENTS graphics window system audio REQUIRED)
+    find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 elseif(WIN32)
     set(SFML_DIR "C:/sfml/2.6.1/lib/cmake/SFML")
-    find_package(SFML 2.6 COMPONENTS graphics window system audio REQUIRED)
+    find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 endif()
 
 # 收集源文件

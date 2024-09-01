@@ -1,6 +1,7 @@
 // Game.h
 #pragma once
 
+#include "AssetType.h"
 #include "AssetManager.h"
 
 #include <SFML/Graphics.hpp>
@@ -10,7 +11,8 @@
 #include <stack>
 #include <memory>
 
-class UserInterface; // forward declaration
+// forward declarations
+class UserInterface;
 
 class Game: public std::enable_shared_from_this<Game>
 {

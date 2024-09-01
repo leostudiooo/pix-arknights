@@ -8,13 +8,6 @@
 #include <unordered_map>
 #include <iostream>
 
-enum AssetType
-{
-	TEXTURE,
-	MUSIC,
-	FONT
-};
-
 class AssetManager
 {
 private:
