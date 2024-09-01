@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10) # supporting VS 2022? version 3.21.1
+cmake_minimum_required(VERSION 3.10)
 project(Pixnights)
 
 # 设置C++标准
@@ -14,6 +14,9 @@ elseif(WIN32)
     find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 endif()
 
+# 调试 SFML
+message(STATUS "SFML found: ${SFML_FOUND}")
+
 # 收集源文件
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
@@ -21,7 +24,7 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(Pixnights ${SOURCES})
 
 # 添加头文件目录
-target_include_directories(Pixnights PUBLIC ${SFML_INCLUDE_DIR} "src/include")
+target_include_directories(Pixnights PUBLIC ${SFML_INCLUDE_DIRS} "src/include")
 
 # 添加链接库
 target_link_libraries(Pixnights sfml-graphics sfml-window sfml-system sfml-audio)
