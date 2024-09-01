@@ -31,7 +31,7 @@ public:
 	~Game();
 
 	void updateView();
-	sf::Vector2f Game::getMousePosition();
+	sf::Vector2f getMousePosition();
 
 	void pushState(std::unique_ptr<UserInterface> ui);
 	void popState();
