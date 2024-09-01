@@ -17,8 +17,10 @@ class UserInterface;
 class Game: public std::enable_shared_from_this<Game>
 {
 private:
-	const std::string ASSET_PREFIX = "../assets/";
 	sf::RenderWindow window;
+	sf::View view;
+
+	const std::string ASSET_PREFIX = "../assets/";
 	AssetManager assetManager;
 	std::stack<std::unique_ptr<UserInterface> > uiStack;
 

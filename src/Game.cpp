@@ -5,8 +5,11 @@
 
 Game::Game()
 {
-	window.create(sf::VideoMode(800, 600), "Pixnights");
+	window.create(sf::VideoMode(1280, 720), "Pixnights");
 	window.setFramerateLimit(60);
+
+	view.setSize(192, 108);
+	view.setCenter(192 / 2, 108 / 2);
 }
 
 Game::~Game()
