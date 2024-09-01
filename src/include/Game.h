@@ -3,24 +3,13 @@
 
 #include "AssetManager.h"
 #include "SplashScreen.h"
+#include "GameState.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include <cstdlib>
 #include <stack>
-
-enum GameState
-{
-	SPLASH_SCREEN,
-	MAIN_MENU,
-	TERMINAL,
-	SQUAD,
-	OPERATOR,
-	ARCHIVE,
-	COMBAT,
-	SETTLEMENT
-};
+#include <memory>
 
 class Game
 {

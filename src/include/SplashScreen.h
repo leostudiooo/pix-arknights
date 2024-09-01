@@ -3,7 +3,7 @@
 
 #include "UserInterface.h"
 #include "Button.h"
-#include "Game.h"
+#include "GameState.h"
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -19,6 +19,7 @@ private:
 	Button startButton;
 
 public:
+	SplashScreen(); // Default constructor
 	SplashScreen(
 		std::shared_ptr<sf::Texture> bg_texture,
 		std::shared_ptr<sf::Music> bg_music,
