@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.10) # supporting VS 2022? version 3.21.1
 project(Pixnights)
 
 # 设置C++标准
