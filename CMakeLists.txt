@@ -11,7 +11,7 @@ if(APPLE)
     find_package(SFML 2.6 COMPONENTS graphics window system audio REQUIRED)
 elseif(WIN32)
     set(SFML_DIR "C:/sfml/2.6.1/lib/cmake/SFML")
-    find_package(SFML COMPONENTS graphics window system audio REQUIRED)
+    find_package(SFML 2.6 COMPONENTS graphics window system audio REQUIRED)
 endif()
 
 # 收集源文件
@@ -20,6 +20,9 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 # 添加可执行文件
 add_executable(Pixnights ${SOURCES})
 
+# 添加头文件目录
+target_include_directories(Pixnights PUBLIC ${SFML_INCLUDE_DIR} "src/include")
+
 # 添加链接库
 target_link_libraries(Pixnights sfml-graphics sfml-window sfml-system sfml-audio)
 
@@ -27,6 +30,3 @@ target_link_libraries(Pixnights sfml-graphics sfml-window sfml-system sfml-audio
 if(MINGW)
     target_link_libraries(Pixnights -static-libstdc++)
 endif()
-
-# 添加头文件目录
-target_include_directories(Pixnights PUBLIC ${SFML_INCLUDE_DIR} "src/include")
