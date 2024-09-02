@@ -20,13 +20,7 @@ private:
 
 public:
 	SplashScreen(); // Default constructor
-	SplashScreen(
-		std::shared_ptr<sf::Texture> bg_texture,
-		std::shared_ptr<sf::Music> bg_music,
-		std::shared_ptr<sf::Texture> btn_normal_texture,
-		std::shared_ptr<sf::Texture> btn_hover_texture,
-		std::shared_ptr<sf::Texture> btn_click_texture,
-		std::shared_ptr<Game> game);
+	SplashScreen(std::shared_ptr<Game> game);
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;
