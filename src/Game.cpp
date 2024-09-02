@@ -75,21 +75,7 @@ void Game::popState()
 
 void Game::init()
 {
-	auto load = [&](AssetType type, std::string name, std::string filename)
-	{
-		loadSingleAsset(type, name, ASSET_PREFIX + filename);
-	};
-
-	load(TEXTURE, "splash_bg_img", "image/splash/bg.png");
-	load(MUSIC, "splash_bg_music", "audio/m_sys_title_combine.mp3");
-
-	load(TEXTURE, "start_normal", "image/splash/start_normal.png");
-	load(TEXTURE, "start_hover", "image/splash/start_hover.png");
-	load(TEXTURE, "start_click", "image/splash/start_click.png");
-
 	pushState(std::make_unique<SplashScreen>(shared_from_this()));
-
-	loadAssets();
 }
 
 void Game::run()
@@ -130,15 +116,6 @@ void Game::handleEvent()
 			uiStack.top()->handleEvent(event);
 		}
 	}
-}
-
-void Game::loadAssets()
-{
-	auto load = [&](AssetType type, std::string name, std::string filename)
-	{
-		loadSingleAsset(type, name, ASSET_PREFIX + filename);
-	};
-	// load global assets here, TODO
 }
 
 void Game::loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename)
