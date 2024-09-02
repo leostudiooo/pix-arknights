@@ -8,6 +8,7 @@ class MainMenu: public UserInterface
 {
 private:
 	sf::Sprite backgroundSprite;
+	sf::Sprite assistantSprite;
 	std::shared_ptr<sf::Music> backgroundMusic;
 
 	Button terminalButton;

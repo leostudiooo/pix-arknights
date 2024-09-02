@@ -26,7 +26,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 		game->getTexture("terminal_click"));
 	terminalButton.setPosition(sf::Vector2f(107, 6));
 	terminalButton.setGame(game);
-	terminalButton.setOnClick([&]()
+	terminalButton.setOnClick([game]()
 	{
 		// game->pushState(std::make_unique<Terminal>(game));
 	});
@@ -37,7 +37,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 		game->getTexture("squad_click"));
 	squadButton.setPosition(sf::Vector2f(102, 34));
 	squadButton.setGame(game);
-	squadButton.setOnClick([&]()
+	squadButton.setOnClick([game]()
 	{
 		// game->pushState(std::make_unique<Squad>(game));
 	});
@@ -48,10 +48,13 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 		game->getTexture("operator_click"));
 	operatorButton.setPosition(sf::Vector2f(145, 34));
 	operatorButton.setGame(game);
-	operatorButton.setOnClick([&]()
+	operatorButton.setOnClick([game]()
 	{
 		// game->pushState(std::make_unique<OperatorMenu>(game));
 	});
+
+	assistantSprite.setTexture(* game->getTexture("assistant_img"));
+	assistantSprite.setPosition(48, 30);
 }
 
 void MainMenu::loadAssets()
@@ -72,6 +75,9 @@ void MainMenu::loadAssets()
 	game->load(TEXTURE, "operator_normal", "main_menu/operator_normal.png");
 	game->load(TEXTURE, "operator_hover", "main_menu/operator_hover.png");
 	game->load(TEXTURE, "operator_click", "main_menu/operator_click.png");
+
+	// Assistant image
+	game->load(TEXTURE, "assistant_img", "Thorns_72x72.png");
 
 }
 
@@ -95,4 +101,5 @@ void MainMenu::render(sf::RenderWindow &window)
 	terminalButton.draw(window);
 	squadButton.draw(window);
 	operatorButton.draw(window);
+	window.draw(assistantSprite);
 }

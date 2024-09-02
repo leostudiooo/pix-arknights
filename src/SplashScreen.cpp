@@ -13,20 +13,20 @@ SplashScreen::SplashScreen(std::shared_ptr<Game> game): UserInterface(game)
 	backgroundSprite.setTexture(* game->getTexture("splash_bg_img"));
 	backgroundSprite.setPosition(0,0);
 	
-	backgroundMusic = game->getMusic("splash_bg_music");
+	game->bgMusic = game->getMusic("splash_bg_music");
 	
 	startButton.setTextures(game->getTexture("start_normal"), game->getTexture("start_hover"), game->getTexture("start_click"));
 	
 	startButton.setPosition(sf::Vector2f(69,60));
-	startButton.setGame(game);
-	startButton.setOnClick([&]()
+	startButton.setGame(game->getGame());
+	startButton.setOnClick([game]()
 	{
-		// game->getMusic("splash_bg_music")->stop();
-		game->pushState(std::make_unique<MainMenu>(game));
+		game->bgMusic->stop();
+		game->pushState(std::make_unique<MainMenu>(game->getGame()));
 	});
 
-	backgroundMusic->setLoop(true);
-	backgroundMusic->play();
+	game->bgMusic->setLoop(true);
+	game->bgMusic->play();
 }
 
 void SplashScreen::loadAssets()

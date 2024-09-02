@@ -28,6 +28,9 @@ private:
 public:
 	AssetManager assetManager;
 
+	std::shared_ptr<Game> getGame() { return sharedThis(); }
+	std::shared_ptr<sf::Music> bgMusic;
+
 	Game();
 	~Game();
 
