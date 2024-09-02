@@ -8,8 +8,6 @@
 
 SplashScreen::SplashScreen(std::shared_ptr<Game> game): UserInterface(game)
 {
-	this->game = game;
-
 	loadAssets();
 
 	backgroundSprite.setTexture(* game->getTexture("splash_bg_img"));
