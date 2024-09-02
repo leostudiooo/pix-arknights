@@ -39,6 +39,11 @@ public:
 	void init();
 	void run();
 	void handleEvent();
+
 	void loadAssets();
 	void loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename);
+
+	std::shared_ptr<sf::Texture> getTexture(const std::string &name) { return assetManager.getTexture(name); }
+	std::shared_ptr<sf::Music> getMusic(const std::string &name) { return assetManager.getMusic(name); }
+	std::shared_ptr<sf::Font> getFont(const std::string &name) { return assetManager.getFont(name); }
 };
