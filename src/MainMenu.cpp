@@ -57,21 +57,21 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 void MainMenu::loadAssets()
 {
 	// Background image and music
-	game->load(TEXTURE, "main_menu_bg_img", "img/main_menu/bg.png");
-	game->load(MUSIC, "main_menu_bg_music", "audio/");
+	game->load(TEXTURE, "main_menu_bg_img", "main_menu/bg.png");
+	game->load(MUSIC, "main_menu_bg_music", "main_menu/bg.mp3");
 
 	// Button textures
-	game->load(TEXTURE, "terminal_normal", "img/main_menu/terminal_normal.png");
-	game->load(TEXTURE, "terminal_hover", "img/main_menu/terminal_hover.png");
-	game->load(TEXTURE, "terminal_click", "img/main_menu/terminal_click.png");
+	game->load(TEXTURE, "terminal_normal", "main_menu/terminal_normal.png");
+	game->load(TEXTURE, "terminal_hover", "main_menu/terminal_hover.png");
+	game->load(TEXTURE, "terminal_click", "main_menu/terminal_click.png");
 
-	game->load(TEXTURE, "squad_normal", "img/main_menu/squad_normal.png");
-	game->load(TEXTURE, "squad_hover", "img/main_menu/squad_hover.png");
-	game->load(TEXTURE, "squad_click", "img/main_menu/squad_click.png");
+	game->load(TEXTURE, "squad_normal", "main_menu/squad_normal.png");
+	game->load(TEXTURE, "squad_hover", "main_menu/squad_hover.png");
+	game->load(TEXTURE, "squad_click", "main_menu/squad_click.png");
 
-	game->load(TEXTURE, "operator_normal", "img/main_menu/operator_normal.png");
-	game->load(TEXTURE, "operator_hover", "img/main_menu/operator_hover.png");
-	game->load(TEXTURE, "operator_click", "img/main_menu/operator_click.png");
+	game->load(TEXTURE, "operator_normal", "main_menu/operator_normal.png");
+	game->load(TEXTURE, "operator_hover", "main_menu/operator_hover.png");
+	game->load(TEXTURE, "operator_click", "main_menu/operator_click.png");
 
 }
 

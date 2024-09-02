@@ -44,7 +44,7 @@ public:
 	void loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename);
 
 	// shorthand for loadSingleAsset, prepends ASSET_PREFIX to filename
-	inline void load(const AssetType type, const std::string &name, const std::string &filename) { loadSingleAsset(type, name, ASSET_PREFIX + filename); }
+	void load(const AssetType type, const std::string &name, const std::string &filename) { loadSingleAsset(type, name, ASSET_PREFIX + filename); }
 
 	std::shared_ptr<sf::Texture> getTexture(const std::string &name) { return assetManager.getTexture(name); }
 	std::shared_ptr<sf::Music> getMusic(const std::string &name) { return assetManager.getMusic(name); }
