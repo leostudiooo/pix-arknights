@@ -16,6 +16,19 @@ Button::Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::
 	this->onClick = onClick;
 }
 
+void Button::setTextures(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> pressed_texture)
+{
+	textures.clear();
+	textures.push_back(normal_texture);
+	textures.push_back(hover_texture);
+	textures.push_back(pressed_texture);
+}
+
+void Button::setPosition(sf::Vector2f position)
+{
+	buttonSprite.setPosition(position);
+}
+
 void Button::draw(sf::RenderWindow &window)
 {
 	window.draw(buttonSprite);

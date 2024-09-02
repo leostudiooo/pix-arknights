@@ -21,12 +21,13 @@ private:
 	sf::View view;
 
 	const std::string ASSET_PREFIX = "assets/";
-	AssetManager assetManager;
 	std::stack<std::unique_ptr<UserInterface> > uiStack;
 
 	std::shared_ptr<Game> sharedThis() { return shared_from_this(); }
 
 public:
+	AssetManager assetManager;
+
 	Game();
 	~Game();
 

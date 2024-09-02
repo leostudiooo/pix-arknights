@@ -87,13 +87,7 @@ void Game::init()
 	load(TEXTURE, "start_hover", "image/splash/start_hover.png");
 	load(TEXTURE, "start_click", "image/splash/start_click.png");
 
-	pushState(std::make_unique<SplashScreen>(
-		assetManager.getTexture("splash_bg_img"),
-		assetManager.getMusic("splash_bg_music"),
-		assetManager.getTexture("start_normal"),
-		assetManager.getTexture("start_hover"),
-		assetManager.getTexture("start_click"),
-		shared_from_this()));
+	pushState(std::make_unique<SplashScreen>(shared_from_this()));
 
 	loadAssets();
 }

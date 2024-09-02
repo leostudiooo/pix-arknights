@@ -38,6 +38,7 @@ public:
 	void setGame(std::shared_ptr<Game> game) { this->game = game; }
 
 	void draw(sf::RenderWindow &window);
+	
 	void update();
 
 	bool isMouseOver(sf::Vector2f mousePosition);
