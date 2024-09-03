@@ -14,7 +14,6 @@ class SplashScreen: public UserInterface
 {
 private:
 	sf::Sprite backgroundSprite;
-	std::shared_ptr<sf::Music> backgroundMusic;
 
 	Button startButton;
 

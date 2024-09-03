@@ -37,6 +37,7 @@ public:
 
 	void pushState(std::unique_ptr<UserInterface> ui, bool switchMusic = false);
 	bool popState(bool switchMusic = false);
+	bool popStateNoTransition();
 
 	void init();
 	void run();

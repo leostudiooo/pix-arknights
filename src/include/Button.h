@@ -26,7 +26,7 @@ public:
 		std::shared_ptr<sf::Texture> normal, std::shared_ptr<sf::Texture> hover, 
 		std::shared_ptr<sf::Texture> click)
 	{
-		textures.clear();
+		if (!textures.empty()) textures.clear();
 		textures.push_back(normal);
 		textures.push_back(hover);
 		textures.push_back(click);

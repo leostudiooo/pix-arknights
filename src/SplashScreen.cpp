@@ -55,5 +55,5 @@ void SplashScreen::update()
 void SplashScreen::render(sf::RenderWindow &window)
 {
 	window.draw(backgroundSprite);
-	startButton.draw(window);
+	startButton.render(window);
 }

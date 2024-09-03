@@ -16,7 +16,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	backgroundSprite.setTexture(* game->getTexture("main_menu_bg_img"));
 	backgroundSprite.setPosition(0,0);
 
-	game->bgMusic = game->getMusic("main_menu_bg_music");
+	game->bgMusic = game->getMusic("main_bg_music");
 	std::clog << "Playing main menu music" << std::endl;
 	game->bgMusic->setLoop(true);
 	game->bgMusic->play();
@@ -29,7 +29,8 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	terminalButton.setGame(game);
 	terminalButton.setOnClick([game]()
 	{
-		// game->pushState(std::make_unique<Terminal>(game));
+			auto newGame = game->getGame();
+			newGame->pushState(std::make_unique<Terminal>(newGame));
 	});
 
 	squadButton.setTextures(
@@ -62,7 +63,7 @@ void MainMenu::loadAssets()
 {
 	// Background image and music
 	game->load(TEXTURE, "main_menu_bg_img", "main_menu/garden.png");
-	game->load(MUSIC, "main_menu_bg_music", "main_menu/garden.mp3");
+	game->load(MUSIC, "main_bg_music", "main_menu/garden.mp3");
 
 	// Button textures
 	game->load(TEXTURE, "terminal_normal", "main_menu/terminal_normal.png");
@@ -99,8 +100,8 @@ void MainMenu::update()
 void MainMenu::render(sf::RenderWindow &window)
 {
 	window.draw(backgroundSprite);
-	terminalButton.draw(window);
-	squadButton.draw(window);
-	operatorButton.draw(window);
+	terminalButton.render(window);
+	squadButton.render(window);
+	operatorButton.render(window);
 	window.draw(assistantSprite);
 }

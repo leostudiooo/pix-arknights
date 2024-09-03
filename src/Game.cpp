@@ -156,8 +156,23 @@ bool Game::popState(bool switchMusic) {
     else return false;
 }
 
+bool Game::popStateNoTransition() {
+    if (!uiStack.empty()) {
+        uiStack.pop();
+        return true;
+    }
+    else return false;
+}
+
 void Game::init() {
 	uiStack.push(std::make_unique<SplashScreen>(getGame()));
+    load(TEXTURE, "back_normal", "buttons/back_normal.png");
+    load(TEXTURE, "back_hover", "buttons/back_hover.png");
+    load(TEXTURE, "back_click", "buttons/back_click.png");
+
+    load(TEXTURE, "home_normal", "buttons/home_normal.png");
+    load(TEXTURE, "home_hover", "buttons/home_hover.png");
+    load(TEXTURE, "home_click", "buttons/home_click.png");
 }
 
 void Game::run()
