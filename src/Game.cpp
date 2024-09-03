@@ -68,6 +68,7 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
         // 创建画面和音频的淡出效果
         float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
         for (int alpha = 0; alpha <=255; alpha += 5) {
+            handleEvent();
             // 渲染当前界面并添加淡出效果
             uiStack.top()->render(window); 
             sf::RectangleShape fade(sf::Vector2f(window.getSize()));
@@ -80,8 +81,6 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
                 float vol = maxVolume * (alpha / 255.0f);
                 bgMusic->setVolume(vol);
             }
-
-            sf::sleep(sf::milliseconds(10));
         }
 
         if (switchMusic && bgMusic) {
@@ -94,6 +93,7 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
 
     // 创建画面和音频的淡入效果
     for (int alpha = 0; alpha <= 255; alpha += 5) {
+        handleEvent();
         uiStack.top()->render(window); 
         sf::RectangleShape fade(sf::Vector2f(window.getSize()));
         fade.setFillColor(sf::Color(0, 0, 0, 255 - alpha));
@@ -106,8 +106,6 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
             float vol = 100.0f * (alpha / 255.0f);
             bgMusic->setVolume(vol);
         }
-
-        sf::sleep(sf::milliseconds(10));
     }
 }
 
@@ -116,6 +114,7 @@ void Game::popState(bool switchMusic) {
         // 创建画面和音频的淡出效果
         float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
         for (int alpha = 0; alpha <= 255; alpha += 5) {
+            handleEvent();
             uiStack.top()->render(window); 
             sf::RectangleShape fade(sf::Vector2f(window.getSize()));
             fade.setFillColor(sf::Color(0, 0, 0, alpha));
@@ -127,8 +126,6 @@ void Game::popState(bool switchMusic) {
                 float vol = maxVolume * (alpha / 255.0f);
                 bgMusic->setVolume(vol);
             }
-
-            sf::sleep(sf::milliseconds(10));
         }
 
         if (switchMusic && bgMusic) {
@@ -142,6 +139,7 @@ void Game::popState(bool switchMusic) {
     if (!uiStack.empty()) {
         // 创建画面和音频的淡入效果
         for (int alpha = 0; alpha <= 255; alpha += 5) {
+            handleEvent();
             uiStack.top()->render(window); 
             sf::RectangleShape fade(sf::Vector2f(window.getSize()));
             fade.setFillColor(sf::Color(0, 0, 0, 255 - alpha));
@@ -154,8 +152,6 @@ void Game::popState(bool switchMusic) {
                 float vol = 100.0f * (alpha / 255.0f);
                 bgMusic->setVolume(vol);
             }
-
-            sf::sleep(sf::milliseconds(10));
         }
     }
 }
