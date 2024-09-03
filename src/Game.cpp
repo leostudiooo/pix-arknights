@@ -7,7 +7,7 @@
 
 Game::Game()
 {
-	window.create(sf::VideoMode(1280, 720), "Pixnights");
+	window.create(sf::VideoMode(768,432), "Pixnights");
 	window.setFramerateLimit(60);
 
 	view.setSize(192, 108);
@@ -90,12 +90,6 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
 
     // 推入新状态
     uiStack.push(std::move(ui));
-
-	if (switchMusic && bgMusic) {
-		bgMusic->play();
-		std::clog << "Playing music" << std::endl;
-	}
-
     // 创建画面和音频的淡入效果
     for (int alpha = 0; alpha <= 255; alpha += 3) {
         handleEvent();
@@ -143,10 +137,6 @@ void Game::popState(bool switchMusic) {
 
     if (!uiStack.empty()) {
         // 创建画面和音频的淡入效果
-        if (switchMusic && bgMusic)
-        {
-            bgMusic->play();
-        }
         for (int alpha = 0; alpha <= 255; alpha += 3) {
             handleEvent();
             uiStack.top()->render(window); 

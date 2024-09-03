@@ -55,14 +55,14 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	});
 
 	assistantSprite.setTexture(* game->getTexture("assistant_img"));
-	assistantSprite.setPosition(44, 20);
+	assistantSprite.setPosition(20, 20);
 }
 
 void MainMenu::loadAssets()
 {
 	// Background image and music
-	game->load(TEXTURE, "main_menu_bg_img", "main_menu/bg.png");
-	game->load(MUSIC, "main_menu_bg_music", "main_menu/bg.mp3");
+	game->load(TEXTURE, "main_menu_bg_img", "main_menu/garden.png");
+	game->load(MUSIC, "main_menu_bg_music", "main_menu/spring.mp3");
 
 	// Button textures
 	game->load(TEXTURE, "terminal_normal", "main_menu/terminal_normal.png");
@@ -78,7 +78,7 @@ void MainMenu::loadAssets()
 	game->load(TEXTURE, "operator_click", "main_menu/operator_click.png");
 
 	// Assistant image
-	game->load(TEXTURE, "assistant_img", "Thorns_72x72.png");
+	game->load(TEXTURE, "assistant_img", "Thorns_96x96.png");
 
 }
 
