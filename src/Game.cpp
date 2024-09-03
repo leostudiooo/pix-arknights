@@ -108,7 +108,7 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
     }
 }
 
-void Game::popState(bool switchMusic) {
+bool Game::popState(bool switchMusic) {
     if (!uiStack.empty()) {
         // 创建画面和音频的淡出效果
 		float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
@@ -151,7 +151,9 @@ void Game::popState(bool switchMusic) {
                 bgMusic->setVolume(vol);
             }
         }
+        return true;
     }
+    else return false;
 }
 
 void Game::init() {

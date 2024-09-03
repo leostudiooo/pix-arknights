@@ -36,11 +36,13 @@ public:
 	sf::Vector2f getMousePosition();
 
 	void pushState(std::unique_ptr<UserInterface> ui, bool switchMusic = false);
-	void popState(bool switchMusic = false);
+	bool popState(bool switchMusic = false);
 
 	void init();
 	void run();
 	void handleEvent();
+
+	const std::string getAssetPrefix() const { return ASSET_PREFIX; }
 
 	void loadSingleAsset(const AssetType assetType, const std::string &name, const std::string &filename);
 
