@@ -28,6 +28,7 @@ void Button::update()
 	{
 		isTriggered = false;
 		buttonSprite.setTexture(*textures[1]);
+		std::clog << "Button triggered" << std::endl;
 		onClick();
 	}
 }
@@ -45,7 +46,12 @@ void Button::handleEvent(const sf::Event &event)
 		{
 			buttonSprite.setTexture(*textures[2]);
 			isPressed = !isPressed;
-			std::clog << "Left mouse button event" << std::endl;
+		}
+		else
+		{
+			isPressed = false;
+			isTriggered = false;
+			buttonSprite.setTexture(*textures[0]);
 		}
 	}
 	else if (event.type == sf::Event::MouseMoved)
@@ -54,7 +60,6 @@ void Button::handleEvent(const sf::Event &event)
 		if (isMouseOver(game->getMousePosition()))
 		{
 			buttonSprite.setTexture(*textures[1]);
-			std::clog << "Mouse hover" << std::endl;
 		}
 		else
 		{

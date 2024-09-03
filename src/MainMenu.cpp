@@ -62,7 +62,7 @@ void MainMenu::loadAssets()
 {
 	// Background image and music
 	game->load(TEXTURE, "main_menu_bg_img", "main_menu/garden.png");
-	game->load(MUSIC, "main_menu_bg_music", "main_menu/spring.mp3");
+	game->load(MUSIC, "main_menu_bg_music", "main_menu/garden.mp3");
 
 	// Button textures
 	game->load(TEXTURE, "terminal_normal", "main_menu/terminal_normal.png");
