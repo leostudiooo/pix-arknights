@@ -170,11 +170,8 @@ bool Game::popStateNoTransition() {
 }
 
 void Game::init() {
-    // 加载 test.json 文件并初始化地图
-    std::string mapFile = "test.json";
-
-    // 使用 JSON 文件初始化 CombatMap
-    CombatMap combatMap(mapFile);
+    // 不要在这里就加载地图等资源，在初始化 UI 的时候用 loadAssets() 进行加载
+    // 参考 MainMenu.h/cpp
 	uiStack.push(std::make_unique<SplashScreen>(getGame()));
     load(TEXTURE, "back_normal", "buttons/back_normal.png");
     load(TEXTURE, "back_hover", "buttons/back_hover.png");
