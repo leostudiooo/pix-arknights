@@ -29,5 +29,8 @@ public:
 	{
 		currentHealth = maxHealth;
 	}
-	~Figure();
+	virtual void handleEvent() = 0;
+	virtual void update() = 0;
+	virtual void draw(sf::Window &) = 0;
+	~Figure() = default;
 };
