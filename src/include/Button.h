@@ -10,7 +10,7 @@ class Game;
 
 class Button
 {
-private:
+protected:
 	sf::Sprite buttonSprite;
 	std::vector<std::shared_ptr<sf::Texture> > textures;
 	bool isPressed = false;
@@ -20,16 +20,16 @@ private:
 
 public:
 	Button() = default;
-	Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> pressed_texture, sf::Vector2f position, std::shared_ptr<Game> game, std::function<void()> onClick);
+	Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> click_texture, sf::Vector2f position, std::shared_ptr<Game> game, std::function<void()> onClick);
 
 	void setTextures(
 		std::shared_ptr<sf::Texture> normal, std::shared_ptr<sf::Texture> hover, 
-		std::shared_ptr<sf::Texture> pressed)
+		std::shared_ptr<sf::Texture> click)
 	{
 		textures.clear();
 		textures.push_back(normal);
 		textures.push_back(hover);
-		textures.push_back(pressed);
+		textures.push_back(click);
 
 		buttonSprite.setTexture(*textures[0]);
 	}
@@ -37,7 +37,7 @@ public:
 	void setOnClick(std::function<void()> onClick) { this->onClick = onClick; }
 	void setGame(std::shared_ptr<Game> game) { this->game = game; }
 
-	void draw(sf::RenderWindow &window);
+	void render(sf::RenderWindow &window);
 	
 	void update();
 

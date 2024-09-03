@@ -3,11 +3,11 @@
 
 #include <iostream>
 
-Button::Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> pressed_texture, sf::Vector2f position, std::shared_ptr<Game> game, std::function<void()> onClick)
+Button::Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> click_texture, sf::Vector2f position, std::shared_ptr<Game> game, std::function<void()> onClick)
 {
 	textures.push_back(normal_texture);
 	textures.push_back(hover_texture);
-	textures.push_back(pressed_texture);
+	textures.push_back(click_texture);
 
 	buttonSprite.setTexture(*textures[0]);
 	buttonSprite.setPosition(position);
@@ -16,7 +16,7 @@ Button::Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::
 	this->onClick = onClick;
 }
 
-void Button::draw(sf::RenderWindow &window)
+void Button::render(sf::RenderWindow &window)
 {
 	window.draw(buttonSprite);
 }
