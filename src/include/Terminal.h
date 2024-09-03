@@ -7,6 +7,8 @@
 
 #include "json.hpp"
 
+#include <SFML/graphics.hpp>
+
 using json = nlohmann::json;
 
 class Terminal: public UserInterface
@@ -18,7 +20,7 @@ private:
 	Button homeButton;
 	
 	json levelData;
-	std::vector<std::shared_ptr<TextButton> > levelList;
+	std::vector<std::pair<sf::Text, std::shared_ptr<Button> > > levelList;
 
 public:
 	Terminal(std::shared_ptr<Game> game);
