@@ -31,8 +31,7 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 			std::cerr << "Error loading level " << level["name"] << std::endl;
 		}
 
-		auto textButton = std::make_shared<TextButton>(
-			levelName,
+		auto button = std::make_shared<Button>(
 			game->getTexture("lvl_normal"),
 			game->getTexture("lvl_hover"),
 			game->getTexture("lvl_click"),
@@ -45,15 +44,11 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 			}
 		);
 
-		textButton->setTextString(levelName);
+		auto text = sf::Text(levelName, * game->getFont("font_small"), 7);
+		text.setPosition(xPosition + 1, 32 + 1);
+		text.setFillColor(sf::Color(0xdd, 0xdd, 0xdd));
 
-		textButton->setFontSize(SMALL);
-		// textButton->setTextOffset(sf::Vector2f(1, 1));
-		textButton->setTextColor(sf::Color(0xddddddff));
-
-		levelList.push_back(textButton);
-
-		xPosition += 32;
+		levelList.push_back(std::make_pair(text, button));
 	}
 
 	backButton.setTextures(
@@ -98,9 +93,9 @@ void Terminal::loadAssets()
 
 void Terminal::handleEvent(const sf::Event &event)
 {
-	for (auto& button : levelList)
+	for (auto pair : levelList)
 	{
-		button->handleEvent(event);
+		pair.second->handleEvent(event);
 	}
 
 	backButton.handleEvent(event);
@@ -109,9 +104,9 @@ void Terminal::handleEvent(const sf::Event &event)
 
 void Terminal::update()
 {
-	for (auto& button : levelList)
+	for (auto pair : levelList)
 	{
-		button->update();
+		pair.second->update();
 	}
 	backButton.update();
 	homeButton.update();
@@ -121,9 +116,10 @@ void Terminal::render(sf::RenderWindow& window)
 {
 	window.draw(backgroundSprite);
 
-	for (auto& button : levelList)
+	for (auto pair : levelList)
 	{
-		button->render(window);
+		window.draw(pair.first);
+		pair.second->render(window);
 	}
 
 	backButton.render(window);
