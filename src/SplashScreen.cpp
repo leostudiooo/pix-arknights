@@ -21,7 +21,8 @@ SplashScreen::SplashScreen(std::shared_ptr<Game> game): UserInterface(game)
 	startButton.setGame(game->getGame());
 	startButton.setOnClick([game]()
 	{
-		game->replaceState(std::make_unique<MainMenu>(game), true);
+		game->popState(true);
+		game->pushState(std::make_unique<MainMenu>(game), true);
 	});
 
 	game->bgMusic->setLoop(true);

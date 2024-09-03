@@ -64,105 +64,74 @@ sf::Vector2f Game::getMousePosition()
 }
 
 void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
-	if(!uiStack.empty()) {
-    // 创建画面淡出效果
-    for (int alpha = 255; alpha >= 0; alpha -= 5) {
-        uiStack.top()->render(window); 
-        sf::RectangleShape fade(sf::Vector2f(window.getSize()));
-        fade.setFillColor(sf::Color(0, 0, 0, alpha));
-        window.draw(fade);
-        window.display();
-        sf::sleep(sf::milliseconds(10));
-    }
+    if (!uiStack.empty()) {
+        // 创建画面和音频的淡出效果
+        float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
+        for (int alpha = 255; alpha >= 0; alpha -= 5) {
+            // 渲染当前界面并添加淡出效果
+            uiStack.top()->render(window); 
+            sf::RectangleShape fade(sf::Vector2f(window.getSize()));
+            fade.setFillColor(sf::Color(0, 0, 0, alpha));
+            window.draw(fade);
+            window.display();
 
-    // 如果需要切换音频，渐弱当前音乐
-    if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
-        for (float vol = bgMusic->getVolume(); vol >= 0; vol -= 2) {
-            bgMusic->setVolume(vol);
+            // 如果需要切换音频，同时执行音频的淡出效果
+            if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
+                float vol = maxVolume * (alpha / 255.0f);
+                bgMusic->setVolume(vol);
+            }
+
             sf::sleep(sf::milliseconds(10));
         }
-        bgMusic->stop();
+
+        if (switchMusic && bgMusic) {
+            bgMusic->stop();
+        }
     }
-	}
+
     // 推入新状态
     uiStack.push(std::move(ui));
 
-    // 创建画面淡入效果
+    // 创建画面和音频的淡入效果
     for (int alpha = 0; alpha <= 255; alpha += 5) {
         uiStack.top()->render(window); 
         sf::RectangleShape fade(sf::Vector2f(window.getSize()));
         fade.setFillColor(sf::Color(0, 0, 0, 255 - alpha));
         window.draw(fade);
         window.display();
-        sf::sleep(sf::milliseconds(10));
-    }
 
-    // 如果需要切换音频，渐强新状态的音乐
-    if (switchMusic) {
-        bgMusic->play();
-        for (float vol = 0; vol <= 100; vol += 2) {
+        // 如果需要切换音频，同时执行音频的淡入效果
+        if (switchMusic) {
+			bgMusic->play();
+            float vol = 100.0f * (alpha / 255.0f);
             bgMusic->setVolume(vol);
-            sf::sleep(sf::milliseconds(10));
         }
+
+        sf::sleep(sf::milliseconds(10));
     }
 }
 
 void Game::popState(bool switchMusic) {
-    // 创建画面淡出效果
-    for (int alpha = 255; alpha >= 0; alpha -= 5) {
-        uiStack.top()->render(window); 
-        sf::RectangleShape fade(sf::Vector2f(window.getSize()));
-        fade.setFillColor(sf::Color(0, 0, 0, alpha));
-        window.draw(fade);
-        window.display();
-        sf::sleep(sf::milliseconds(10));
-    }
-
-    // 弹出当前状态
-    uiStack.pop();
-
-    // 如果还有其他状态，创建画面淡入效果
     if (!uiStack.empty()) {
-        for (int alpha = 0; alpha <= 255; alpha += 5) {
-            uiStack.top()->render(window); 
-            sf::RectangleShape fade(sf::Vector2f(window.getSize()));
-            fade.setFillColor(sf::Color(0, 0, 0, 255 - alpha));
-            window.draw(fade);
-            window.display();
-            sf::sleep(sf::milliseconds(10));
-        }
-
-        // 如果需要切换音频，渐强上一个状态的音乐
-        if (switchMusic) {
-            bgMusic->play();
-            for (float vol = 0; vol <= 100; vol += 2) {
-                bgMusic->setVolume(vol);
-                sf::sleep(sf::milliseconds(10));
-            }
-        }
-    }
-}
-
-void Game::replaceState(std::unique_ptr<UserInterface> ui, bool switchMusic)
-{
-	// 弹出当前状态
-    if (!uiStack.empty()) {
-        // 创建当前状态的淡出效果
+        // 创建画面和音频的淡出效果
+        float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
         for (int alpha = 255; alpha >= 0; alpha -= 5) {
-            uiStack.top()->render(window);
+            uiStack.top()->render(window); 
             sf::RectangleShape fade(sf::Vector2f(window.getSize()));
             fade.setFillColor(sf::Color(0, 0, 0, alpha));
             window.draw(fade);
             window.display();
+
+            // 如果需要切换音频，同时执行音频的淡出效果
+            if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
+                float vol = maxVolume * (alpha / 255.0f);
+                bgMusic->setVolume(vol);
+            }
+
             sf::sleep(sf::milliseconds(10));
         }
 
-        // 如果需要切换音频，渐弱当前音乐
-        if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
-            for (float vol = bgMusic->getVolume(); vol >= 0; vol -= 2) {
-                bgMusic->setVolume(vol);
-                sf::sleep(sf::milliseconds(10));
-            }
+        if (switchMusic && bgMusic) {
             bgMusic->stop();
         }
 
@@ -170,21 +139,29 @@ void Game::replaceState(std::unique_ptr<UserInterface> ui, bool switchMusic)
         uiStack.pop();
     }
 
-    // 推入新状态
-    pushState(std::move(ui), switchMusic);
+    if (!uiStack.empty()) {
+        // 创建画面和音频的淡入效果
+        for (int alpha = 0; alpha <= 255; alpha += 5) {
+            uiStack.top()->render(window); 
+            sf::RectangleShape fade(sf::Vector2f(window.getSize()));
+            fade.setFillColor(sf::Color(0, 0, 0, 255 - alpha));
+            window.draw(fade);
+            window.display();
+
+            // 如果需要切换音频，同时执行音频的淡入效果
+            if (switchMusic) {
+				bgMusic->play();
+                float vol = 100.0f * (alpha / 255.0f);
+                bgMusic->setVolume(vol);
+            }
+
+            sf::sleep(sf::milliseconds(10));
+        }
+    }
 }
 
-void Game::init()
-{
+void Game::init() {
 	uiStack.push(std::make_unique<SplashScreen>(getGame()));
-	for (int alpha = 255; alpha >= 0; alpha -= 5) {
-		uiStack.top()->render(window);
-		sf::RectangleShape fade(sf::Vector2f(window.getSize()));
-		fade.setFillColor(sf::Color(0, 0, 0, alpha));
-		window.draw(fade);
-		window.display();
-		sf::sleep(sf::milliseconds(10));
-	}
 }
 
 void Game::run()
