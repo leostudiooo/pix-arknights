@@ -2,7 +2,6 @@
 #include "UserInterface.h"
 #include "SplashScreen.h"
 #include "MainMenu.h"
-#include "CombatMap.h"
 
 #include <iostream>
 #include <fstream>
