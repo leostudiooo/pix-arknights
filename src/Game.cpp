@@ -8,8 +8,6 @@
 #include <fstream>
 #include "json.hpp"
 
-using json = nlohmann::json;
-
 Game::Game()
 {
 	window.create(sf::VideoMode(768,432), "Pixnights");
@@ -184,16 +182,10 @@ void Game::init() {
 
 void Game::run()
 {
-    // 添加一个本地的 CombatMap 实例用于渲染
-    CombatMap combatMap("test.json");
-
 	while (window.isOpen())
 	{
 		handleEvent();
 		window.clear();
-        
-         // 绘制战斗地图
-        combatMap.draw(window);
 
 		if (!uiStack.empty())
 		{
