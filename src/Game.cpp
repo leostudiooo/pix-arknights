@@ -2,8 +2,13 @@
 #include "UserInterface.h"
 #include "SplashScreen.h"
 #include "MainMenu.h"
+#include "CombatMap.h"
 
 #include <iostream>
+#include <fstream>
+#include "json.hpp"
+
+using json = nlohmann::json;
 
 Game::Game()
 {
@@ -165,6 +170,11 @@ bool Game::popStateNoTransition() {
 }
 
 void Game::init() {
+    // 加载 test.json 文件并初始化地图
+    std::string mapFile = "test.json";
+
+    // 使用 JSON 文件初始化 CombatMap
+    CombatMap combatMap(mapFile);
 	uiStack.push(std::make_unique<SplashScreen>(getGame()));
     load(TEXTURE, "back_normal", "buttons/back_normal.png");
     load(TEXTURE, "back_hover", "buttons/back_hover.png");
@@ -177,10 +187,17 @@ void Game::init() {
 
 void Game::run()
 {
+    // 添加一个本地的 CombatMap 实例用于渲染
+    CombatMap combatMap("test.json");
+
 	while (window.isOpen())
 	{
 		handleEvent();
 		window.clear();
+        
+         // 绘制战斗地图
+        combatMap.draw(window);
+
 		if (!uiStack.empty())
 		{
 			window.setView(view);
@@ -191,6 +208,7 @@ void Game::run()
 		{
 			window.close();
 		}
+       
 		window.display();
 	}
 }
