@@ -5,11 +5,12 @@
 #include <vector>
 
 enum TileType {
-    EMPTY,//空
-    DEPLOYABLE,//可部署
-    SPAWN_POINT,//红门
-    DEFENSE_POINT,//蓝门
-    PATH // 敌人行进路径
+    EMPTY,            // 空
+    MELEE_DEPLOYABLE, // 近战可部署
+    RANGED_DEPLOYABLE,// 远程可部署
+    SPAWN_POINT,      // 红门
+    DEFENSE_POINT,    // 蓝门
+    PATH              // 敌人行进路径，同时也是近战可部
 };
 
 
@@ -21,30 +22,39 @@ private:
 
 public:
     Tile(int tileCode, const sf::Texture& texture) {
-        switch(tileCode) {
-            case 0:
-                type = EMPTY;
-                canDeployOperator = false;
-                break;
-            case 1:
-                type = DEPLOYABLE;
-                canDeployOperator = true;
-                break;
-            case 2:
-                type = SPAWN_POINT;
-                canDeployOperator = false;
-                break;
-            case 3:
-                type = DEFENSE_POINT;
-                canDeployOperator = false;
-                break;
-            default:
-                type = EMPTY; // 默认情况下设置为 EMPTY
-                canDeployOperator = false;
-                break;
-        }
-        tileSprite.setTexture(texture);
+    switch(tileCode) {
+        case 0:
+            type = EMPTY;
+            canDeployOperator = false;
+            break;
+        case 1:
+            type = MELEE_DEPLOYABLE;
+            canDeployOperator = true;
+            break;
+        case 2:
+            type = RANGED_DEPLOYABLE;
+            canDeployOperator = true;
+            break;
+        case 3:
+            type = SPAWN_POINT;
+            canDeployOperator = false;
+            break;
+        case 4:
+            type = DEFENSE_POINT;
+            canDeployOperator = false;
+            break;
+        case 5:
+            type = PATH;
+            canDeployOperator = true; // PATH 同时也是近战可部署地块
+            break;
+        default:
+            type = EMPTY; // 默认情况下设置为 EMPTY
+            canDeployOperator = false;
+            break;
     }
+    tileSprite.setTexture(texture);
+}
+
 
     TileType getType() const {
         return type;
