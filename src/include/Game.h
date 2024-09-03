@@ -37,8 +37,9 @@ public:
 	void updateView();
 	sf::Vector2f getMousePosition();
 
-	void pushState(std::unique_ptr<UserInterface> ui);
-	void popState();
+	void pushState(std::unique_ptr<UserInterface> ui, bool switchMusic = false);
+	void popState(bool switchMusic = false);
+	void replaceState(std::unique_ptr<UserInterface> ui, bool switchMusic = false);
 
 	void init();
 	void run();

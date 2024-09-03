@@ -54,7 +54,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	});
 
 	assistantSprite.setTexture(* game->getTexture("assistant_img"));
-	assistantSprite.setPosition(48, 30);
+	assistantSprite.setPosition(44, 20);
 }
 
 void MainMenu::loadAssets()
