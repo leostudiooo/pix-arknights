@@ -103,7 +103,7 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
         if (switchMusic) {
             float vol = 100.0f * alpha / 255.0f;
             bgMusic->setVolume(vol);
-			std::clog << "Setting volume to " << vol << std::endl;
+		    // std::clog << "Setting volume to " << vol << std::endl;
         }
     }
 }
