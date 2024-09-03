@@ -23,12 +23,10 @@ private:
 	const std::string ASSET_PREFIX = "assets/";
 	std::stack<std::unique_ptr<UserInterface> > uiStack;
 
-	std::shared_ptr<Game> sharedThis() { return shared_from_this(); }
-
 public:
 	AssetManager assetManager;
 
-	std::shared_ptr<Game> getGame() { return sharedThis(); }
+	std::shared_ptr<Game> getGame() { return shared_from_this(); }
 	std::shared_ptr<sf::Music> bgMusic;
 
 	Game();
@@ -37,8 +35,8 @@ public:
 	void updateView();
 	sf::Vector2f getMousePosition();
 
-	void pushState(std::unique_ptr<UserInterface> ui);
-	void popState();
+	void pushState(std::unique_ptr<UserInterface> ui, bool switchMusic = false);
+	void popState(bool switchMusic = false);
 
 	void init();
 	void run();
