@@ -16,9 +16,10 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	backgroundSprite.setTexture(* game->getTexture("main_menu_bg_img"));
 	backgroundSprite.setPosition(0,0);
 
-	backgroundMusic = game->getMusic("main_menu_bg_music");
-	backgroundMusic->setLoop(true);
-	backgroundMusic->play();
+	game->bgMusic = game->getMusic("main_menu_bg_music");
+	std::clog << "Playing main menu music" << std::endl;
+	game->bgMusic->setLoop(true);
+	game->bgMusic->play();
 
 	terminalButton.setTextures(
 		game->getTexture("terminal_normal"), 

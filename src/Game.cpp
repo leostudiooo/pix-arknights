@@ -78,7 +78,7 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
 
             // 如果需要切换音频，同时执行音频的淡出效果
             if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
-                float vol = maxVolume * (alpha / 255.0f);
+                float vol = maxVolume * (255 - alpha) / 255.0f;
                 bgMusic->setVolume(vol);
             }
         }
@@ -91,6 +91,11 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
     // 推入新状态
     uiStack.push(std::move(ui));
 
+	if (switchMusic && bgMusic) {
+		bgMusic->play();
+		std::clog << "Playing music" << std::endl;
+	}
+
     // 创建画面和音频的淡入效果
     for (int alpha = 0; alpha <= 255; alpha += 5) {
         handleEvent();
@@ -102,9 +107,9 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
 
         // 如果需要切换音频，同时执行音频的淡入效果
         if (switchMusic) {
-			bgMusic->play();
-            float vol = 100.0f * (alpha / 255.0f);
+            float vol = 100.0f * alpha / 255.0f;
             bgMusic->setVolume(vol);
+			std::clog << "Setting volume to " << vol << std::endl;
         }
     }
 }
@@ -112,7 +117,7 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
 void Game::popState(bool switchMusic) {
     if (!uiStack.empty()) {
         // 创建画面和音频的淡出效果
-        float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
+		float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
         for (int alpha = 0; alpha <= 255; alpha += 5) {
             handleEvent();
             uiStack.top()->render(window); 
@@ -123,7 +128,7 @@ void Game::popState(bool switchMusic) {
 
             // 如果需要切换音频，同时执行音频的淡出效果
             if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
-                float vol = maxVolume * (alpha / 255.0f);
+                float vol = maxVolume * (255 - alpha) / 255.0f;
                 bgMusic->setVolume(vol);
             }
         }
@@ -138,6 +143,10 @@ void Game::popState(bool switchMusic) {
 
     if (!uiStack.empty()) {
         // 创建画面和音频的淡入效果
+        if (switchMusic && bgMusic)
+        {
+            bgMusic->play();
+        }
         for (int alpha = 0; alpha <= 255; alpha += 5) {
             handleEvent();
             uiStack.top()->render(window); 
@@ -148,7 +157,6 @@ void Game::popState(bool switchMusic) {
 
             // 如果需要切换音频，同时执行音频的淡入效果
             if (switchMusic) {
-				bgMusic->play();
                 float vol = 100.0f * (alpha / 255.0f);
                 bgMusic->setVolume(vol);
             }
