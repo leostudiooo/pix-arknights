@@ -61,17 +61,7 @@ void CombatMap::loadMap(std::string mapFile) {
                     break;
             }
 
-            tiles[i][j] = Tile(typeCode, *texture);
+            tiles[i][j] = Tile(typeCode, texture);
         }
     }
-}
-
-void CombatMap::draw(sf::RenderWindow &window) {
-    // for (int i = 0; i < shape[0]; ++i) {
-    //     for (int j = 0; j < shape[1]; ++j) {
-    //         sf::Vector2f position(static_cast<float>(j * 32), static_cast<float>(i * 32));
-    //         tiles[i][j].getTileSprite().setPosition(position);
-    //         window.draw(tiles[i][j].getTileSprite());
-    //     }
-    // }
 }

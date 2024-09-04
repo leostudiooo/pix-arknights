@@ -1,6 +1,6 @@
 #include "Tile.h"
 
-Tile::Tile(int typeCode, sf::Texture & texture)
+Tile::Tile(int typeCode, std::shared_ptr<sf::Texture> texture)
 {
 	switch (typeCode) {
 		case 0:
@@ -33,7 +33,7 @@ Tile::Tile(int typeCode, sf::Texture & texture)
 			break;
 	}
 
-	tileSprite.setTexture(texture);
+	tileSprite.setTexture(*texture);
 }
 
 TileType Tile::getType() const
