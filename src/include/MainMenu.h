@@ -14,6 +14,8 @@ private:
 	Button squadButton;
 	Button operatorButton;
 
+	sf::Text titleText;
+
 public:
 	MainMenu(std::shared_ptr<Game> game);
 	void loadAssets() override;

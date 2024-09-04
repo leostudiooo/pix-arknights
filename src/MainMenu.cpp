@@ -57,6 +57,13 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 
 	assistantSprite.setTexture(* game->getTexture("assistant_img"));
 	assistantSprite.setPosition(20, 20);
+
+	titleText.setFont(* game->getFont("font_small"));
+	titleText.setString(L"Pixnights 开发中");
+	titleText.setCharacterSize(7);
+	titleText.setFillColor(sf::Color(0xee, 0xee, 0xee));
+	titleText.setPosition(round(122),round(92));
+
 }
 
 void MainMenu::loadAssets()
@@ -104,4 +111,5 @@ void MainMenu::render(sf::RenderWindow &window)
 	squadButton.render(window);
 	operatorButton.render(window);
 	window.draw(assistantSprite);
+	window.draw(titleText);
 }
