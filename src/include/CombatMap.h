@@ -1,14 +1,16 @@
 // CombatMap.h
 #pragma once
 
-#include "Tile.h"
+#include "UserInterface.h"
 
 #include "json.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class CombatMap
+class Tile;
+
+class CombatMap : public UserInterface
 {
 private:
 	int shape[2];
@@ -22,7 +24,7 @@ private:
 
 public:
 	CombatMap() = default;
-	CombatMap(std::string mapFile);
+	CombatMap(std::string mapFile, std::shared_ptr<Game> game);
 
 	void loadAssets();
 	void loadMap(std::string mapFile);
