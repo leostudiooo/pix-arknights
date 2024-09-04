@@ -15,10 +15,10 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 	backgroundSprite.setPosition(0,0);
 	backgroundSprite.setTexture(* game->getTexture("terminal_bg"));
 
+	float xPosition = 32.0f;
+
 	for (auto &level : levelData["levels"])
 	{
-		float xPosition = 32.0f;
-
 		std::string levelName;
 
 		try
@@ -45,10 +45,12 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 		);
 
 		auto text = sf::Text(levelName, * game->getFont("font_small"), 7);
-		text.setPosition(xPosition + 1, 32 + 1);
+		text.setPosition(xPosition + 2, 32);
 		text.setFillColor(sf::Color(0xdd, 0xdd, 0xdd));
 
 		levelList.push_back(std::make_pair(text, button));
+
+		xPosition += 32;
 	}
 
 	backButton.setTextures(
@@ -118,8 +120,8 @@ void Terminal::render(sf::RenderWindow& window)
 
 	for (auto pair : levelList)
 	{
-		window.draw(pair.first);
 		pair.second->render(window);
+		window.draw(pair.first);
 	}
 
 	backButton.render(window);

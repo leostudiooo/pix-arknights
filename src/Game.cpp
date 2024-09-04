@@ -170,6 +170,12 @@ void Game::init() {
     // 不要在这里就加载地图等资源，在初始化 UI 的时候用 loadAssets() 进行加载
     // 参考 MainMenu.h/cpp
 	uiStack.push(std::make_unique<SplashScreen>(getGame()));
+
+    load(FONT, "font_small", "ChillBitmap_7px.ttf");
+    getFont("font_small")->setSmooth(false);
+    load(FONT, "font_large", "ChillBitmap_16px.ttf");
+    getFont("font_large")->setSmooth(false);
+
     load(TEXTURE, "back_normal", "buttons/back_normal.png");
     load(TEXTURE, "back_hover", "buttons/back_hover.png");
     load(TEXTURE, "back_click", "buttons/back_click.png");
