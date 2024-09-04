@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 #include "json.hpp"
+#include "CombatMap.h"
 
 Game::Game()
 {
@@ -193,7 +194,7 @@ void Game::run()
 		window.clear();
 
 		
-        if (!uiStack.empty()// 先绘制战斗地图
+        if (!uiStack.empty())// 先绘制战斗地图
         if (combatMap) {
             combatMap->draw(window);
         }

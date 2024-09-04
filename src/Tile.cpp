@@ -36,20 +36,26 @@ Tile::Tile(int typeCode, std::shared_ptr<sf::Texture> texture)
 	tileSprite.setTexture(*texture);
 }
 
-TileType Tile::getType() const
-{}
+TileType Tile::getType() const {
+	return type;
+}
 
-sf::Sprite Tile::getTileSprite() const
-{}
+sf::Sprite Tile::getTileSprite() const {
+	return tileSprite;
+}
 
-bool Tile::getIsDeployable() const
-{}
+bool Tile::getIsDeployable() const {
+	return isDeployable;
+}
 
-void Tile::setType(TileType type)
-{}
+void Tile::setType(TileType type) {
+	this->type = type;
+}
 
-void Tile::setTileSprite(sf::Sprite tileSprite)
-{}
+void Tile::setTileSprite(sf::Sprite tileSprite) {
+	this->tileSprite = tileSprite;
+}
 
-void Tile::setIsDeployable(bool isDeployable) 
-{}
+void Tile::setIsDeployable(bool isDeployable) {
+	this->isDeployable = isDeployable;
+}

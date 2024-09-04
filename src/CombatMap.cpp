@@ -4,16 +4,26 @@
 #include "TileType.h"
 #include "Game.h"
 #include <fstream>
+#include "json.hpp"
 
 CombatMap::CombatMap(std::string mapFile, std::shared_ptr<Game> game) : UserInterface(game) {
     loadAssets();
     loadMap(mapFile);
 }
 
+
 void CombatMap::loadAssets() {
-    for (const auto& level : levels) {
+    std::ifstream levelsFile("assets/levels.json");
+    if (!levelsFile.is_open()) {
+        std::cerr << "错误：无法打开关卡文件 assets/levels.json" << std::endl;
+        return;
+    }
+    nlohmann::json levelsJson;
+    levelsFile >> levelsJson;
+
+    // 迭代每个关卡数据
+    for (const auto& level : levelsJson["levels"]) {
         std::string mapFile = level["map"];
-    void CombatMap::loadAssets(const std::string& mapFile) {
     // 从 mapFile 中提取关卡的名称
     std::string levelName = mapFile.substr(0, mapFile.find(".json"));
 
@@ -37,11 +47,10 @@ void CombatMap::loadAssets() {
         std::string musicFile = "combat_map/" + levelName + ".mp3";
 
         // 加载对应的音乐
-        load(MUSIC, levelName + "_music", musicFile);
-}
-CombatMap combatMap(mapFile);
+        game->load(MUSIC, levelName + "_music", musicFile);
 }
 }
+
 
 void CombatMap::loadMap(std::string mapFile) {
     std::ifstream file(mapFile);
@@ -82,7 +91,7 @@ void CombatMap::loadMap(std::string mapFile) {
                     break;
             }
 
-            tiles[i][j] = Tile(typeCode, *texture);
+            tiles[i][j] = Tile(typeCode, texture);
         }
     }
 }
