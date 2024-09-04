@@ -11,15 +11,6 @@ CombatMap::CombatMap(std::string mapFile, std::shared_ptr<Game> game) : UserInte
 }
 
 void CombatMap::loadAssets() {
-    // CHANGE: The following lines are commented out because the resources are loaded in the Game class.
-    // Use game->load(Texture, "name", "path") to load the resources.
-
-    // groundTexture.loadFromFile("ground.png");
-    // groundUndeployableTexture.loadFromFile("ground_undeployable.png");
-    // highlandTexture.loadFromFile("highland.png");
-    // highlandUndeployableTexture.loadFromFile("highland_undeployable.png");
-    // spawnPointTexture.loadFromFile("spawn_point.png");
-    // defendPointTexture.loadFromFile("defend_point.png");
     for (const auto& level : levels) {
         std::string mapFile = level["map"];
     void CombatMap::loadAssets(const std::string& mapFile) {
@@ -28,13 +19,14 @@ void CombatMap::loadAssets() {
 
     // 定义地块的文件名格式
     std::unordered_map<std::string, std::string> tileTextures = {
-        {"Ground", "ground.png"},
-        {"Ground_undeployable", "ground_undeployable.png"},
-        {"Highland", "highland.png"},
-        {"Highland_undeployable", "highland_undeployable.png"},
-        {"Spawn_point", "spawn_point.png"},
-        {"Defend_point", "defend_point.png"}
+        {"Ground", "combat_map/ground.png"},
+        {"Ground_undeployable", "combat_map/ground_undeployable.png"},
+        {"Highland", "combat_map/highland.png"},
+        {"Highland_undeployable", "combat_map/highland_undeployable.png"},
+        {"Spawn_point", "combat_map/spawn_point.png"},
+        {"Defend_point", "combat_map/defend_point.png"}
     };
+    
 
     // 循环加载所有地块的纹理
     for (const auto& [tileType, textureFile] : tileTextures) {
@@ -48,6 +40,7 @@ void CombatMap::loadAssets() {
         load(MUSIC, levelName + "_music", musicFile);
 }
 CombatMap combatMap(mapFile);
+}
 }
 
 void CombatMap::loadMap(std::string mapFile) {
@@ -68,28 +61,28 @@ void CombatMap::loadMap(std::string mapFile) {
 
             switch (typeCode) {
                 case 0:
-                    texture = game->getTexture("ground");
+                    texture = game->getTexture("Ground");
                     break;
                 case 1:
-                    texture = game->getTexture("ground_undeployable");
+                    texture = game->getTexture("Ground_undeployable");
                     break;
                 case 2:
-                    texture = game->getTexture("highland");
+                    texture = game->getTexture("Highland");
                     break;
                 case 3:
-                    texture = game->getTexture("highland_undeployable");
+                    texture = game->getTexture("Highland_undeployable");
                     break;
                 case 4:
-                    texture = game->getTexture("spawn_point");
+                    texture = game->getTexture("Spawn_point");
                     break;
                 case 5:
-                    texture = game->getTexture("defend_point");
+                    texture = game->getTexture("Defend_point");
                     break;
                 default:
                     break;
             }
 
-            tiles[i][j] = Tile(typeCode, texture);
+            tiles[i][j] = Tile(typeCode, *texture);
         }
     }
 }
