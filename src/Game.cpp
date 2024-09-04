@@ -166,6 +166,28 @@ bool Game::popStateNoTransition() {
     else return false;
 }
 
+void Game::loadAssets()
+{// 加载 levels.hpp 中的关卡信息
+    for (const auto& level : levels) {
+        std::string mapFile = level["map"];
+         // 从 mapFile 中提取关卡的名称（假设文件名的格式是 "level_1.json"）
+        std::string levelName = mapFile.substr(0, mapFile.find(".json"));
+
+        // 使用提取的关卡名称生成纹理和音乐的文件名
+        std::string textureFile = "combat_map/" + levelName + ".png";
+        std::string musicFile = "combat_map/" + levelName + ".mp3";
+
+        // 加载对应的纹理和音乐
+        load(TEXTURE, levelName + "_img", textureFile);
+        load(MUSIC, levelName + "_music", musicFile);
+    }
+   
+
+    // 使用 JSON 文件初始化 CombatMap
+    CombatMap combatMap(mapFile);
+
+}
+
 void Game::init() {
     // 不要在这里就加载地图等资源，在初始化 UI 的时候用 loadAssets() 进行加载
     // 参考 MainMenu.h/cpp
@@ -192,7 +214,12 @@ void Game::run()
 		handleEvent();
 		window.clear();
 
-		if (!uiStack.empty())
+		
+        if (!uiStack.empty()// 先绘制战斗地图
+        if (combatMap) {
+            combatMap->draw(window);
+        }
+)
 		{
 			window.setView(view);
 			uiStack.top()->update();
