@@ -42,7 +42,7 @@ public:
 	void init();
 	void run();
 	void handleEvent();
-	void loadAssets();
+	
 
 	const std::string getAssetPrefix() const { return ASSET_PREFIX; }
 

@@ -20,6 +20,34 @@ void CombatMap::loadAssets() {
     // highlandUndeployableTexture.loadFromFile("highland_undeployable.png");
     // spawnPointTexture.loadFromFile("spawn_point.png");
     // defendPointTexture.loadFromFile("defend_point.png");
+    for (const auto& level : levels) {
+        std::string mapFile = level["map"];
+    void CombatMap::loadAssets(const std::string& mapFile) {
+    // 从 mapFile 中提取关卡的名称
+    std::string levelName = mapFile.substr(0, mapFile.find(".json"));
+
+    // 定义地块的文件名格式
+    std::unordered_map<std::string, std::string> tileTextures = {
+        {"Ground", "ground.png"},
+        {"Ground_undeployable", "ground_undeployable.png"},
+        {"Highland", "highland.png"},
+        {"Highland_undeployable", "highland_undeployable.png"},
+        {"Spawn_point", "spawn_point.png"},
+        {"Defend_point", "defend_point.png"}
+    };
+
+    // 循环加载所有地块的纹理
+    for (const auto& [tileType, textureFile] : tileTextures) {
+        std::string fullPath = "combat_map/" + textureFile;
+        game->load(TEXTURE, levelName + "_" + tileType, fullPath);
+    }
+    // 使用提取的关卡名称生成音乐的文件名
+        std::string musicFile = "combat_map/" + levelName + ".mp3";
+
+        // 加载对应的音乐
+        load(MUSIC, levelName + "_music", musicFile);
+}
+CombatMap combatMap(mapFile);
 }
 
 void CombatMap::loadMap(std::string mapFile) {

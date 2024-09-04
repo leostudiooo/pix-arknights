@@ -5,7 +5,7 @@
 
 #include "json.hpp"
 #include "Tile.h"
-
+#include "Game.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
