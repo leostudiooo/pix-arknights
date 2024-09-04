@@ -1,19 +1,25 @@
 //CombatMap.cpp
 #include "CombatMap.h"
+#include "Tile.h"
+#include "TileType.h"
+#include "Game.h"
 #include <fstream>
 
-CombatMap::CombatMap(std::string mapFile) {
+CombatMap::CombatMap(std::string mapFile, std::shared_ptr<Game> game) : UserInterface(game) {
     loadAssets();
     loadMap(mapFile);
 }
 
 void CombatMap::loadAssets() {
-    groundTexture.loadFromFile("ground.png");
-    groundUndeployableTexture.loadFromFile("ground_undeployable.png");
-    highlandTexture.loadFromFile("highland.png");
-    highlandUndeployableTexture.loadFromFile("highland_undeployable.png");
-    spawnPointTexture.loadFromFile("spawn_point.png");
-    defendPointTexture.loadFromFile("defend_point.png");
+    // CHANGE: The following lines are commented out because the resources are loaded in the Game class.
+    // Use game->load(Texture, "name", "path") to load the resources.
+
+    // groundTexture.loadFromFile("ground.png");
+    // groundUndeployableTexture.loadFromFile("ground_undeployable.png");
+    // highlandTexture.loadFromFile("highland.png");
+    // highlandUndeployableTexture.loadFromFile("highland_undeployable.png");
+    // spawnPointTexture.loadFromFile("spawn_point.png");
+    // defendPointTexture.loadFromFile("defend_point.png");
 }
 
 void CombatMap::loadMap(std::string mapFile) {
@@ -29,43 +35,33 @@ void CombatMap::loadMap(std::string mapFile) {
         tiles[i].resize(shape[1]);
         for (int j = 0; j < shape[1]; ++j) {
             int typeCode = jsonData["tiles"][i][j];
-            sf::Texture* texture = nullptr;
+
+            auto texture = game->getTexture("ground");
 
             switch (typeCode) {
                 case 0:
-                    texture = &groundTexture;
+                    texture = game->getTexture("ground");
                     break;
                 case 1:
-                    texture = &groundUndeployableTexture;
+                    texture = game->getTexture("ground_undeployable");
                     break;
                 case 2:
-                    texture = &highlandTexture;
+                    texture = game->getTexture("highland");
                     break;
                 case 3:
-                    texture = &highlandUndeployableTexture;
+                    texture = game->getTexture("highland_undeployable");
                     break;
                 case 4:
-                    texture = &spawnPointTexture;
+                    texture = game->getTexture("spawn_point");
                     break;
                 case 5:
-                    texture = &defendPointTexture;
+                    texture = game->getTexture("defend_point");
                     break;
                 default:
-                    texture = &groundTexture;
                     break;
             }
 
-            tiles[i][j] = Tile(typeCode, *texture);
-        }
-    }
-}
-
-void CombatMap::draw(sf::RenderWindow &window) {
-    for (int i = 0; i < shape[0]; ++i) {
-        for (int j = 0; j < shape[1]; ++j) {
-            sf::Vector2f position(static_cast<float>(j * 32), static_cast<float>(i * 32)); // 假设每个 tile 是 32x32 像素
-            tiles[i][j].getTileSprite().setPosition(position);
-            window.draw(tiles[i][j].getTileSprite());
+            tiles[i][j] = Tile(typeCode, texture);
         }
     }
 }

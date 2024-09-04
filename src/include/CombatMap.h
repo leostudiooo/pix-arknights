@@ -1,14 +1,15 @@
 // CombatMap.h
 #pragma once
 
-#include "Tile.h"
+#include "UserInterface.h"
 
 #include "json.hpp"
+#include "Tile.h"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
 
-class CombatMap
+class CombatMap : public UserInterface
 {
 private:
 	int shape[2];
@@ -22,11 +23,13 @@ private:
 
 public:
 	CombatMap() = default;
-	CombatMap(std::string mapFile);
+	CombatMap(std::string mapFile, std::shared_ptr<Game> game);
 
 	void loadAssets();
 	void loadMap(std::string mapFile);
-	void draw(sf::RenderWindow &window);
+	void handleEvent(const sf::Event &event) override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.handleEvent(event); };
+	void update() override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.update(); };
+	void render(sf::RenderWindow &window) override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.render(window); };
 	
 	~CombatMap() = default;
 };

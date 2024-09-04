@@ -22,7 +22,7 @@ public:
 	// 3 - HIGHLAND, not deployable
 	// 4 - SPAWN_POINT, not deployable
 	// 5 - DEFEND_POINT, not deployable
-	Tile(int typeCode, sf::Texture& texture);
+	Tile(int typeCode, std::shared_ptr<sf::Texture> texture);
 	
 	TileType getType() const;
 	sf::Sprite getTileSprite() const;
@@ -31,5 +31,10 @@ public:
 	void setType(TileType type);
 	void setTileSprite(sf::Sprite tileSprite);
 	void setIsDeployable(bool isDeployable);
+
+	void update() {}
+	void handleEvent(const sf::Event &event) {}
+
+	void render(sf::RenderWindow &window) const { window.draw(tileSprite); }
 	~Tile() = default;
 };
