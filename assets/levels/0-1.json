@@ -48,6 +48,10 @@
 				}
 			}
 		}
+	},
+	"cost":
+	{
+		"startup": 0,
+		"returnRate": 0.1
 	}
-
 }
