@@ -25,7 +25,7 @@ public:
 	CombatMap() = default;
 	CombatMap(std::string mapFile, std::shared_ptr<Game> game);
 
-	void loadAssets();
+	void loadAssets() override;
 	void loadMap(std::string mapFile);
 	void handleEvent(const sf::Event &event) override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.handleEvent(event); };
 	void update() override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.update(); };

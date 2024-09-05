@@ -6,7 +6,6 @@
 #include <iostream>
 #include <fstream>
 #include "json.hpp"
-#include "CombatMap.h"
 
 Game::Game()
 {
@@ -47,7 +46,7 @@ void Game::updateView()
     {
         // 窗口高于目标宽高比
         float scale = windowSize.x / targetSize.x;
-        float height = targetSize.y * scale;
+        float height = targetSize.y * scale;    
         float top = (windowSize.y - height) / 2.0f / windowSize.y;
         viewport = sf::FloatRect(0.0f, top, 1.0f, height / windowSize.y);
     }
@@ -193,12 +192,7 @@ void Game::run()
 		handleEvent();
 		window.clear();
 
-		
-        if (!uiStack.empty())// 先绘制战斗地图
-        if (combatMap) {
-            combatMap->draw(window);
-        }
-)
+        if(!uiStack.empty())
 		{
 			window.setView(view);
 			uiStack.top()->update();
