@@ -3,8 +3,8 @@
 #include "Tile.h"
 #include "TileType.h"
 #include "Game.h"
-#include <fstream>
 #include "json.hpp"
+#include <fstream>
 
 CombatMap::CombatMap(std::string mapFile, std::shared_ptr<Game> game) : UserInterface(game) {
     loadAssets();
