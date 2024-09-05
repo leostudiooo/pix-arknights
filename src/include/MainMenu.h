@@ -4,6 +4,8 @@
 #include "Button.h"
 #include "UserInterface.h"
 
+#include "json.hpp"
+
 class MainMenu: public UserInterface
 {
 private:
@@ -15,6 +17,9 @@ private:
 	Button operatorButton;
 
 	sf::Text titleText;
+
+	nlohmann::json settings;
+	std::pair<int,int> assistantPos;
 
 public:
 	MainMenu(std::shared_ptr<Game> game);
