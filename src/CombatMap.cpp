@@ -60,6 +60,8 @@ void CombatMap::loadMap(std::string mapFile) {
     shape[0] = jsonData["tiles"].size(); // 高度
     shape[1] = jsonData["tiles"][0].size(); // 宽度
 
+    int tileSize = 16;
+
     tiles.resize(shape[0]);
     for (int i = 0; i < shape[0]; ++i) {
         tiles[i].resize(shape[1]);
@@ -92,6 +94,15 @@ void CombatMap::loadMap(std::string mapFile) {
             }
 
             tiles[i][j] = Tile(typeCode, texture);
+            tiles[i][j].setPosition(j * tileSize, i * tileSize);
+        }
+    }
+}
+
+void CombatMap::draw(sf::RenderWindow& window) {
+    for (int i = 0; i < shape[0]; ++i) {
+        for (int j = 0; j < shape[1]; ++j) {
+            window.draw(tiles[i][j].getSprite()); // 在窗口上绘制地块
         }
     }
 }

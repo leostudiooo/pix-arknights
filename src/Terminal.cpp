@@ -2,7 +2,7 @@
 
 #include "Combat.h"
 #include "MainMenu.h"
-
+#include "CombatMap.h"
 #include "Game.h"
 
 #include <fstream>
