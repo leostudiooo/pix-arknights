@@ -20,7 +20,7 @@ private:
 	sf::RenderWindow window;
 	sf::View view;
 
-	const std::string ASSET_PREFIX = "../assets/";
+	const std::string ASSET_PREFIX = "assets/";
 	std::stack<std::unique_ptr<UserInterface> > uiStack;
 
 public:

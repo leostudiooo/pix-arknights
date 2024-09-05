@@ -1,12 +1,23 @@
 {
-	"settings":
-	{
-		"assets":
-		{
-			"main_menu_bg_img": { "type": 0, "name": "main_menu_bg_img", "path": "main_menu/bg.png" },
-			"main_music": { "type": 1, "name": "main_bg_music", "path": "main_menu/bg.mp3" },
-			"assistant_img": { "type": 0, "name": "assistant_img", "path": "main_menu/assistant.png" }
+	"assets": {
+		"main_menu_bg_img": {
+			"type": 0,
+			"name": "main_menu_bg_img",
+			"path": "main_menu/bg.png"
 		},
-		"assistantPos": [20, 20]
-	}
+		"main_music": {
+			"type": 1,
+			"name": "main_bg_music",
+			"path": "main_menu/bg.mp3"
+		},
+		"assistant_img": {
+			"type": 0,
+			"name": "assistant_img",
+			"path": "main_menu/Thorns_96x96.png"
+		}
+	},
+	"assistantPos": [
+		20,
+		20
+	]
 }
