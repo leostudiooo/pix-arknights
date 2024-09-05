@@ -1,0 +1,31 @@
+{
+	"operators":[
+		{
+			"name": "Thorns",
+			"maxHealth": 1096,
+			"attackDamage": 296,
+			"attackInterval": 78,
+			"defenseAmount": 191,
+			"type": 0,
+			"branch": 0,
+			"blockNumber": 2,
+			"attackRange": [
+				[-1, 0], [0, 0], [1, 0],
+				[-1, 1], [0, 1], [1, 1],
+				[-1, 2], [0, 2], [1, 2],
+				         [0, 3]
+			],
+			"deployCost": 18,
+			"redeployInterval": 3000,
+			"textures": [
+				"operators/Thorns/normal.png",
+				"operators/Thorns/attack.png",
+				"operators/Thorns/back.png"
+			]
+		},
+		{
+			"name": "Mountains",
+			"type": 0
+		}
+	]
+}

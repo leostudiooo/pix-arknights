@@ -51,7 +51,7 @@
 	},
 	"cost":
 	{
-		"startup": 0,
-		"returnRate": 0.1
+		"startup": 6,
+		"returnRate": 0.05
 	}
 }

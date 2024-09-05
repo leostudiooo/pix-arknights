@@ -11,6 +11,13 @@ if(APPLE)
     find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 elseif(WIN32)
     set(SFML_DIR "C:/sfml/2.6.1/lib/cmake/SFML")
+    set(SFML_INCLUDE_DIR "C:/sfml/2.6.1/include")
+    set(SFML_LIBRARY_DIR "C:/sfml/2.6.1/lib")
+    find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
+elseif(MINGW)
+    set(SFML_DIR "C:/sfml/2.6.1-gcc/lib/cmake/SFML")
+    set(SFML_INCLUDE_DIR "C:/sfml/2.6.1-gcc/include")
+    set(SFML_LIBRARY_DIR "C:/sfml/2.6.1-gcc/lib")
     find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 endif()
 
@@ -32,4 +39,8 @@ target_link_libraries(Pixnights sfml-graphics sfml-window sfml-system sfml-audio
 # gcc libstdc++库
 if(MINGW)
     target_link_libraries(Pixnights -static-libstdc++)
+endif()
+
+if(MSVC)
+    target_compile_options(Pixnights PRIVATE /utf-8)
 endif()

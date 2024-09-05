@@ -7,6 +7,8 @@
 #include "Game.h"
 #include "AssetType.h"
 
+#include <fstream>
+
 #include <memory>
 
 MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
@@ -56,7 +58,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	});
 
 	assistantSprite.setTexture(* game->getTexture("assistant_img"));
-	assistantSprite.setPosition(20, 20);
+	assistantSprite.setPosition(assistantPos.first, assistantPos.second);
 
 	titleText.setFont(* game->getFont("font_small"));
 	titleText.setString(L"Pixnights 开发中");
@@ -68,9 +70,51 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 
 void MainMenu::loadAssets()
 {
-	// Background image and music
-	game->load(TEXTURE, "main_menu_bg_img", "main_menu/garden.png");
-	game->load(MUSIC, "main_bg_music", "main_menu/garden.mp3");
+	using json = nlohmann::json;
+	std::fstream settingsFile("assets/main_menu/settings.json");
+	if (!settingsFile.is_open())
+	{
+		std::cerr << "Failed to open main menu settings file" << std::endl;
+		// Background image and music
+		game->load(TEXTURE, "main_menu_bg_img", "main_menu/bg.png");
+		game->load(MUSIC, "main_bg_music", "main_menu/bg.mp3");
+		// Assistant image
+		game->load(TEXTURE, "assistant_img", "Thorns_96x96.png");
+		assistantPos = std::make_pair(20, 20);
+	}
+	else
+	{
+		std::clog << "Opened main menu settings file" << std::endl;
+		settings = json::parse(settingsFile);
+		settingsFile.close();
+		// Debug
+		std::clog << settings << std::endl;
+		// {"assets":{"assistant_img":{"name":"assistant_img","path":"main_menu/assistant.png","type":0},"main_menu_bg_img":{"name":"main_menu_bg_img","path":"main_menu/bg.png","type":0},"main_music":{"name":"main_bg_music","path":"main_menu/bg.mp3","type":1}},"assistantPos":[20,20]}
+		for (auto& asset : settings["assets"])
+		{
+			std::string name = asset["name"];
+			std::string path = asset["path"];
+			int type = asset["type"];
+			switch (type)
+			{
+			case 0:
+				game->load(TEXTURE, name, path);
+				break;
+			case 1:
+				game->load(MUSIC, name, path);
+				break;
+			case 2:
+				game->load(FONT, name, path);
+				break;
+			default:
+				std::cerr << "Unknown asset type" << std::endl;
+				break;
+			}
+		}
+		int posX = settings["assistantPos"][0];
+		int posY = settings["assistantPos"][1];
+		assistantPos = std::make_pair(posX, posY);
+	}
 
 	// Button textures
 	game->load(TEXTURE, "terminal_normal", "main_menu/terminal_normal.png");
@@ -84,10 +128,6 @@ void MainMenu::loadAssets()
 	game->load(TEXTURE, "operator_normal", "main_menu/operator_normal.png");
 	game->load(TEXTURE, "operator_hover", "main_menu/operator_hover.png");
 	game->load(TEXTURE, "operator_click", "main_menu/operator_click.png");
-
-	// Assistant image
-	game->load(TEXTURE, "assistant_img", "Thorns_96x96.png");
-
 }
 
 void MainMenu::handleEvent(const sf::Event &event)

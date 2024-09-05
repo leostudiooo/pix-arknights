@@ -4,6 +4,7 @@
 #include "TileType.h"
 
 #include <SFML/Graphics.hpp>
+#include <memory>
 
 class Tile
 {
