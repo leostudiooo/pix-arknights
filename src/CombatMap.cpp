@@ -98,11 +98,3 @@ void CombatMap::loadMap(std::string mapFile) {
         }
     }
 }
-
-void CombatMap::draw(sf::RenderWindow& window) {
-    for (int i = 0; i < shape[0]; ++i) {
-        for (int j = 0; j < shape[1]; ++j) {
-            window.draw(tiles[i][j].getSprite()); // 在窗口上绘制地块
-        }
-    }
-}

@@ -44,8 +44,8 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 			}
 		);
 
-		auto text = sf::Text(levelName, * game->getFont("font_small"), 7);
-		text.setPosition(xPosition + 2, 32);
+		auto text = sf::Text(levelName, * game->getFont("font_small"), 8);
+		text.setPosition(xPosition + 2, 31);
 		text.setFillColor(sf::Color(0xdd, 0xdd, 0xdd));
 
 		levelList.push_back(std::make_pair(text, button));

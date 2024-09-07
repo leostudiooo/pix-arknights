@@ -28,6 +28,8 @@ public:
 	TileType getType() const;
 	sf::Sprite getTileSprite() const;
 	bool getIsDeployable() const;
+
+	void setPosition(float x, float y) { tileSprite.setPosition(x, y); }
 	
 	void setType(TileType type);
 	void setTileSprite(sf::Sprite tileSprite);
