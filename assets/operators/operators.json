@@ -24,24 +24,90 @@
 		},
 		{
 			"name": "Exusiai",
-			"maxHealth": 1096,
-			"attackDamage": 296,
-			"attackInterval": 78,
-			"defenseAmount": 191,
-			"type": 0,
+			"maxHealth": 711,
+			"attackDamage": 183,
+			"attackInterval": 60,
+			"defenseAmount": 57,
+			"type": 3,
 			"branch": 0,
-			"blockNumber": 2,
+			"blockNumber": 1,
 			"attackRange": [
 				[-1, 0], [0, 0], [1, 0],
 				[-1, 1], [0, 1], [1, 1],
-				         [0, 2],
+				[-1, 2], [0, 2], [1, 2],
 				         [0, 3]
 			],
-			"deployCost": 18,
+			"deployCost": 12,
 			"redeployInterval": 3000,
 			"textures": [
-				"operators/Thorns/idle.png",
-				"operators/Thorns/attack.png"
+				"operators/Exusiai/idle.png",
+				"operators/Exusiai/attack.png"
+			]
+
+		},
+		{
+			"name": "Platinum",
+			"maxHealth": 693,
+			"attackDamage": 171,
+			"attackInterval": 60,
+			"defenseAmount": 58,
+			"type": 3,
+			"branch": 0,
+			"blockNumber": 1,
+			"attackRange": [
+				[-1, 0], [0, 0], [1, 0],
+				[-1, 1], [0, 1], [1, 1],
+				[-1, 2], [0, 2], [1, 2],
+				         [0, 3]
+			],
+			"deployCost": 11,
+			"redeployInterval": 3000,
+			"textures": [
+				"operators/Platinum/idle.png",
+				"operators/Platinum/attack.png"
+			]
+
+		},
+		{
+			"name": "Gummy",
+			"maxHealth": 1059,
+			"attackDamage": 179,
+			"attackInterval": 72,
+			"defenseAmount": 234,
+			"type": 2,
+			"branch": 0,
+			"blockNumber": 3,
+			"attackRange": [
+				         [0, 0]
+			],
+			"deployCost": 11,
+			"redeployInterval": 3000,
+			"textures": [
+				"operators/Gummy/idle.png",
+				"operators/Gummy/attack.png"
+			]
+
+		},
+		{
+			"name": "gavial",
+			"maxHealth": 851,
+			"attackDamage": 159,
+			"attackInterval": 171,
+			"defenseAmount": 66,
+			"type": 4,
+			"branch": 0,
+			"blockNumber": 1,
+			"attackRange": [
+				[-1, 0], [0, 0], [1, 0],
+				[-1, 1], [0, 1], [1, 1],
+				[-1, 2], [0, 2], [1, 2],
+				         [0, 3]
+			],
+			"deployCost": 16,
+			"redeployInterval": 3000,
+			"textures": [
+				"operators/gavial/idle.png",
+				"operators/gavial/attack.png"
 			]
 
 		}
