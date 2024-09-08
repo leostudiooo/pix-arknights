@@ -24,7 +24,11 @@ Open the solution file with Visual Studio 2022, head to `Solution Explorer`, set
 
 Then `F5` to build and run the project. It will fail to run because the `sfml-graphics-2.dll` is missing. You can copy the dll file from `C:\sfml\2.6.1\bin` to the project `Debug` directory, or add the path to the system environment variable `PATH`.
 
+## Open Source Projects in Use
 
+- [SFML](https://www.sfml-dev.org/)
+- [nlohmann/json](https://github.com/nlohmann/json)
+- [ChillBitmap Font](https://github.com/Warren2060/ChillBitmap)
 
 ## LICENSE
 

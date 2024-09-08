@@ -10,6 +10,7 @@
 
 #include <stack>
 #include <memory>
+#include <filesystem>
 
 // forward declarations
 class UserInterface;
@@ -20,7 +21,7 @@ private:
 	sf::RenderWindow window;
 	sf::View view;
 
-	const std::string ASSET_PREFIX = "assets/";
+	const std::string ASSET_PREFIX = std::filesystem::current_path().string() + "/assets/";
 	std::stack<std::unique_ptr<UserInterface> > uiStack;
 
 public:
