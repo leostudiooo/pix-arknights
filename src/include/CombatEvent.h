@@ -1,6 +1,10 @@
 // CombatEvent.h
 #pragma once
 
+// Forward declarations
+class Operator;
+class Enemy;
+
 enum CombatEventType
 {
 	OPERATOR_PREDEPLOY,
