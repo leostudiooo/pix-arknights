@@ -13,7 +13,7 @@
  * - `defenseAmount`: the amount of damage the character can block
  * - `figureSprite`: the sprite of the character
  */
-class Figure
+class Figure : public std::enable_shared_from_this<Figure>
 {
 private:
 	const std::string name;
@@ -29,8 +29,10 @@ public:
 	{
 		currentHealth = maxHealth;
 	}
+	~Figure() = default;
+
 	virtual void handleEvent() = 0;
 	virtual void update() = 0;
 	virtual void draw(sf::Window &) = 0;
-	~Figure() = default;
+	std::shared_ptr<Figure> getThis() { return shared_from_this(); }
 };
