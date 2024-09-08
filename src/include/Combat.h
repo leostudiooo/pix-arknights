@@ -1,17 +1,28 @@
 // Combat.h
 #include "UserInterface.h"
 #include "CombatMap.h"
+#include "CombatComponent.h"
 #include "Button.h"
 #include "Operator.h"
-#include "OperatorIndicator.h"
+#include "OperatorSelector.h"
 #include "Enemy.h"
+#include "CombatEvent.h"
 
-class Combat : public UserInterface
+class Combat : public UserInterface, public std::enable_shared_from_this<Combat>
 {
-private:
-	CombatMap map;
-	std::vector<std::pair<OperatorIndicator, Operator> > opList;
+protected:
+	sf::Sprite background;
+	CombatMap combatMap;
+	OperatorSelector operatorSelector;
+	std::queue<CombatEvent> eventQueue;
+	std::vector<std::shared_ptr<Operator> > operators;
+	std::vector<std::shared_ptr<Enemy> > enemies;
 public:
 	Combat() = default;
 	Combat(std::shared_ptr<Game>, std::string);
+	void loadAssets() override;
+	void handleEvent(const sf::Event &event) override;
+	void update() override;
+	void render(sf::RenderWindow &window) override;
+	std::shared_ptr<Combat> getCombat() { return shared_from_this(); }
 };

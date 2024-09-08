@@ -69,7 +69,7 @@ private:
 	int deployCost;
 	int redeployInterval; // in frames
 
-	// Operator image[2]: 32*32 px, status {regular, attack}
+	// Operator image[2]: 32*32 px, status {idle, attack}
 	sf::Texture operatorTexture[2];
 	sf::Sprite operatorSprite;
 
