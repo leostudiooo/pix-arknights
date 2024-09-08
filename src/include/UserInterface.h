@@ -13,10 +13,9 @@ class UserInterface
 {
 protected:
 	std::shared_ptr<Game> game;
-
+public:
 	UserInterface() = default;
 	UserInterface(std::shared_ptr<Game> game) : game(game) {}
-public:
 	virtual ~UserInterface() = default;
 	virtual void loadAssets() = 0;
 	virtual void handleEvent(const sf::Event &event) = 0;
