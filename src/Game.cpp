@@ -171,6 +171,8 @@ void Game::init() {
     // 参考 MainMenu.h/cpp
 	uiStack.push(std::make_unique<SplashScreen>(getGame()));
 
+    load(FONT, "font_tiny", "Lilliput_Steps_5px.otf");
+    getFont("font_tiny")->setSmooth(false);
     load(FONT, "font_small", "ChillBitmap_7px.ttf");
     getFont("font_small")->setSmooth(false);
     load(FONT, "font_large", "ChillBitmap_16px.ttf");
