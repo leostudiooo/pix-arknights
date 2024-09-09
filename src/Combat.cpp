@@ -8,7 +8,7 @@
 
 using json = nlohmann::json;
 
-Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterface(game), combatFileName(combatFileName)
+Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterface(game), combatName(combatName)
 {
 	loadAssets();
 
@@ -22,7 +22,7 @@ Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterfa
 
 void Combat::loadAssets()
 {
-	std::ifstream file(game->getAssetPrefix() + "levels/" + combatFileName + ".json");
+	std::ifstream file(game->getAssetPrefix() + "levels/" + combatName + ".json");
 	combatData = json::parse(file);
 
 	game->load(MUSIC, "combat_bg_music", "combat/combat.mp3");

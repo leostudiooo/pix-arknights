@@ -20,7 +20,7 @@ protected:
 	std::vector<std::shared_ptr<CombatComponent> > components;
 	std::queue<CombatEvent> eventQueue;
 
-	std::string combatFileName;
+	std::string combatName;
 	nlohmann::json combatData;
 
 	std::vector<std::shared_ptr<Operator> > operators;
