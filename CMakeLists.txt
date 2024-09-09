@@ -42,5 +42,7 @@ if(MINGW)
 endif()
 
 if(MSVC)
+    # set working directory
+    set_target_properties(Pixnights PROPERTIES VS_DEBUGGER_WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}")
     target_compile_options(Pixnights PRIVATE /utf-8)
 endif()
