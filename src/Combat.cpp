@@ -15,12 +15,14 @@ Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterfa
 {
 	loadAssets();
 
-	background.setTexture(* game->getTexture("combat_bg_img"));
+	background.setTexture(*game->getTexture("combat_bg_img"));
 	background.setPosition(0, 0);
 }
 
 void Combat::initComponents()
 {
+	components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], shared_from_this(), game));
+
 	int startupCost = combatData["cost"]["startup"];
 	double returnRate = combatData["cost"]["returnRate"];
 	components.push_back(std::make_shared<CostIndicator>(startupCost, returnRate, shared_from_this(), game));
@@ -30,18 +32,18 @@ void Combat::initComponents()
 
 void Combat::loadAssets()
 {
-    std::clog << "Loading combat " << game->getAssetPrefix() + "levels/" + combatName + ".json" << std::endl;
-    std::ifstream file(game->getAssetPrefix() + "levels/" + combatName + ".json");
+	std::clog << "Loading combat " << game->getAssetPrefix() + "levels/" + combatName + ".json" << std::endl;
+	std::ifstream file(game->getAssetPrefix() + "levels/" + combatName + ".json");
 
-    try
-    {
-        combatData = json::parse(file);
-        std::clog << combatData << std::endl;
-    }
-    catch (const std::exception&)
-    {
-        std::cerr << "Error loading combat " << combatName << std::endl;
-    }
+	try
+	{
+		combatData = json::parse(file);
+		std::clog << combatData << std::endl;
+	}
+	catch (const std::exception &)
+	{
+		std::cerr << "Error loading combat " << combatName << std::endl;
+	}
 
 	game->load(MUSIC, "combat_bg_music", "combat/combat.mp3");
 	game->load(TEXTURE, "combat_bg_img", "combat/bg.png");
@@ -49,7 +51,7 @@ void Combat::loadAssets()
 
 void Combat::handleEvent(const sf::Event &event)
 {
-	for(auto component : components)
+	for (auto component : components)
 	{
 		component->handleEvent(event);
 	}
@@ -57,17 +59,17 @@ void Combat::handleEvent(const sf::Event &event)
 
 void Combat::update()
 {
-	while(!eventQueue.empty())
+	while (!eventQueue.empty())
 	{
 		auto event = eventQueue.front();
 		eventQueue.pop();
 
-		for(auto component : components)
+		for (auto component : components)
 		{
 			component->handleCombatEvent(event);
 		}
 	}
-	for(auto component : components)
+	for (auto component : components)
 	{
 		component->update();
 	}
@@ -76,7 +78,7 @@ void Combat::update()
 void Combat::render(sf::RenderWindow &window)
 {
 	window.draw(background);
-	for(auto component : components)
+	for (auto component : components)
 	{
 		component->render(window);
 	}
@@ -84,9 +86,10 @@ void Combat::render(sf::RenderWindow &window)
 
 void Combat::playMusic()
 {
-    if (game->bgMusic) game->bgMusic->stop();
-    game->bgMusic = game->getMusic("combat_bg_music");
-    game->bgMusic->setLoop(true);
-    game->bgMusic->play();
-    std::clog << "Playing combat music" << std::endl;
+	if (game->bgMusic)
+		game->bgMusic->stop();
+	game->bgMusic = game->getMusic("combat_bg_music");
+	game->bgMusic->setLoop(true);
+	game->bgMusic->play();
+	std::clog << "Playing combat music" << std::endl;
 }
