@@ -5,16 +5,15 @@
 #include "CombatComponent.h"
 
 // Forward declaration
-class Combat;
+class CombatEvent;
 
 class OperatorSelector: public CombatComponent
 {
 protected:
-	std::shared_ptr<Combat> combat;
 	std::vector<sf::Sprite> selectorSprites;
 public:
 	OperatorSelector() = default;
-	OperatorSelector(std::shared_ptr<Combat> combat);
+	OperatorSelector(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 
 	void setCombat(std::shared_ptr<Combat> combat) { this->combat = combat; }
 

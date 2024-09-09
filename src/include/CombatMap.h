@@ -1,35 +1,29 @@
 // CombatMap.h
 #pragma once
 
-#include "UserInterface.h"
+#include "CombatComponent.h"
 
 #include "json.hpp"
 #include "Tile.h"
 #include "Game.h"
-#include <SFML/Graphics.hpp>
+
 #include <vector>
 
-class CombatMap : public UserInterface
+
+class CombatMap : public CombatComponent
 {
-private:
-	int shape[2];
-	std::vector<std::vector<Tile> > tiles;
-	sf::Texture groundTexture;
-	sf::Texture groundUndeployableTexture;
-	sf::Texture highlandTexture;
-	sf::Texture highlandUndeployableTexture;
-	sf::Texture spawnPointTexture;
-	sf::Texture defendPointTexture;
+protected:
+	std::vector<std::vector<std::shared_ptr<Tile> > > tiles;
+	nlohmann::json mapData;
 
 public:
 	CombatMap() = default;
-	CombatMap(std::string mapFile, std::shared_ptr<Game> game);
+	CombatMap(nlohmann::json mapData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 
 	void loadAssets();
-	void loadMap(std::string mapFile);
-	void handleEvent(const sf::Event &event) override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.handleEvent(event); };
-	void update() override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.update(); };
-	void render(sf::RenderWindow &window) override { for (auto tileRow : tiles) for (auto tile : tileRow) tile.render(window); };
-	
-	~CombatMap() = default;
+
+	void handleEvent(const sf::Event &event) override;
+	void update() override;
+	void render(sf::RenderWindow &window) override;
+	void handleCombatEvent(CombatEvent event) override;
 };
