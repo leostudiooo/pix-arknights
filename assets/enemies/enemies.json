@@ -2,13 +2,61 @@
 	"enemies":
 	[
 		{
-			"name": "Slug"
+			"name": "Slug",
+			"speed": 10,
+			"maxHealth": 550,
+			"attackDamage": 130,
+			"attackInterval": 102,
+			"defenseAmount": 0,
+			"type": 0,
+			"branch": 0,
+			"blockNumber": 1,
+			"attackRange": [
+				[0, 0]
+			],
+			
+			"textures": [
+				"enemies/Slug/idle.png",
+				"enemies/Slug/attack.png"
+			]
 		},
 		{
-			"name": ""
+			"name": "Soldier",
+			"speed": 11,
+			"maxHealth": 1650,
+			"attackDamage": 200,
+			"attackInterval": 120,
+			"defenseAmount": 100,
+			"type": 0,
+			"branch": 0,
+			"blockNumber": 1,
+			"attackRange": [
+				[0, 0]
+			],
+			
+			"textures": [
+				"enemies/Soldier/idle.png",
+				"enemies/Soldier/attack.png"
+			]
 		},
 		{
-			"name": ""
+			"name": "Slug",
+			"speed": 10,
+			"maxHealth": 2500,
+			"attackDamage": 250,
+			"attackInterval": 120,
+			"defenseAmount":400,
+			"type": 0,
+			"branch": 0,
+			"blockNumber": 1,
+			"attackRange": [
+				[0, 0]
+			],
+			
+			"textures": [
+				"enemies/Armed/idle.png",
+				"enemies/Armed/attack.png"
+			]
 		}
 	]
 }
