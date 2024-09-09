@@ -40,7 +40,7 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 			[levelName, game]()
 			{
 				auto newGame = game->getGame();
-				newGame->pushState(std::make_unique<Combat>(newGame, levelName));
+				newGame->pushState(std::make_shared<Combat>(newGame, levelName), true);
 			}
 		);
 
@@ -155,4 +155,13 @@ void Terminal::loadLevelList()
 	{
 		std::cerr << "Error parsing levels.json" << std::endl;
 	}
+}
+
+void Terminal::playMusic()
+{
+    if(game->bgMusic) game->bgMusic->stop();
+    game->bgMusic = game->getMusic("main_bg_music");
+    game->bgMusic->setLoop(true);
+    game->bgMusic->play();
+    std::clog << "Playing main menu music" << std::endl;
 }

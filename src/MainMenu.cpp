@@ -18,11 +18,6 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	backgroundSprite.setTexture(* game->getTexture("main_menu_bg_img"));
 	backgroundSprite.setPosition(0,0);
 
-	game->bgMusic = game->getMusic("main_bg_music");
-	std::clog << "Playing main menu music" << std::endl;
-	game->bgMusic->setLoop(true);
-	game->bgMusic->play();
-
 	terminalButton.setTextures(
 		game->getTexture("terminal_normal"), 
 		game->getTexture("terminal_hover"), 
@@ -32,7 +27,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	terminalButton.setOnClick([game]()
 	{
 			auto newGame = game->getGame();
-			newGame->pushState(std::make_unique<Terminal>(newGame));
+			newGame->pushState(std::make_shared<Terminal>(newGame));
 	});
 
 	squadButton.setTextures(
@@ -43,7 +38,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	squadButton.setGame(game);
 	squadButton.setOnClick([game]()
 	{
-		// game->pushState(std::make_unique<Squad>(game));
+		// game->pushState(std::make_shared<Squad>(game));
 	});
 
 	operatorButton.setTextures(
@@ -54,7 +49,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
 	operatorButton.setGame(game);
 	operatorButton.setOnClick([game]()
 	{
-		// game->pushState(std::make_unique<OperatorMenu>(game));
+		// game->pushState(std::make_shared<OperatorMenu>(game));
 	});
 
 	assistantSprite.setTexture(* game->getTexture("assistant_img"));
@@ -152,4 +147,13 @@ void MainMenu::render(sf::RenderWindow &window)
 	operatorButton.render(window);
 	window.draw(assistantSprite);
 	window.draw(titleText);
+}
+
+void MainMenu::playMusic()
+{
+    if (game->bgMusic) game->bgMusic->stop();
+    game->bgMusic = game->getMusic("main_bg_music");
+    game->bgMusic->setLoop(true);
+    game->bgMusic->play();
+    std::clog << "Playing main menu music" << std::endl;
 }

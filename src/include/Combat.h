@@ -34,8 +34,7 @@ public:
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;
+    void playMusic() override;
 
 	void createEvent(CombatEvent event) { eventQueue.push(event); }
-
-	std::shared_ptr<Combat> getCombat() { return shared_from_this(); }
 };

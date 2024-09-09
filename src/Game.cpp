@@ -65,7 +65,7 @@ sf::Vector2f Game::getMousePosition()
 	return window.mapPixelToCoords(mousePosition);
 }
 
-void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
+void Game::pushState(std::shared_ptr<UserInterface> ui, bool switchMusic) {
     if (!uiStack.empty()) {
         // 创建画面和音频的淡出效果
         float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
@@ -84,14 +84,17 @@ void Game::pushState(std::unique_ptr<UserInterface> ui, bool switchMusic) {
                 bgMusic->setVolume(vol);
             }
         }
-
         if (switchMusic && bgMusic) {
             bgMusic->stop();
+            std::clog << "BGM stopped" << std::endl;
         }
+
     }
+
 
     // 推入新状态
     uiStack.push(std::move(ui));
+    if (switchMusic && bgMusic) uiStack.top()->playMusic();
     // 创建画面和音频的淡入效果
     for (int alpha = 0; alpha <= 255; alpha += 3) {
         handleEvent();
@@ -138,6 +141,7 @@ bool Game::popState(bool switchMusic) {
     }
 
     if (!uiStack.empty()) {
+        if (switchMusic) uiStack.top()->playMusic();
         // 创建画面和音频的淡入效果
         for (int alpha = 0; alpha <= 255; alpha += 3) {
             handleEvent();
@@ -170,6 +174,7 @@ void Game::init() {
     // 不要在这里就加载地图等资源，在初始化 UI 的时候用 loadAssets() 进行加载
     // 参考 MainMenu.h/cpp
 	uiStack.push(std::make_unique<SplashScreen>(getGame()));
+    uiStack.top()->playMusic();
 
     load(FONT, "font_tiny", "Lilliput_Steps_5px.otf");
     getFont("font_tiny")->setSmooth(false);

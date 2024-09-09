@@ -23,9 +23,11 @@ private:
 
 public:
 	MainMenu(std::shared_ptr<Game> game);
+	~MainMenu() override = default;
+
 	void loadAssets();
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;
-	~MainMenu() override = default;
+    void playMusic() override;
 };
