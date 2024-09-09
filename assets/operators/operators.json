@@ -20,7 +20,8 @@
 			"textures": [
 				"operators/Thorns/idle.png",
 				"operators/Thorns/attack.png"
-			]
+			],
+			"preview": "operators/Thorns/preview.png"
 		},
 		{
 			"name": "Exusiai",
@@ -42,7 +43,8 @@
 			"textures": [
 				"operators/Exusiai/idle.png",
 				"operators/Exusiai/attack.png"
-			]
+			],
+			"preview": "operators/Exusiai/preview.png"
 
 		},
 		{
@@ -65,8 +67,8 @@
 			"textures": [
 				"operators/Platinum/idle.png",
 				"operators/Platinum/attack.png"
-			]
-
+			],
+			"preview": "operators/Platinum/preview.png"
 		},
 		{
 			"name": "Gummy",
@@ -85,8 +87,8 @@
 			"textures": [
 				"operators/Gummy/idle.png",
 				"operators/Gummy/attack.png"
-			]
-
+			],
+			"preview": "operators/Gummy/preview.png"
 		},
 		{
 			"name": "gavial",
@@ -108,8 +110,8 @@
 			"textures": [
 				"operators/gavial/idle.png",
 				"operators/gavial/attack.png"
-			]
-
+			],
+			"preview": "operators/gavial/preview.png"
 		}
 	]
 }
