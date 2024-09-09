@@ -3,7 +3,7 @@
 	[
 		{
 			"name": "Slug",
-			"speed": 10,
+			"speed": 0.13,
 			"maxHealth": 550,
 			"attackDamage": 130,
 			"attackInterval": 102,
@@ -22,7 +22,7 @@
 		},
 		{
 			"name": "Soldier",
-			"speed": 11,
+			"speed": 0.15,
 			"maxHealth": 1650,
 			"attackDamage": 200,
 			"attackInterval": 120,
@@ -41,7 +41,7 @@
 		},
 		{
 			"name": "Slug",
-			"speed": 10,
+			"speed": 0.13,
 			"maxHealth": 2500,
 			"attackDamage": 250,
 			"attackInterval": 120,
