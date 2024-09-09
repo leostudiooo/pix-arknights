@@ -42,7 +42,7 @@ public:
 	// 3 - HIGHLAND, not deployable
 	// 4 - SPAWN_POINT, not deployable
 	// 5 - DEFEND_POINT, not deployable
-	Tile(int typeCode, sf::Vector2f position, sf::Texture texture);
+	Tile(int typeCode, sf::Vector2f position, std::shared_ptr<sf::Texture> texture);
 
 	TileType getType() const;
 

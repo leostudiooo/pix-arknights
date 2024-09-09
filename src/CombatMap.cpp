@@ -21,18 +21,20 @@ CombatMap::CombatMap(nlohmann::json mapData, std::shared_ptr<Combat> combat, std
     auto mapTiles = mapData["tiles"];
 
     sf::Vector2f origin = sf::Vector2f(24, 16);
-    sf::Vector2f position = origin;
+    int posY = origin.y;
     for (auto row : mapTiles)
     {
+        int posX = origin.x;
         std::vector<std::shared_ptr<Tile>> tileRow;
         for (auto tile : row)
         {
+            sf::Vector2f position = sf::Vector2f(posX, posY);
             int tileType = tile;
-            tileRow.push_back(std::make_shared<Tile>(tileType, position, *game->getTexture(tileTextures[tileType])));
-            position += sf::Vector2f(16, 0);
+            tileRow.push_back(std::make_shared<Tile>(tileType, position, game->getTexture(tileTextures[tileType])));
+            posX += 16;
         }
         tiles.push_back(tileRow);
-        position += sf::Vector2f(0, 16);
+        posY += 16;
     }
 }
 
