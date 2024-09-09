@@ -1,5 +1,8 @@
 #include "Combat.h"
 #include "CombatComponent.h"
+#include "CombatMap.h"
+#include "CostIndicator.h"
+#include "OperatorSelector.h"
 
 #include <fstream>
 
@@ -9,7 +12,12 @@ Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterfa
 {
 	loadAssets();
 
-	game->bgMusic = game->getMusic("combat");
+	background.setTexture(* game->getTexture("combat_bg_img"));
+	background.setPosition(0, 0);
+
+	components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], getCombat(), game));
+
+	game->bgMusic = game->getMusic("combat_bg_music");
 }
 
 void Combat::loadAssets()
@@ -17,7 +25,8 @@ void Combat::loadAssets()
 	std::ifstream file(game->getAssetPrefix() + "levels/" + combatFileName + ".json");
 	combatData = json::parse(file);
 
-	game->load(MUSIC, "combat", "combat/combat.mp3");
+	game->load(MUSIC, "combat_bg_music", "combat/combat.mp3");
+	game->load(TEXTURE, "combat_bg_img", "combat/bg.png");
 }
 
 void Combat::handleEvent(const sf::Event &event)
@@ -48,6 +57,7 @@ void Combat::update()
 
 void Combat::render(sf::RenderWindow &window)
 {
+	window.draw(background);
 	for(auto component : components)
 	{
 		component->render(window);

@@ -2,15 +2,7 @@
 	"levels": [
 		{
 			"name": "0-1",
-			"map": "0-1.json"
-		},
-		{
-			"name": "0-2",
-			"map": "0-2.json"
-		},
-		{
-			"name": "S0-1",
-			"map": "S0-1.json"
+			"desc": "The first level"
 		}
 	]
 }

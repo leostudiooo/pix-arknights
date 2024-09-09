@@ -39,8 +39,8 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 			game,
 			[levelName, game]()
 			{
-				// auto newGame = game->getGame();
-				// newGame->pushState(std::make_unique<Combat>(newGame, levelName["map"]));
+				auto newGame = game->getGame();
+				newGame->pushState(std::make_unique<Combat>(newGame, levelName));
 			}
 		);
 
