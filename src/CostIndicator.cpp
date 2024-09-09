@@ -10,7 +10,7 @@ CostIndicator::CostIndicator(const double startupCost, const double returnRate, 
 	indicatorText.setFont(*game->getFont("font_small"));
 	indicatorText.setCharacterSize(8);
 	indicatorText.setFillColor(sf::Color(0xbbbbbbff));
-	indicatorText.setPosition(position + sf::Vector2f(2, 1));
+	indicatorText.setPosition(position + sf::Vector2f(2, -1));
 }
 
 void CostIndicator::handleEvent(const sf::Event &event)
@@ -20,7 +20,11 @@ void CostIndicator::handleEvent(const sf::Event &event)
 void CostIndicator::update()
 {
 	currCost += returnRate;
-	indicatorText.setString("C " + std::to_string(floor(currCost)));
+	if (currCost < 0)
+		currCost = 0;
+	if (currCost > 99)
+		currCost = 99;
+	indicatorText.setString("Cost " + std::to_string(int(floor(currCost))));
 }
 
 void CostIndicator::render(sf::RenderWindow &window)

@@ -30,6 +30,7 @@ public:
 	Combat(std::shared_ptr<Game> game, std::string combatName);
 
 	void loadAssets();
+	void initComponents();
 
 	void handleEvent(const sf::Event &event) override;
 	void update() override;

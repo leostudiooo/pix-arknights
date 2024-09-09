@@ -7,17 +7,17 @@ CombatProgress::CombatProgress(unsigned int totalEnemies, unsigned int defendPoi
 {
 	progressBackground.setSize(sf::Vector2f(72, 10));
 	progressBackground.setFillColor(sf::Color(0x22222299));
-	progressBackground.setPosition(sf::Vector2f(60, 0));
+	progressBackground.setPosition(position);
 
 	progressText.setFont(*game->getFont("font_small"));
 	progressText.setCharacterSize(8);
 	progressText.setFillColor(sf::Color(0xbbbbbbff));
-	progressText.setPosition(sf::Vector2f(2, 1));
+	progressText.setPosition(position + sf::Vector2f(2, 0));
 
 	defendPointLifeText.setFont(*game->getFont("font_small"));
 	defendPointLifeText.setCharacterSize(8);
 	defendPointLifeText.setFillColor(sf::Color(0xbbbbbbff));
-	defendPointLifeText.setPosition(sf::Vector2f(50, 1));
+	defendPointLifeText.setPosition(position + sf::Vector2f(50, 0));
 }
 
 void CombatProgress::handleEvent(const sf::Event &event)
@@ -26,7 +26,7 @@ void CombatProgress::handleEvent(const sf::Event &event)
 
 void CombatProgress::update()
 {
-	progressText.setString("" + std::to_string(killCount) + "/" + std::to_string(totalEnemies));
+	progressText.setString("Enemy " + std::to_string(killCount) + "/" + std::to_string(totalEnemies));
 	defendPointLifeText.setString("HP " + std::to_string(defendPointLife));
 }
 

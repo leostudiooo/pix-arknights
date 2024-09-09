@@ -52,6 +52,6 @@
 	"cost":
 	{
 		"startup": 6,
-		"returnRate": 0.05
+		"returnRate": 0.01
 	}
 }

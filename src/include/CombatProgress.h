@@ -10,6 +10,7 @@ class CombatEvent;
 class CombatProgress : public CombatComponent
 {
 protected:
+	const sf::Vector2f position = sf::Vector2f(60, 0);
 	sf::RectangleShape progressBackground;
 	unsigned int killCount = 0, totalEnemies, defendPointLife;
 	sf::Text progressText, killCountText, defendPointLifeText;

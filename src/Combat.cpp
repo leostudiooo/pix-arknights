@@ -17,10 +17,14 @@ Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterfa
 
 	background.setTexture(* game->getTexture("combat_bg_img"));
 	background.setPosition(0, 0);
+}
 
+void Combat::initComponents()
+{
 	int startupCost = combatData["cost"]["startup"];
 	double returnRate = combatData["cost"]["returnRate"];
 	components.push_back(std::make_shared<CostIndicator>(startupCost, returnRate, shared_from_this(), game));
+
 	components.push_back(std::make_shared<CombatProgress>(11, 3, shared_from_this(), game));
 }
 
