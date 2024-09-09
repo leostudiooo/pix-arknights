@@ -1,61 +1,61 @@
 #include "Tile.h"
 
-Tile::Tile(int typeCode, std::shared_ptr<sf::Texture> texture)
-{
-	switch (typeCode) {
-		case 0:
-			type = TileType::GROUND;
-			isDeployable = true;
-			break;
-		case 1:
-			type = TileType::GROUND;
-			isDeployable = false;
-			break;
-		case 2:
-			type = TileType::HIGHLAND;
-			isDeployable = true;
-			break;
-		case 3:
-			type = TileType::HIGHLAND;
-			isDeployable = false;
-			break;
-		case 4:
-			type = TileType::SPAWN_POINT;
-			isDeployable = false;
-			break;
-		case 5:
-			type = TileType::DEFEND_POINT;
-			isDeployable = false;
-			break;
-		default:
-			type = TileType::GROUND;
-			isDeployable = true;
-			break;
-	}
+#include <iostream>
 
+Tile::Tile(int typeCode, sf::Vector2f position, std::shared_ptr<sf::Texture> texture)
+{
+	type = static_cast<TileType>(typeCode);
+	tileSprite.setPosition(position);
 	tileSprite.setTexture(*texture);
+	visualOverlay.setPosition(position);
+	visualOverlay.setSize(sf::Vector2f(16,16));
+	visualOverlay.setFillColor(sf::Color(0x00000000));
+
+	std::clog << "Tile type " << type << " created at " << position.x << ", " << position.y << std::endl;
 }
 
-TileType Tile::getType() const {
+TileType Tile::getType() const
+{
 	return type;
 }
 
-sf::Sprite Tile::getTileSprite() const {
-	return tileSprite;
-}
-
-bool Tile::getIsDeployable() const {
+bool Tile::getIsDeployable() const
+{
 	return isDeployable;
 }
 
-void Tile::setType(TileType type) {
-	this->type = type;
-}
-
-void Tile::setTileSprite(sf::Sprite tileSprite) {
-	this->tileSprite = tileSprite;
-}
-
-void Tile::setIsDeployable(bool isDeployable) {
+void Tile::setIsDeployable(bool isDeployable)
+{
 	this->isDeployable = isDeployable;
+}
+
+void Tile::setOverlay(OverlayType overlayType)
+{
+	this->overlayType = overlayType;
+}
+
+void Tile::update()
+{
+	switch(overlayType)
+	{
+		case NONE:
+			visualOverlay.setFillColor(sf::Color(0x00000000));
+			break;
+		case PREVIEW_DEPLOYABLE:
+			visualOverlay.setFillColor(sf::Color(0x57ff57bb));
+			break;
+		case PREVIEW_RANGE:
+			visualOverlay.setFillColor(sf::Color(0xffab57bb));
+			break;
+	}
+}
+
+void Tile::handleEvent(const sf::Event &event)
+{
+}
+
+void Tile::render(sf::RenderWindow &window)
+{
+	window.draw(tileSprite);
+	window.draw(visualOverlay);
 }

@@ -28,6 +28,11 @@ public:
 	CombatEvent() = default;
 	~CombatEvent() = default;
 
+	CombatEventType getType() const { return type; }
+	
 	void setInvolvedOperator(std::shared_ptr<Operator> opIv) { operatorInvolved = opIv; }
 	void setInvolvedEnemy(std::shared_ptr<Enemy> enIv) { enemyInvolved = enIv; }
+
+	std::shared_ptr<Operator> getOperator() const { return operatorInvolved; }
+	std::shared_ptr<Enemy> getEnemy() const { return enemyInvolved; }
 };

@@ -40,12 +40,14 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 			[levelName, game]()
 			{
 				auto newGame = game->getGame();
-				newGame->pushState(std::make_shared<Combat>(newGame, levelName), true);
+				auto combat = std::make_shared<Combat>(newGame, levelName);
+				newGame->pushState(combat, true);
+				combat->initComponents();
 			}
 		);
 
 		auto text = sf::Text(levelName, * game->getFont("font_small"), 8);
-		text.setPosition(xPosition + 2, 31);
+		text.setPosition(xPosition + 3, 31);
 		text.setFillColor(sf::Color(0xdd, 0xdd, 0xdd));
 
 		levelList.push_back(std::make_pair(text, button));
