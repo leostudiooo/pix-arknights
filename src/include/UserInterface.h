@@ -21,6 +21,7 @@ public:
 	virtual void handleEvent(const sf::Event &event) = 0;
 	virtual void update() = 0;
 	virtual void render(sf::RenderWindow &window) = 0;
+    virtual void playMusic() = 0;
 
 	void setGame(std::shared_ptr<Game> game) { this->game = game; }
 };

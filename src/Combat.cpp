@@ -5,6 +5,7 @@
 #include "OperatorSelector.h"
 
 #include <fstream>
+#include <memory>
 
 using json = nlohmann::json;
 
@@ -15,15 +16,23 @@ Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterfa
 	background.setTexture(* game->getTexture("combat_bg_img"));
 	background.setPosition(0, 0);
 
-	components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], getCombat(), game));
-
-	game->bgMusic = game->getMusic("combat_bg_music");
+	// components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], shared_from_this(), game));
 }
 
 void Combat::loadAssets()
 {
-	std::ifstream file(game->getAssetPrefix() + "levels/" + combatName + ".json");
-	combatData = json::parse(file);
+    std::clog << "Loading combat " << game->getAssetPrefix() + "levels/" + combatName + ".json" << std::endl;
+    std::ifstream file(game->getAssetPrefix() + "levels/" + combatName + ".json");
+
+    try
+    {
+        combatData = json::parse(file);
+        std::clog << combatData << std::endl;
+    }
+    catch (const std::exception&)
+    {
+        std::cerr << "Error loading combat " << combatName << std::endl;
+    }
 
 	game->load(MUSIC, "combat_bg_music", "combat/combat.mp3");
 	game->load(TEXTURE, "combat_bg_img", "combat/bg.png");
@@ -62,4 +71,13 @@ void Combat::render(sf::RenderWindow &window)
 	{
 		component->render(window);
 	}
+}
+
+void Combat::playMusic()
+{
+    if (game->bgMusic) game->bgMusic->stop();
+    game->bgMusic = game->getMusic("combat_bg_music");
+    game->bgMusic->setLoop(true);
+    game->bgMusic->play();
+    std::clog << "Playing combat music" << std::endl;
 }

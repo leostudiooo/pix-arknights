@@ -22,7 +22,7 @@ private:
 	sf::View view;
 
 	const std::string ASSET_PREFIX = std::filesystem::current_path().string() + "/assets/";
-	std::stack<std::unique_ptr<UserInterface> > uiStack;
+	std::stack<std::shared_ptr<UserInterface> > uiStack;
 
 public:
 	AssetManager assetManager;
@@ -36,9 +36,10 @@ public:
 	void updateView();
 	sf::Vector2f getMousePosition();
 
-	void pushState(std::unique_ptr<UserInterface> ui, bool switchMusic = false);
+	void pushState(std::shared_ptr<UserInterface> ui, bool switchMusic = false);
 	bool popState(bool switchMusic = false);
 	bool popStateNoTransition();
+    void setBgMusic(std::shared_ptr<sf::Music> music) { bgMusic = music; }
 
 	void init();
 	void run();
