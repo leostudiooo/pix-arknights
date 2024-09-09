@@ -1,5 +1,7 @@
 #include "Combat.h"
 #include "CombatComponent.h"
+
+#include "CombatProgress.h"
 #include "CombatMap.h"
 #include "CostIndicator.h"
 #include "OperatorSelector.h"
@@ -16,7 +18,10 @@ Combat::Combat(std::shared_ptr<Game> game, std::string combatName) : UserInterfa
 	background.setTexture(* game->getTexture("combat_bg_img"));
 	background.setPosition(0, 0);
 
-	// components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], shared_from_this(), game));
+	int startupCost = combatData["cost"]["startup"];
+	double returnRate = combatData["cost"]["returnRate"];
+	components.push_back(std::make_shared<CostIndicator>(startupCost, returnRate, shared_from_this(), game));
+	components.push_back(std::make_shared<CombatProgress>(11, 3, shared_from_this(), game));
 }
 
 void Combat::loadAssets()

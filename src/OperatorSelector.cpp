@@ -19,6 +19,6 @@ void OperatorSelector::render(sf::RenderWindow &window)
 {
 }
 
-void OperatorSelector::handleCombatEvent(CombatEvent event)
+void OperatorSelector::handleCombatEvent(const CombatEvent &event)
 {
 }

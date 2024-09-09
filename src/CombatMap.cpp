@@ -1,4 +1,4 @@
-//CombatMap.cpp
+// CombatMap.cpp
 #include "CombatMap.h"
 #include "CombatEvent.h"
 #include "Tile.h"
@@ -22,10 +22,9 @@ void CombatMap::loadAssets()
         "ground_undeployable",
         "highland",
         "highland_undeployable",
-        "spawn_point"
-    };
+        "spawn_point"};
 
-    for (auto tileTexture: tileTextures)
+    for (auto tileTexture : tileTextures)
     {
         game->load(TEXTURE, tileTexture, "tiles/" + tileTexture + ".png");
     }
@@ -50,6 +49,6 @@ void CombatMap::render(sf::RenderWindow &window)
     }
 }
 
-void CombatMap::handleCombatEvent(CombatEvent event)
+void CombatMap::handleCombatEvent(const CombatEvent &event)
 {
 }

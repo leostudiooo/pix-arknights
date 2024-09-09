@@ -83,6 +83,7 @@ public:
 		this->position[0] = position[0];
 		this->position[1] = position[1];
 	}
+	unsigned int getCost() const { return deployCost; }
 	void deploy(int x, int y);
 	void retreat();
 	~Operator();

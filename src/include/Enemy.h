@@ -14,11 +14,13 @@ class Enemy: protected Figure
 {
 private:
 	const EnemyType type;
-	const int moveSpeed; // in pixels per frame
-	const int collisionBox[4] = {16, 16, 0, 32}; // {right, left, bottom, top}, based on the bottom-center of the enemy sprite (32*32 px)
+	int moveSpeed; // in pixels per frame
+	int collisionBox[4] = {8, 8, 0, 16}; // {right, left, bottom, top}, based on the bottom-center of the enemy sprite (16*16 px)
 
 	int position[2];
 	int direction[2];
+
+	const int killReward = 3;
 
 	// Enemy image[3]: 32*32 px, status {regular, move, attack}
 
@@ -30,5 +32,6 @@ public:
 		this->direction[0] = direction[0];
 		this->direction[1] = direction[1];
 	}
+	unsigned int getReward() const { return killReward; }
 	~Enemy();
 };
