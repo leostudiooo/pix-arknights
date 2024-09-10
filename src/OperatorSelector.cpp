@@ -31,7 +31,7 @@ OperatorSelector::OperatorSelector(std::shared_ptr<Combat> combat, std::shared_p
 		auto block = std::make_shared<OperatorSelectorBlock>(preview, sf::Vector2f(posX, 92), opInfoStr, game->getFont("font_small"));
 		selectorBlocks.push_back(block);
 		std::clog << "Created selector block for " << opName << " at " << posX << std::endl;
-		posX -= 20;
+		posX -= 17;
 	}
 }
 
