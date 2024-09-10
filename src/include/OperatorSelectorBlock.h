@@ -13,7 +13,7 @@ protected:
 	sf::RectangleShape undeployableMask;
 	sf::Vector2f position;
 	bool isSelected = false;
-	bool undeployable = false;
+	bool undeployable = true;
 
 public:
 	OperatorSelectorBlock() = default;

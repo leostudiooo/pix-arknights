@@ -20,7 +20,7 @@ OperatorSelector::OperatorSelector(std::shared_ptr<Combat> combat, std::shared_p
 	bgBar.setFillColor(sf::Color(0x22222299));
 	bgBar.setSize(sf::Vector2f(192, 16));
 	
-	int posX = 192 - 16;
+	int posX = 192 - 18;
 	for(auto &op : operatorData)
 	{
 		std::string opName = op["name"];
@@ -28,10 +28,10 @@ OperatorSelector::OperatorSelector(std::shared_ptr<Combat> combat, std::shared_p
 		unsigned int opCost = op["cost"];
 		std::string opInfoStr = opBranchStr[opBranch] + " " + std::to_string(opCost);
 		std::shared_ptr<sf::Texture> preview = game->getTexture(opName + "_preview");
-		auto block = std::make_shared<OperatorSelectorBlock>(preview, sf::Vector2f(posX, 92), opInfoStr, game->getFont("main_font"));
+		auto block = std::make_shared<OperatorSelectorBlock>(preview, sf::Vector2f(posX, 92), opInfoStr, game->getFont("font_small"));
 		selectorBlocks.push_back(block);
 		std::clog << "Created selector block for " << opName << " at " << posX << std::endl;
-		posX -= 16;
+		posX -= 20;
 	}
 }
 
@@ -67,6 +67,10 @@ void OperatorSelector::handleEvent(const sf::Event &event)
 
 void OperatorSelector::update()
 {
+	for (auto &block : selectorBlocks)
+	{
+		block->update();
+	}
 }
 
 void OperatorSelector::render(sf::RenderWindow &window)

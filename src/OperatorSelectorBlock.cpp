@@ -12,9 +12,9 @@ OperatorSelectorBlock::OperatorSelectorBlock(std::shared_ptr<sf::Texture> previe
 	previewImg.setPosition(position);
 
 	opInfo.setFont(*font);
-	opInfo.setCharacterSize(5);
-	opInfo.setFillColor(sf::Color(0xdddddddff));
-	opInfo.setPosition(position + sf::Vector2f(1, 1));
+	opInfo.setCharacterSize(8);
+	opInfo.setFillColor(sf::Color::White);
+	opInfo.setPosition(position + sf::Vector2f(1, -5));
 	opInfo.setString(opInfoStr);
 
 	undeployableMask.setPosition(position);
@@ -39,14 +39,14 @@ void OperatorSelectorBlock::update()
 		position.y = 92 - 6;
 		edgeShape.setPosition(position);
 		previewImg.setPosition(position);
-		opInfo.setPosition(position + sf::Vector2f(1, 1));
+		opInfo.setPosition(position + sf::Vector2f(1, 14));
 	}
 	else
 	{
 		position.y = 92;
 		edgeShape.setPosition(position);
 		previewImg.setPosition(position);
-		opInfo.setPosition(position + sf::Vector2f(1, 1));
+		opInfo.setPosition(position + sf::Vector2f(1, -5));
 	}
 }
 
