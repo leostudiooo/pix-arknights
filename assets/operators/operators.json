@@ -29,8 +29,8 @@
 			"attackDamage": 183,
 			"attackInterval": 60,
 			"defenseAmount": 57,
-			"type": 3,
-			"branch": 0,
+			"type": 1,
+			"branch": 4,
 			"blockNumber": 1,
 			"attackRange": [
 				[-1, 0], [0, 0], [1, 0],
@@ -53,8 +53,8 @@
 			"attackDamage": 171,
 			"attackInterval": 60,
 			"defenseAmount": 58,
-			"type": 3,
-			"branch": 0,
+			"type": 1,
+			"branch": 4,
 			"blockNumber": 1,
 			"attackRange": [
 				[-1, 0], [0, 0], [1, 0],
@@ -76,8 +76,8 @@
 			"attackDamage": 179,
 			"attackInterval": 72,
 			"defenseAmount": 234,
-			"type": 2,
-			"branch": 0,
+			"type": 0,
+			"branch": 2,
 			"blockNumber": 3,
 			"attackRange": [
 				         [0, 0]
@@ -96,8 +96,8 @@
 			"attackDamage": 159,
 			"attackInterval": 171,
 			"defenseAmount": 66,
-			"type": 4,
-			"branch": 0,
+			"type": 1,
+			"branch": 3,
 			"blockNumber": 1,
 			"attackRange": [
 				[-1, 0], [0, 0], [1, 0],
