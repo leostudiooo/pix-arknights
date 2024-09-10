@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-OperatorSelectorBlock::OperatorSelectorBlock(const std::string &opName, std::shared_ptr<sf::Texture> preview, const sf::Vector2f position, const std::string opInfoStr, std::shared_ptr<sf::Font> font) : position(position), opName(opName)
+OperatorSelectorBlock::OperatorSelectorBlock(const std::string &opName, const unsigned int opCost, std::shared_ptr<sf::Texture> preview, const sf::Vector2f position, const std::string opInfoStr, std::shared_ptr<sf::Font> font) : position(position), opName(opName), opCost(opCost)
 {
 	edgeShape.setPosition(position);
 	edgeShape.setSize(sf::Vector2f(16, 16));

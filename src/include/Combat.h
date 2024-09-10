@@ -30,6 +30,9 @@ protected:
 	std::string combatName;
 	nlohmann::json combatData;
 
+	double currCost;
+	double returnRate;
+
 	std::vector<std::shared_ptr<Operator> > operators;
 	std::vector<std::shared_ptr<Enemy> > enemies;
 
@@ -46,6 +49,9 @@ public:
 	void playMusic() override;
 
 	CombatStatus getCombatStatus() const { return status; }
+
+	double getCurrCost() const { return currCost; }
+	void setCurrCost(double cost) { currCost = cost; }
 
 	void createEvent(const CombatEvent &event) { eventQueue.push(event); }
 	void handleCombatEvent(const CombatEvent &event);

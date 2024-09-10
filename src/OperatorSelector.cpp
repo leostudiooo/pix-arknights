@@ -28,7 +28,7 @@ OperatorSelector::OperatorSelector(std::shared_ptr<Combat> combat, std::shared_p
 		unsigned int opCost = op["cost"];
 		std::string opInfoStr = opBranchStr[opBranch] + " " + std::to_string(opCost);
 		std::shared_ptr<sf::Texture> preview = game->getTexture(opName + "_preview");
-		auto block = std::make_shared<OperatorSelectorBlock>(preview, sf::Vector2f(posX, 92), opInfoStr, game->getFont("font_small"));
+		auto block = std::make_shared<OperatorSelectorBlock>(opName, opCost, preview, sf::Vector2f(posX, 92), opInfoStr, game->getFont("font_small"));
 		selectorBlocks.push_back(block);
 		std::clog << "Created selector block for " << opName << " at " << posX << std::endl;
 		posX -= 17;
@@ -74,18 +74,22 @@ void OperatorSelector::update()
 {
 	for (auto &block : selectorBlocks)
 	{
-		block->update();
+		if (combat->getCurrCost() < block->getOpCost())
+			block->setUndeployable(true);
+		else
+			block->setUndeployable(false);
+		
 		if (block->getSelected() && !selecting)
 		{
 			selecting = true;
-			block->getOpName();
-			combat->createEvent(CombatEvent(CombatEventType::OPERATOR_PREDEPLOY)); // ?
+			std::clog << "Operator " << block->getOpName() << " selected" << std::endl;
 		}
 		else if (!block->getSelected() && selecting)
 		{
 			selecting = false;
-			combat->createEvent(CombatEvent(CombatEventType::OPERATOR_CANCEL_PREDEPLOY));
+			std::clog << "Operator " << block->getOpName() << " deselected" << std::endl;
 		}
+		block->update();
 	}
 }
 

@@ -24,8 +24,9 @@ void Combat::initComponents()
 	components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], shared_from_this(), game));
 
 	int startupCost = combatData["cost"]["startup"];
-	double returnRate = combatData["cost"]["returnRate"];
-	components.push_back(std::make_shared<CostIndicator>(startupCost, returnRate, shared_from_this(), game));
+	currCost = startupCost;
+	returnRate = combatData["cost"]["returnRate"];
+	components.push_back(std::make_shared<CostIndicator>(shared_from_this(), game));
 
 	components.push_back(std::make_shared<CombatProgress>(11, 3, shared_from_this(), game));
 
@@ -63,6 +64,11 @@ void Combat::handleEvent(const sf::Event &event)
 
 void Combat::update()
 {
+	currCost += returnRate;
+	if (currCost < 0)
+		currCost = 0;
+	if (currCost > 99)
+		currCost = 99;
 	while (!eventQueue.empty())
 	{
 		auto event = eventQueue.front();

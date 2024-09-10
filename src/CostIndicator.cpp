@@ -1,7 +1,7 @@
 #include "CostIndicator.h"
 #include "Combat.h"
 
-CostIndicator::CostIndicator(const double startupCost, const double returnRate, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game) : CombatComponent(combat, game), currCost(startupCost), returnRate(returnRate)
+CostIndicator::CostIndicator(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game) : CombatComponent(combat, game)
 {
 	indicatorBackground.setSize(sf::Vector2f(32, 9));
 	indicatorBackground.setFillColor(sf::Color(0x22222299));
@@ -19,12 +19,7 @@ void CostIndicator::handleEvent(const sf::Event &event)
 
 void CostIndicator::update()
 {
-	currCost += returnRate;
-	if (currCost < 0)
-		currCost = 0;
-	if (currCost > 99)
-		currCost = 99;
-	indicatorText.setString("Cost " + std::to_string(int(floor(currCost))));
+	indicatorText.setString("Cost " + std::to_string(int(combat->getCurrCost())));
 }
 
 void CostIndicator::render(sf::RenderWindow &window)
