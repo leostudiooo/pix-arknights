@@ -126,7 +126,7 @@ void OperatorSelector::update()
         }
         else
         {
-            std::clog << "Operator " << newSelectedOperatorName << " deselected" << std::endl;
+            std::clog << "Operator deselected" << std::endl;
         }
     }
 }
