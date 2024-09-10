@@ -72,25 +72,63 @@ void OperatorSelector::handleEvent(const sf::Event &event)
 
 void OperatorSelector::update()
 {
-	for (auto &block : selectorBlocks)
-	{
-		if (combat->getCurrCost() < block->getOpCost())
-			block->setUndeployable(true);
-		else
-			block->setUndeployable(false);
-		
-		if (block->getSelected() && !selecting)
-		{
-			selecting = true;
-			std::clog << "Operator " << block->getOpName() << " selected" << std::endl;
-		}
-		else if (!block->getSelected() && selecting)
-		{
-			selecting = false;
-			std::clog << "Operator " << block->getOpName() << " deselected" << std::endl;
-		}
-		block->update();
-	}
+    bool wasSelected = selecting;  // 记录之前的选中状态
+    bool anySelected = false;  // 用于标记是否有干员块被选中
+    std::string newSelectedOperatorName;  // 用于记录新选中的干员名称
+
+    // 遍历所有干员块
+    for (auto &block : selectorBlocks)
+    {
+        // 更新是否可部署状态
+        if (combat->getCurrCost() < block->getOpCost())
+            block->setUndeployable(true);
+        else
+            block->setUndeployable(false);
+
+        bool isCurrentlySelected = block->getSelected();
+
+        if (isCurrentlySelected)
+        {
+            // 记录新选中的干员名称
+            newSelectedOperatorName = block->getOpName();
+            anySelected = true;
+
+            // 取消其他干员块的选中状态
+            for (auto &otherBlock : selectorBlocks)
+            {
+                if (otherBlock != block && otherBlock->getSelected())
+                {
+                    otherBlock->setSelected(false);
+                }
+            }
+
+            // 设置当前选中状态
+            selecting = true;
+        }
+        else
+        {
+            // 设置当前选中状态
+            if (selecting && !anySelected)
+            {
+                selecting = false;
+            }
+        }
+
+        block->update();
+    }
+
+    // 发送状态变化的消息
+    if (selecting != wasSelected)
+    {
+        if (selecting)
+        {
+            std::clog << "Operator " << newSelectedOperatorName << " selected" << std::endl;
+        }
+        else
+        {
+            std::clog << "Operator " << newSelectedOperatorName << " deselected" << std::endl;
+        }
+    }
 }
 
 void OperatorSelector::render(sf::RenderWindow &window)
