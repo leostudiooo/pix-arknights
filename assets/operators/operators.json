@@ -18,10 +18,10 @@
 			"deployCost": 18,
 			"redeployInterval": 3000,
 			"textures": [
-				"operators/Thorns/idle.png",
-				"operators/Thorns/attack.png"
+				"Thorns/idle.png",
+				"Thorns/attack.png"
 			],
-			"preview": "operators/Thorns/preview.png"
+			"preview": "Thorns/preview.png"
 		},
 		{
 			"name": "Exusiai",
@@ -41,10 +41,10 @@
 			"deployCost": 12,
 			"redeployInterval": 3000,
 			"textures": [
-				"operators/Exusiai/idle.png",
-				"operators/Exusiai/attack.png"
+				"Exusiai/idle.png",
+				"Exusiai/attack.png"
 			],
-			"preview": "operators/Exusiai/preview.png"
+			"preview": "Exusiai/preview.png"
 
 		},
 		{
@@ -65,10 +65,10 @@
 			"deployCost": 11,
 			"redeployInterval": 3000,
 			"textures": [
-				"operators/Platinum/idle.png",
-				"operators/Platinum/attack.png"
+				"Platinum/idle.png",
+				"Platinum/attack.png"
 			],
-			"preview": "operators/Platinum/preview.png"
+			"preview": "Platinum/preview.png"
 		},
 		{
 			"name": "Gummy",
@@ -85,13 +85,13 @@
 			"deployCost": 11,
 			"redeployInterval": 3000,
 			"textures": [
-				"operators/Gummy/idle.png",
-				"operators/Gummy/attack.png"
+				"Gummy/idle.png",
+				"Gummy/attack.png"
 			],
-			"preview": "operators/Gummy/preview.png"
+			"preview": "Gummy/preview.png"
 		},
 		{
-			"name": "gavial",
+			"name": "Gavial",
 			"maxHealth": 851,
 			"attackDamage": 159,
 			"attackInterval": 171,
@@ -108,10 +108,10 @@
 			"deployCost": 16,
 			"redeployInterval": 3000,
 			"textures": [
-				"operators/gavial/idle.png",
-				"operators/gavial/attack.png"
+				"Gavial/idle.png",
+				"Gavial/attack.png"
 			],
-			"preview": "operators/gavial/preview.png"
+			"preview": "Gavial/preview.png"
 		}
 	]
 }
