@@ -63,6 +63,11 @@ void OperatorSelector::loadAssets()
 
 void OperatorSelector::handleEvent(const sf::Event &event)
 {
+	for (auto &block : selectorBlocks)
+	{
+		block->setMousePosition(game->getMousePosition());
+		block->handleEvent(event);
+	}
 }
 
 void OperatorSelector::update()
@@ -70,6 +75,17 @@ void OperatorSelector::update()
 	for (auto &block : selectorBlocks)
 	{
 		block->update();
+		if (block->getSelected() && !selecting)
+		{
+			selecting = true;
+			block->getOpName();
+			combat->createEvent(CombatEvent(CombatEventType::OPERATOR_PREDEPLOY)); // ?
+		}
+		else if (!block->getSelected() && selecting)
+		{
+			selecting = false;
+			combat->createEvent(CombatEvent(CombatEventType::OPERATOR_CANCEL_PREDEPLOY));
+		}
 	}
 }
 

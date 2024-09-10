@@ -8,6 +8,7 @@ class Enemy;
 enum CombatEventType
 {
 	OPERATOR_PREDEPLOY,
+	OPERATOR_CANCEL_PREDEPLOY,
 	OPERATOR_DEPLOY,
 	OPERATOR_ATTACK,
 	OPERATOR_RETREAT,
@@ -27,6 +28,11 @@ protected:
 public:
 	CombatEvent() = default;
 	~CombatEvent() = default;
+
+	CombatEvent(CombatEventType type) : type(type) {}
+	CombatEvent(CombatEventType type, std::shared_ptr<Operator> opIv) : type(type), operatorInvolved(opIv) {}
+	CombatEvent(CombatEventType type, std::shared_ptr<Enemy> enIv) : type(type), enemyInvolved(enIv) {}
+	CombatEvent(CombatEventType type, std::shared_ptr<Operator> opIv, std::shared_ptr<Enemy> enIv) : type(type), operatorInvolved(opIv), enemyInvolved(enIv) {}
 
 	CombatEventType getType() const { return type; }
 	
