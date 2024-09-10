@@ -28,7 +28,7 @@ OperatorSelector::OperatorSelector(std::shared_ptr<Combat> combat, std::shared_p
 		unsigned int opCost = op["cost"];
 		std::string opInfoStr = opBranchStr[opBranch] + " " + std::to_string(opCost);
 		std::shared_ptr<sf::Texture> preview = game->getTexture(opName + "_preview");
-		auto block = std::make_shared<OperatorSelectorBlock>(preview, sf::Vector2f(posX, 92), opInfoStr, game->getFont("font_small"));
+		auto block = std::make_shared<OperatorSelectorBlock>(opName, opCost, preview, sf::Vector2f(posX, 92), opInfoStr, game->getFont("font_small"));
 		selectorBlocks.push_back(block);
 		std::clog << "Created selector block for " << opName << " at " << posX << std::endl;
 		posX -= 17;
@@ -63,14 +63,72 @@ void OperatorSelector::loadAssets()
 
 void OperatorSelector::handleEvent(const sf::Event &event)
 {
+	for (auto &block : selectorBlocks)
+	{
+		block->setMousePosition(game->getMousePosition());
+		block->handleEvent(event);
+	}
 }
 
 void OperatorSelector::update()
 {
-	for (auto &block : selectorBlocks)
-	{
-		block->update();
-	}
+    bool wasSelected = selecting;  // 记录之前的选中状态
+    bool anySelected = false;  // 用于标记是否有干员块被选中
+    std::string newSelectedOperatorName;  // 用于记录新选中的干员名称
+
+    // 遍历所有干员块
+    for (auto &block : selectorBlocks)
+    {
+        // 更新是否可部署状态
+        if (combat->getCurrCost() < block->getOpCost())
+            block->setUndeployable(true);
+        else
+            block->setUndeployable(false);
+
+        bool isCurrentlySelected = block->getSelected();
+
+        if (isCurrentlySelected)
+        {
+            // 记录新选中的干员名称
+            newSelectedOperatorName = block->getOpName();
+            anySelected = true;
+
+            // 取消其他干员块的选中状态
+            for (auto &otherBlock : selectorBlocks)
+            {
+                if (otherBlock != block && otherBlock->getSelected())
+                {
+                    otherBlock->setSelected(false);
+                }
+            }
+
+            // 设置当前选中状态
+            selecting = true;
+        }
+        else
+        {
+            // 设置当前选中状态
+            if (selecting && !anySelected)
+            {
+                selecting = false;
+            }
+        }
+
+        block->update();
+    }
+
+    // 发送状态变化的消息
+    if (selecting != wasSelected)
+    {
+        if (selecting)
+        {
+            std::clog << "Operator " << newSelectedOperatorName << " selected" << std::endl;
+        }
+        else
+        {
+            std::clog << "Operator " << newSelectedOperatorName << " deselected" << std::endl;
+        }
+    }
 }
 
 void OperatorSelector::render(sf::RenderWindow &window)

@@ -12,15 +12,26 @@
 // Forward declaration
 class CombatComponent;
 
+enum CombatStatus
+{
+	NORMAL,
+	PREDEPLOY
+};
+
 class Combat : public UserInterface, public std::enable_shared_from_this<Combat>
 {
 protected:
 	sf::Sprite background;
 	std::vector<std::shared_ptr<CombatComponent>> components;
+
 	std::queue<CombatEvent> eventQueue;
+	CombatStatus status = NORMAL;
 
 	std::string combatName;
 	nlohmann::json combatData;
+
+	double currCost;
+	double returnRate;
 
 	std::vector<std::shared_ptr<Operator> > operators;
 	std::vector<std::shared_ptr<Enemy> > enemies;
@@ -37,5 +48,11 @@ public:
 	void render(sf::RenderWindow &window) override;
 	void playMusic() override;
 
+	CombatStatus getCombatStatus() const { return status; }
+
+	double getCurrCost() const { return currCost; }
+	void setCurrCost(double cost) { currCost = cost; }
+
 	void createEvent(const CombatEvent &event) { eventQueue.push(event); }
+	void handleCombatEvent(const CombatEvent &event);
 };

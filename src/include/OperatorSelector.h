@@ -17,9 +17,10 @@ protected:
 	std::vector<std::shared_ptr<OperatorSelectorBlock> > selectorBlocks;
 	const std::string opBranchStr[4] = { "D", "G", "M", "S" };
 	nlohmann::json operatorData;
+
+	bool selecting = false;
 	
 public:
-	OperatorSelector() = default;
 	OperatorSelector(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 
 	void setCombat(std::shared_ptr<Combat> combat) { this->combat = combat; }

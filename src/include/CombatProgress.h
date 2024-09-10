@@ -16,10 +16,8 @@ protected:
 	sf::Text progressText, killCountText, defendPointLifeText;
 
 public:
-	CombatProgress() = default;
-	~CombatProgress() = default;
-
 	CombatProgress(unsigned int totalEnemies, unsigned int defendPointLife, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
+	~CombatProgress() = default;
 
 	void handleEvent(const sf::Event &event) override;
 	void update() override;

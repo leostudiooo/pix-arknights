@@ -1,6 +1,8 @@
 #include "OperatorSelectorBlock.h"
 
-OperatorSelectorBlock::OperatorSelectorBlock(std::shared_ptr<sf::Texture> preview, const sf::Vector2f position, const std::string opInfoStr, std::shared_ptr<sf::Font> font) : position(position)
+#include <iostream>
+
+OperatorSelectorBlock::OperatorSelectorBlock(const std::string &opName, const unsigned int opCost, std::shared_ptr<sf::Texture> preview, const sf::Vector2f position, const std::string opInfoStr, std::shared_ptr<sf::Font> font) : position(position), opName(opName), opCost(opCost)
 {
 	edgeShape.setPosition(position);
 	edgeShape.setSize(sf::Vector2f(16, 16));
@@ -22,19 +24,9 @@ OperatorSelectorBlock::OperatorSelectorBlock(std::shared_ptr<sf::Texture> previe
 	undeployableMask.setFillColor(sf::Color(0x00000088));
 }
 
-void OperatorSelectorBlock::setSelected(bool selected)
-{
-	isSelected = selected;
-}
-
-bool OperatorSelectorBlock::getSelected() const
-{
-	return isSelected;
-}
-
 void OperatorSelectorBlock::update()
 {
-	if (isSelected)
+	if (isSelected && !undeployable)
 	{
 		position.y = 92 - 6;
 		edgeShape.setPosition(position);
@@ -61,4 +53,12 @@ void OperatorSelectorBlock::render(sf::RenderWindow &window)
 
 void OperatorSelectorBlock::handleEvent(const sf::Event &event)
 {
+	if (event.mouseButton.button == sf::Mouse::Left)
+	{
+		if (isMouseOver())
+		{
+			if(!isPressed) isSelected = !isSelected;
+			isPressed = !isPressed;
+		}
+	}
 }

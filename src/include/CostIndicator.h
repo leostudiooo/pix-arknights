@@ -6,16 +6,13 @@
 class CostIndicator: public CombatComponent
 {
 protected:
-	double currCost;
-	double returnRate;
 	sf::RectangleShape indicatorBackground;
 	sf::Text indicatorText;
 	sf::Vector2f position = sf::Vector2f(160, 78);
 public:
-	CostIndicator() = default;
+	CostIndicator(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 	~CostIndicator() = default;
 
-	CostIndicator(const double startupCost, const double returnRate, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 
 	void setCombat(std::shared_ptr<Combat> combat) { this->combat = combat; }
 
