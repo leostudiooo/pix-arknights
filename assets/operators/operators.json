@@ -15,7 +15,7 @@
 				         [0, 2],
 				         [0, 3]
 			],
-			"deployCost": 18,
+			"cost": 18,
 			"redeployInterval": 3000,
 			"textures": [
 				"Thorns/idle.png",
@@ -30,7 +30,7 @@
 			"attackInterval": 60,
 			"defenseAmount": 57,
 			"type": 1,
-			"branch": 4,
+			"branch": 3,
 			"blockNumber": 1,
 			"attackRange": [
 				[-1, 0], [0, 0], [1, 0],
@@ -38,7 +38,7 @@
 				[-1, 2], [0, 2], [1, 2],
 				         [0, 3]
 			],
-			"deployCost": 12,
+			"cost": 12,
 			"redeployInterval": 3000,
 			"textures": [
 				"Exusiai/idle.png",
@@ -54,7 +54,7 @@
 			"attackInterval": 60,
 			"defenseAmount": 58,
 			"type": 1,
-			"branch": 4,
+			"branch": 3,
 			"blockNumber": 1,
 			"attackRange": [
 				[-1, 0], [0, 0], [1, 0],
@@ -62,7 +62,7 @@
 				[-1, 2], [0, 2], [1, 2],
 				         [0, 3]
 			],
-			"deployCost": 11,
+			"cost": 11,
 			"redeployInterval": 3000,
 			"textures": [
 				"Platinum/idle.png",
@@ -77,12 +77,12 @@
 			"attackInterval": 72,
 			"defenseAmount": 234,
 			"type": 0,
-			"branch": 2,
+			"branch": 1,
 			"blockNumber": 3,
 			"attackRange": [
 				         [0, 0]
 			],
-			"deployCost": 11,
+			"cost": 11,
 			"redeployInterval": 3000,
 			"textures": [
 				"Gummy/idle.png",
@@ -97,7 +97,7 @@
 			"attackInterval": 171,
 			"defenseAmount": 66,
 			"type": 1,
-			"branch": 3,
+			"branch": 2,
 			"blockNumber": 1,
 			"attackRange": [
 				[-1, 0], [0, 0], [1, 0],
@@ -105,7 +105,7 @@
 				[-1, 2], [0, 2], [1, 2],
 				         [0, 3]
 			],
-			"deployCost": 16,
+			"cost": 16,
 			"redeployInterval": 3000,
 			"textures": [
 				"Gavial/idle.png",

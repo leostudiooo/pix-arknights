@@ -10,7 +10,7 @@ protected:
 	double returnRate;
 	sf::RectangleShape indicatorBackground;
 	sf::Text indicatorText;
-	sf::Vector2f position = sf::Vector2f(160, 78);
+	sf::Vector2f position = sf::Vector2f(160, 81);
 public:
 	CostIndicator() = default;
 	~CostIndicator() = default;
