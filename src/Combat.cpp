@@ -28,6 +28,8 @@ void Combat::initComponents()
 	components.push_back(std::make_shared<CostIndicator>(startupCost, returnRate, shared_from_this(), game));
 
 	components.push_back(std::make_shared<CombatProgress>(11, 3, shared_from_this(), game));
+
+	components.push_back(std::make_shared<OperatorSelector>(shared_from_this(), game));
 }
 
 void Combat::loadAssets()
@@ -47,6 +49,8 @@ void Combat::loadAssets()
 
 	game->load(MUSIC, "combat_bg_music", "combat/combat.mp3");
 	game->load(TEXTURE, "combat_bg_img", "combat/bg.png");
+
+	file.close();
 }
 
 void Combat::handleEvent(const sf::Event &event)

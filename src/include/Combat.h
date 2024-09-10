@@ -22,8 +22,8 @@ protected:
 	std::string combatName;
 	nlohmann::json combatData;
 
-	std::vector<std::shared_ptr<Operator>> operators;
-	std::vector<std::shared_ptr<Enemy>> enemies;
+	std::vector<std::shared_ptr<Operator> > operators;
+	std::vector<std::shared_ptr<Enemy> > enemies;
 
 public:
 	Combat() = default;
