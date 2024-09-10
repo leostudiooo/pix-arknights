@@ -1,0 +1,3 @@
+// FigureManager.h
+#pragma once
+
