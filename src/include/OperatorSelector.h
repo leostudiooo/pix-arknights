@@ -19,7 +19,6 @@ protected:
 	nlohmann::json operatorData;
 	
 public:
-	OperatorSelector() = default;
 	OperatorSelector(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 
 	void setCombat(std::shared_ptr<Combat> combat) { this->combat = combat; }

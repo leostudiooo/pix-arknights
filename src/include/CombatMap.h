@@ -25,7 +25,6 @@ protected:
         "defend_point"};
 
 public:
-	CombatMap() = default;
 	CombatMap(nlohmann::json mapData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 
 	void loadAssets();
