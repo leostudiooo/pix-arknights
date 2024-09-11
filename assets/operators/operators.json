@@ -10,11 +10,11 @@
 			"branch": 1,
 			"blockNumber": 2,
 			"attackRange": [
-				[-1, 0], [0, 0], [1, 0],
-				[-1, 1], [0, 1], [1, 1],
-				         [0, 2],
-				         [0, 3]
+				[1, 1, 0, 0],
+				[1, 1, 1, 1],
+				[1, 1, 0, 0]
 			],
+			"attackRangeOffset": [0, 1],
 			"cost": 18,
 			"redeployInterval": 3000,
 			"textures": [
@@ -33,11 +33,11 @@
 			"branch": 3,
 			"blockNumber": 1,
 			"attackRange": [
-				[-1, 0], [0, 0], [1, 0],
-				[-1, 1], [0, 1], [1, 1],
-				[-1, 2], [0, 2], [1, 2],
-				         [0, 3]
+				[1, 1, 1, 0],
+				[1, 1, 1, 1],
+				[1, 1, 1, 0]
 			],
+			"attackRangeOffset": [0, 1],
 			"cost": 12,
 			"redeployInterval": 3000,
 			"textures": [
@@ -57,11 +57,11 @@
 			"branch": 3,
 			"blockNumber": 1,
 			"attackRange": [
-				[-1, 0], [0, 0], [1, 0],
-				[-1, 1], [0, 1], [1, 1],
-				[-1, 2], [0, 2], [1, 2],
-				         [0, 3]
+				[1, 1, 1, 0],
+				[1, 1, 1, 1],
+				[1, 1, 1, 0]
 			],
+			"attackRangeOffset": [0, 1],
 			"cost": 11,
 			"redeployInterval": 3000,
 			"textures": [
@@ -80,8 +80,9 @@
 			"branch": 0,
 			"blockNumber": 3,
 			"attackRange": [
-				         [0, 0]
+				[1]
 			],
+			"attackRangeOffset": [0, 0],
 			"cost": 11,
 			"redeployInterval": 3000,
 			"textures": [
@@ -100,11 +101,11 @@
 			"branch": 2,
 			"blockNumber": 1,
 			"attackRange": [
-				[-1, 0], [0, 0], [1, 0],
-				[-1, 1], [0, 1], [1, 1],
-				[-1, 2], [0, 2], [1, 2],
-				         [0, 3]
+				[1, 1, 1, 0],
+				[1, 1, 1, 1],
+				[1, 1, 1, 0]
 			],
+			"attackRangeOffset": [0, 1],
 			"cost": 16,
 			"redeployInterval": 3000,
 			"textures": [
