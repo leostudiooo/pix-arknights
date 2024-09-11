@@ -1,6 +1,7 @@
 // CombatMap.cpp
 #include "CombatMap.h"
 
+#include "Combat.h"
 #include "CombatEvent.h"
 #include "Tile.h"
 
@@ -62,6 +63,14 @@ bool CombatMap::isDeployable(unsigned int opType, std::shared_ptr<Tile> tile)
 
 void CombatMap::handleEvent(const sf::Event &event)
 {
+    for (auto row : tiles)
+    {
+        for (auto tile : row)
+        {
+            tile->setMousePos(game->getMousePosition());
+            tile->handleEvent(event);
+        }
+    }
 }
 
 void CombatMap::update()
@@ -71,6 +80,20 @@ void CombatMap::update()
         for (auto tile : row)
         {
             tile->update();
+            if (tile->getTriggered())
+            {
+                std::clog << "Tile at " << tile->getTileX() << ", " << tile->getTileY() << " is triggered" << std::endl;
+                tile->setTriggered(false);
+                if (combat->getCombatStatus() == PREDEPLOY && isDeployable(currentOperator["type"], tile))
+                {
+                    json eventData;
+                    eventData = currentOperator;
+                    eventData["position"] = {tile->getTileX(), tile->getTileY()};
+                    eventData["direction"] = {1, 0};
+                    combat->createEvent(std::make_shared<CombatEvent>(OPERATOR_DEPLOY, eventData));
+                    std::clog << "Create deploy event of operator " << currentOperator["name"] << " at " << tile->getTileX() << ", " << tile->getTileY() << std::endl;
+                }
+            }
         }
     }
 }
@@ -88,31 +111,47 @@ void CombatMap::render(sf::RenderWindow &window)
 
 void CombatMap::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
-    if (event->getType() == OPERATOR_PREDEPLOY)
+    switch (event->getType())
     {
-        json eventData = event->getData();
-        unsigned int opType = eventData["type"];
-        std::clog << "CombatMap received predeploy event, opType " << opType << std::endl;
-        for (auto row : tiles)
+        case OPERATOR_PREDEPLOY:
         {
-            for (auto tile : row)
+            json eventData = event->getData();
+            currentOperator = eventData;
+            unsigned int opType = eventData["type"];
+            std::clog << "CombatMap received predeploy event, opType " << opType << std::endl;
+            for (auto row : tiles)
             {
-                if (isDeployable(opType, tile))
+                for (auto tile : row)
                 {
-                    tile->setOverlay(PREVIEW_DEPLOYABLE);
-                    std::clog << "Tile at " << tile->getTileX() << ", " << tile->getTileY() << " is deployable" << std::endl;
+                    if (isDeployable(opType, tile))
+                    {
+                        tile->setOverlay(PREVIEW_DEPLOYABLE);
+                        std::clog << "Tile at " << tile->getTileX() << ", " << tile->getTileY() << " is deployable" << std::endl;
+                    }
                 }
             }
+            break;
         }
-    }
-    else if (event->getType() == OPERATOR_CANCEL_PREDEPLOY)
-    {
-        for (auto row : tiles)
+        case OPERATOR_CANCEL_PREDEPLOY:
         {
-            for (auto tile : row)
-            {
-                tile->setOverlay(NONE);
-            }
+            for (auto row : tiles)
+                for (auto tile : row)
+                    tile->setOverlay(NONE);
+            currentOperator.clear();
+            break;
         }
+        case OPERATOR_DEPLOY:
+        {
+            for (auto row : tiles)
+                for (auto tile : row)
+                    tile->setOverlay(NONE);
+            currentOperator = event->getData();
+            auto tile = getTileAt(currentOperator["position"][0], currentOperator["position"][1]);
+            tile->setOccupied(true);
+            currentOperator.clear();
+            break;
+        }
+        default:
+            break;
     }
 }

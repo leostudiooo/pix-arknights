@@ -11,6 +11,11 @@ Tile::Tile(int typeCode, sf::Vector2f position, std::shared_ptr<sf::Texture> tex
 	visualOverlay.setSize(sf::Vector2f(12, 12));
 	visualOverlay.setFillColor(sf::Color(0x00000000));
 
+	if (type == GROUND || type == HIGHLAND)
+		isDeployable = true;
+	else
+		isDeployable = false;
+
 	std::clog << "Tile type " << type << " created at " << position.x << ", " << position.y << " by " << x << ", " << y << std::endl;
 }
 
@@ -36,13 +41,15 @@ void Tile::setOverlay(OverlayType overlayType)
 
 void Tile::update()
 {
+	if (isOccupied) isDeployable = false;
+	else if (type == GROUND || type == HIGHLAND) isDeployable = true;
 	switch(overlayType)
 	{
 		case NONE:
 			visualOverlay.setFillColor(sf::Color(0x00000000));
 			break;
 		case PREVIEW_DEPLOYABLE:
-			visualOverlay.setFillColor(sf::Color(0x57ff57bb));
+			if(isDeployable) visualOverlay.setFillColor(sf::Color(0x57ff57bb));
 			break;
 		case PREVIEW_RANGE:
 			visualOverlay.setFillColor(sf::Color(0xffab57bb));
@@ -52,6 +59,16 @@ void Tile::update()
 
 void Tile::handleEvent(const sf::Event &event)
 {
+	if (event.type == sf::Event::MouseButtonPressed)
+	{
+		if (event.mouseButton.button == sf::Mouse::Left && !isTriggered)
+		{
+			if (tileSprite.getGlobalBounds().contains(mousePos))
+			{
+				isTriggered = true;
+			}
+		}
+	}
 }
 
 void Tile::render(sf::RenderWindow &window)

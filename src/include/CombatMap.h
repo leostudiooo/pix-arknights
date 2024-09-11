@@ -23,6 +23,8 @@ protected:
         "highland_undeployable",
         "spawn_point",
         "defend_point"};
+	
+	nlohmann::json currentOperator;
 
 public:
 	CombatMap(nlohmann::json mapData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
@@ -30,6 +32,7 @@ public:
 	void loadAssets();
 
 	bool isDeployable(unsigned int opType, std::shared_ptr<Tile> tile);
+	std::shared_ptr<Tile> getTileAt(unsigned int x, unsigned int y) { return tiles[y][x]; }
 
 	void handleEvent(const sf::Event &event) override;
 	void update() override;

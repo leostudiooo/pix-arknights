@@ -32,8 +32,11 @@ private:
 
 	bool isDeployable = false;
 	bool isOccupied = false;
+	bool isTriggered = false;
 
 	unsigned int x, y;
+
+	sf::Vector2f mousePos;
 
 public:
 	Tile() = default;
@@ -52,10 +55,16 @@ public:
 	bool getIsDeployable() const;
 	void setIsDeployable(bool isDeployable);
 
+	void setMousePos(sf::Vector2f mousePos) { this->mousePos = mousePos; }
+
+	bool getTriggered() const { return isTriggered; }
+	void setTriggered(bool isTriggered) { this->isTriggered = isTriggered; }
+
+	OverlayType getOverlay() const { return overlayType; }
 	void setOverlay(OverlayType overlayType);
 
-	bool getIsOccupied() const { return isOccupied; }
-	void setIsOccupied(bool isOccupied) { this->isOccupied = isOccupied; }
+	bool getOccupied() const { return isOccupied; }
+	void setOccupied(bool isOccupied) { this->isOccupied = isOccupied; }
 
 	std::vector<unsigned int> getTilePosition() const { return {x, y}; }
 	unsigned int getTileX() const { return x; }

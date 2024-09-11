@@ -146,4 +146,23 @@ void OperatorSelector::render(sf::RenderWindow &window)
 
 void OperatorSelector::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
+    switch (event->getType())
+    {
+    case CombatEventType::OPERATOR_DEPLOY:
+    {
+        std::clog << "Operator deployed" << std::endl;
+        // remove the operator from the list
+        std::string opName = event->getData()["name"];
+        auto it = std::find_if(selectorBlocks.begin(), selectorBlocks.end(), [&opName](const std::shared_ptr<OperatorSelectorBlock> &block) {
+            return block->getOpName() == opName;
+        });
+        if (it != selectorBlocks.end())
+        {
+            selectorBlocks.erase(it);
+        }
+        break;
+    }
+    default:
+        break;
+    }
 }
