@@ -9,13 +9,14 @@
 class Operator;
 class Enemy;
 
-class FigureLayer : public CombatComponent
+class FigureLayer : public CombatComponent, public std::enable_shared_from_this<FigureLayer>
 {
 protected:
 	std::vector<std::shared_ptr<Operator> > operators;
 	std::vector<std::shared_ptr<Enemy> > enemies;
 	nlohmann::json operatorData;
 	nlohmann::json enemyData;
+	int enemyCount = 0;
 public:
 	FigureLayer(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
 

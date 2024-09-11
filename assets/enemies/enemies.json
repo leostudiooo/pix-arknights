@@ -3,7 +3,7 @@
 	[
 		{
 			"name": "Slug",
-			"speed": 0.13,
+			"moveSpeed": 0.13,
 			"maxHealth": 550,
 			"attackDamage": 130,
 			"attackInterval": 102,
@@ -12,7 +12,6 @@
 			"attackRange": [
 				[0]
 			],
-			
 			"textures": [
 				"Slug/idle.png",
 				"Slug/attack.png"
@@ -20,7 +19,7 @@
 		},
 		{
 			"name": "Soldier",
-			"speed": 0.15,
+			"moveSpeed": 0.15,
 			"maxHealth": 1650,
 			"attackDamage": 200,
 			"attackInterval": 120,
@@ -29,7 +28,6 @@
 			"attackRange": [
 				[0]
 			],
-			
 			"textures": [
 				"Soldier/idle.png",
 				"Soldier/attack.png"
@@ -37,7 +35,7 @@
 		},
 		{
 			"name": "Armed",
-			"speed": 0.13,
+			"moveSpeed": 0.13,
 			"maxHealth": 2500,
 			"attackDamage": 250,
 			"attackInterval": 120,
@@ -46,7 +44,6 @@
 			"attackRange": [
 				[0]
 			],
-			
 			"textures": [
 				"Armed/idle.png",
 				"Armed/attack.png"

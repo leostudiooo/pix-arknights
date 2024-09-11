@@ -146,7 +146,7 @@ void CombatMap::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
                 for (auto tile : row)
                     tile->setOverlay(NONE);
             currentOperator = event->getData();
-            auto tile = getTileAt(currentOperator["position"][0], currentOperator["position"][1]);
+            auto tile = getTileAt(currentOperator["tilePosition"][0], currentOperator["tilePosition"][1]);
             tile->setOccupied(true);
             currentOperator.clear();
             break;

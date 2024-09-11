@@ -21,6 +21,7 @@ class Figure : public std::enable_shared_from_this<Figure>
 {
 protected:
 	std::string name = "";
+	int id;
 	int maxHealth = 0;
 	int currentHealth = 0;
 	int attackDamage = 0;
@@ -34,6 +35,9 @@ protected:
 	std::shared_ptr<FigureLayer> figureLayer;
 
 	const sf::Vector2f _globalDrawOffset = {0, -3};
+    const sf::Vector2f _tileOrigin = { 24, 16 };
+    const int _tileSize = 16;
+	const int _figHeight = 16;
 public:
 	Figure(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer) : combat(combat), game(game), figureLayer(figureLayer) {}
 	~Figure() = default;

@@ -82,8 +82,11 @@ void FigureLayer::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 	{
 	case ENEMY_SPAWN:
 	{
-		auto enemy = std::make_shared<Enemy>(event->getData(), combat, game, shared_from_this());
+		json enemyData = event->getData();
+		enemyData["id"] = enemyCount;
+		auto enemy = std::make_shared<Enemy>(enemyData, combat, game, shared_from_this());
 		enemies.push_back(enemy);
+		enemyCount++;
 		break;
 	}
 	case OPERATOR_DEPLOY:

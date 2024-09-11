@@ -23,6 +23,9 @@ void Combat::initComponents()
 {
 	components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], shared_from_this(), game));
 
+	auto figLayer = std::make_shared<FigureLayer>(shared_from_this(), game);
+	components.push_back(figLayer);
+
 	int startupCost = combatData["cost"]["startup"];
 	currCost = startupCost;
 	returnRate = combatData["cost"]["returnRate"];

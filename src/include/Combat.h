@@ -1,4 +1,6 @@
 // Combat.h
+#pragma once
+
 #include "UserInterface.h"
 
 #include "Operator.h"
@@ -24,7 +26,7 @@ class Combat : public UserInterface, public std::enable_shared_from_this<Combat>
 {
 protected:
 	sf::Sprite background;
-	std::vector<std::shared_ptr<CombatComponent>> components;
+	std::vector<std::shared_ptr<CombatComponent> > components;
 
 	std::queue<std::shared_ptr<CombatEvent> > eventQueue;
 	CombatStatus status = INIT;

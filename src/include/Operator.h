@@ -36,6 +36,7 @@ enum OperatorBranch
 	SNIPER
 };
 
+// Status machine
 enum OperatorStatus
 {
 	OP_ST_IDLE,
@@ -93,6 +94,7 @@ private:
 	sf::Vector2f position;
 
 public:
+    Operator() = default;
 	Operator(nlohmann::json opData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);
 
 	void handleEvent(const sf::Event &event) override;

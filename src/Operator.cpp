@@ -40,10 +40,8 @@ Operator::Operator(json opData, std::shared_ptr<Combat> combat, std::shared_ptr<
 	operatorTextures[1] = game->getTexture(name + "_attack");
 	operatorSprite.setTexture(*operatorTextures[0]);
 
-	const sf::Vector2f _tileOrigin = {24, 16};
-	const int _tileSize = 16;
-	position.x = tilePosition[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x;
-	position.y = tilePosition[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y;
+	position.x = tilePosition[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x - _figHeight;
+	position.y = tilePosition[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y - _figHeight;
 
 	direction[0] = 1;
 	direction[1] = 0;
