@@ -28,7 +28,12 @@ void Combat::initComponents()
 	returnRate = combatData["cost"]["returnRate"];
 	components.push_back(std::make_shared<CostIndicator>(shared_from_this(), game));
 
-	components.push_back(std::make_shared<CombatProgress>(11, 3, shared_from_this(), game));
+	int totalEnemies = 0;
+	for (auto &fragment : combatData["enemies"]["fragments"])
+		for(auto & enemy : fragment["actions"])
+			totalEnemies++;
+	int defendPointLife = combatData["defendPointLife"];
+	components.push_back(std::make_shared<CombatProgress>(totalEnemies, defendPointLife, shared_from_this(), game));
 
 	components.push_back(std::make_shared<OperatorSelector>(shared_from_this(), game));
 }
@@ -106,10 +111,31 @@ void Combat::playMusic()
 
 void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
-	if (event->getType() == CombatEventType::OPERATOR_PREDEPLOY)
+	switch (event->getType())
+	{
+	case CombatEventType::OPERATOR_PREDEPLOY:
+	{
 		status = PREDEPLOY;
-	else if (event->getType() == CombatEventType::OPERATOR_SELECT_DIRECTION)
+		break;
+	}
+	case CombatEventType::OPERATOR_SELECT_DIRECTION:
+	{
 		status = PREDEPLOY_SELECT_DIRECTION;
-	else if (event->getType() == CombatEventType::OPERATOR_DEPLOY ||CombatEventType::OPERATOR_CANCEL_PREDEPLOY)
+		break;
+	}
+	case CombatEventType::OPERATOR_CANCEL_PREDEPLOY:
+	{
 		status = NORMAL;
+		break;
+	}
+	case CombatEventType::OPERATOR_DEPLOY:
+	{
+		status = NORMAL;
+		unsigned int opCost = event->getData()["cost"];
+		currCost -= opCost;
+		break;
+	}
+	default:
+		break;
+	}
 }
