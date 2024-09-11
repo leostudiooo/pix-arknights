@@ -29,6 +29,8 @@ public:
 
 	void loadAssets();
 
+	bool isDeployable(unsigned int opType, std::shared_ptr<Tile> tile);
+
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;

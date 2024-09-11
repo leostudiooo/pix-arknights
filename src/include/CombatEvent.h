@@ -13,6 +13,7 @@ enum CombatEventType
 {
 	OPERATOR_PREDEPLOY,
 	OPERATOR_CANCEL_PREDEPLOY,
+	OPERATOR_SELECT_DIRECTION,
 	OPERATOR_DEPLOY,
 	OPERATOR_ATTACK,
 	OPERATOR_RETREAT,
@@ -41,6 +42,7 @@ public:
 	CombatEvent(CombatEventType type, std::shared_ptr<Operator> opIv, std::shared_ptr<Enemy> enIv) : type(type), operatorInvolved(opIv), enemyInvolved(enIv) {}
 
 	CombatEventType getType() const { return type; }
+	json getData() const { return data; }
 	
 	void setInvolvedOperator(std::shared_ptr<Operator> opIv) { operatorInvolved = opIv; }
 	void setInvolvedEnemy(std::shared_ptr<Enemy> enIv) { enemyInvolved = enIv; }

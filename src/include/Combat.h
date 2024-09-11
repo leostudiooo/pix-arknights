@@ -15,7 +15,8 @@ class CombatComponent;
 enum CombatStatus
 {
 	NORMAL,
-	PREDEPLOY
+	PREDEPLOY,
+	PREDEPLOY_SELECT_DIRECTION
 };
 
 class Combat : public UserInterface, public std::enable_shared_from_this<Combat>

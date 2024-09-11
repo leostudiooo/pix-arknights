@@ -31,6 +31,9 @@ private:
 	sf::RectangleShape visualOverlay;
 
 	bool isDeployable = false;
+	bool isOccupied = false;
+
+	unsigned int x, y;
 
 public:
 	Tile() = default;
@@ -42,13 +45,21 @@ public:
 	// 3 - HIGHLAND, not deployable
 	// 4 - SPAWN_POINT, not deployable
 	// 5 - DEFEND_POINT, not deployable
-	Tile(int typeCode, sf::Vector2f position, std::shared_ptr<sf::Texture> texture);
+	Tile(int typeCode, sf::Vector2f position, std::shared_ptr<sf::Texture> texture, unsigned int x, unsigned int y);
 
 	TileType getType() const;
 
 	bool getIsDeployable() const;
 	void setIsDeployable(bool isDeployable);
+
 	void setOverlay(OverlayType overlayType);
+
+	bool getIsOccupied() const { return isOccupied; }
+	void setIsOccupied(bool isOccupied) { this->isOccupied = isOccupied; }
+
+	std::vector<unsigned int> getTilePosition() const { return {x, y}; }
+	unsigned int getTileX() const { return x; }
+	unsigned int getTileY() const { return y; }
 
 	void update();
 	void handleEvent(const sf::Event &event);

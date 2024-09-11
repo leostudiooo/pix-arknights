@@ -73,7 +73,7 @@ void Combat::update()
 	{
 		auto event = eventQueue.front();
 		eventQueue.pop();
-
+		handleCombatEvent(event);
 		for (auto component : components)
 		{
 			component->handleCombatEvent(event);
@@ -108,6 +108,8 @@ void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 	if (event->getType() == CombatEventType::OPERATOR_PREDEPLOY)
 		status = PREDEPLOY;
+	else if (event->getType() == CombatEventType::OPERATOR_SELECT_DIRECTION)
+		status = PREDEPLOY_SELECT_DIRECTION;
 	else if (event->getType() == CombatEventType::OPERATOR_DEPLOY ||CombatEventType::OPERATOR_CANCEL_PREDEPLOY)
 		status = NORMAL;
 }

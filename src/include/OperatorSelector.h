@@ -27,6 +27,13 @@ public:
 
 	void loadAssets();
 
+	auto findOperator(const std::string &name)
+	{
+		return std::find_if(operatorData.begin(), operatorData.end(), [&name](const nlohmann::json &op) {
+			return op["name"] == name;
+		});
+	}
+
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;
