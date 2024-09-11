@@ -3,9 +3,9 @@
 		{
 			"name": "Thorns",
 			"maxHealth": 1096,
-			"attackDamage": 296,
+			"attackDamage": 352,
 			"attackInterval": 78,
-			"defenseAmount": 191,
+			"defenseAmount": 261,
 			"type": 0,
 			"branch": 1,
 			"blockNumber": 2,
@@ -15,7 +15,7 @@
 				[1, 1, 0, 0]
 			],
 			"attackRangeOffset": [0, 1],
-			"cost": 18,
+			"cost": 16,
 			"redeployInterval": 3000,
 			"textures": [
 				"Thorns/idle.png",
@@ -113,7 +113,7 @@
 				"Gavial/attack.png"
 			],
 			"preview": "Gavial/preview.png"
-		}
+		},
 		{
 			"name": "Skadi",
 			"maxHealth": 1521,
@@ -124,18 +124,16 @@
 			"branch": 1,
 			"blockNumber": 1,
 			"attackRange": [
-				[1, 1, 0, 0],
-				[1, 1, 1, 1],
-				[1, 1, 0, 0]
+				[1, 1]
 			],
-			"attackRangeOffset": [0, 1],
-			"cost": 18,
+			"attackRangeOffset": [0, 0],
+			"cost": 15,
 			"redeployInterval": 3000,
 			"textures": [
-				"Thorns/idle.png",
-				"Thorns/attack.png"
+				"Skadi/idle.png",
+				"Skadi/attack.png"
 			],
-			"preview": "Thorns/preview.png"
-		},
+			"preview": "Skadi/preview.png"
+		}
 	]
 }
