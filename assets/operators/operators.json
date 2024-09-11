@@ -114,5 +114,28 @@
 			],
 			"preview": "Gavial/preview.png"
 		}
+		{
+			"name": "Skadi",
+			"maxHealth": 1521,
+			"attackDamage": 565,
+			"attackInterval": 78,
+			"defenseAmount": 156,
+			"type": 0,
+			"branch": 1,
+			"blockNumber": 1,
+			"attackRange": [
+				[1, 1, 0, 0],
+				[1, 1, 1, 1],
+				[1, 1, 0, 0]
+			],
+			"attackRangeOffset": [0, 1],
+			"cost": 18,
+			"redeployInterval": 3000,
+			"textures": [
+				"Thorns/idle.png",
+				"Thorns/attack.png"
+			],
+			"preview": "Thorns/preview.png"
+		},
 	]
 }
