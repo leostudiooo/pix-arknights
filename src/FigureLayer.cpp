@@ -17,10 +17,10 @@ FigureLayer::FigureLayer(std::shared_ptr<Combat> combat, std::shared_ptr<Game> g
 void FigureLayer::loadAssets()
 {
 	std::ifstream operatorFile(game->getAssetPrefix() + "operators/operators.json");
-	operatorData = json::parse(operatorFile);
-	operatorData = operatorData["operators"];
+	operatorDatabase = json::parse(operatorFile);
+	operatorDatabase = operatorDatabase["operators"];
 	operatorFile.close();
-	for (auto &op : operatorData)
+	for (auto &op : operatorDatabase)
 	{
 		std::string opName = op["name"];
 		game->load(TEXTURE, opName + "_idle", "operators/" + opName + "/idle.png");
@@ -28,16 +28,15 @@ void FigureLayer::loadAssets()
 	}
 
 	std::ifstream enemyFile(game->getAssetPrefix() + "enemies/enemies.json");
-	enemyData = json::parse(enemyFile);
-	enemyData = enemyData["enemies"];
+	enemyDatabase = json::parse(enemyFile);
+	enemyDatabase = enemyDatabase["enemies"];
 	enemyFile.close();
-	for (auto &en : enemyData)
+	for (auto &en : enemyDatabase)
 	{
 		std::string enName = en["name"];
 		game->load(TEXTURE, enName + "_idle", "enemies/" + enName + "/idle.png");
 		game->load(TEXTURE, enName + "_attack", "enemies/" + enName + "/attack.png");
 	}
-
 }
 
 void FigureLayer::handleEvent(const sf::Event &event)
@@ -82,8 +81,10 @@ void FigureLayer::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 	{
 	case ENEMY_SPAWN:
 	{
-		json enemyData = event->getData();
-		enemyData["id"] = enemyCount;
+        int enType = event->getData()["enemyType"];
+        auto enemyData = enemyDatabase[enType];
+		enemyData["route"] = event->getData()["route"];
+		std::clog << "Enemy " << enemyCount << " spawned" << std::endl;
 		auto enemy = std::make_shared<Enemy>(enemyData, combat, game, shared_from_this());
 		enemies.push_back(enemy);
 		enemyCount++;
@@ -91,8 +92,9 @@ void FigureLayer::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 	}
 	case OPERATOR_DEPLOY:
 	{
-		auto operatorData = event->getData();
-		std::string opName = operatorData["name"];
+		std::string operatorName = event->getData()["name"];
+		json operatorData = std::find_if(operatorDatabase.begin(), operatorDatabase.end(), [operatorName](json &op) { return op["name"] == operatorName; }).value();
+        operatorData["tilePosition"] = event->getData()["tilePosition"];
 		auto op = std::make_shared<Operator>(operatorData, combat, game, shared_from_this());
 		operators.push_back(op);
 		break;

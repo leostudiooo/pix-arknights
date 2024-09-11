@@ -93,6 +93,8 @@ private:
 	sf::Sprite operatorSprite;
 	sf::Vector2f position;
 
+	OperatorStatus status = OP_ST_IDLE;
+
 public:
     Operator() = default;
 	Operator(nlohmann::json opData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);

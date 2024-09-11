@@ -1,10 +1,13 @@
 #include "Enemy.h"
 #include "FigureLayer.h"
 
+#include <iostream>
+
 using json = nlohmann::json;
 
 Enemy::Enemy(json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer) : Figure(combat, game, figureLayer)
 {
+    std::clog << enemyData << std::endl;
 	name = enemyData["name"];
 	maxHealth = enemyData["maxHealth"];
 	currentHealth = maxHealth;
@@ -30,8 +33,8 @@ Enemy::Enemy(json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Gam
 	enemySprite.setTexture(*enemyTextures[0]);
 
 	auto spawnPt = route.front();
-	position.x = spawnPt[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x - _figHeight;
-	position.y = spawnPt[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y - _figHeight;
+	position.x = spawnPt[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x;
+	position.y = spawnPt[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y;
 }
 
 void Enemy::handleEvent(const sf::Event &event)

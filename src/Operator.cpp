@@ -5,6 +5,7 @@ using json = nlohmann::json;
 
 Operator::Operator(json opData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer) : Figure(combat, game, figureLayer)
 {
+    std::clog << opData << std::endl;
 	name = opData["name"];
 	maxHealth = opData["maxHealth"];
 	currentHealth = maxHealth;
@@ -25,7 +26,8 @@ Operator::Operator(json opData, std::shared_ptr<Combat> combat, std::shared_ptr<
 		std::vector<bool> rowVector;
 		for (auto &cell : row)
 		{
-			rowVector.push_back(cell);
+            int cellBool = cell;
+			rowVector.push_back(bool(cellBool));
 		}
 		attackRange.push_back(rowVector);
 	}
@@ -36,12 +38,12 @@ Operator::Operator(json opData, std::shared_ptr<Combat> combat, std::shared_ptr<
 	tilePosition.push_back(opData["tilePosition"][0]);
 	tilePosition.push_back(opData["tilePosition"][1]);
 
-	operatorTextures[0] = game->getTexture(name + "_idle");
-	operatorTextures[1] = game->getTexture(name + "_attack");
+    operatorTextures.push_back(game->getTexture(name + "_idle"));
+    operatorTextures.push_back(game->getTexture(name + "_attack"));
 	operatorSprite.setTexture(*operatorTextures[0]);
 
-	position.x = tilePosition[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x - _figHeight;
-	position.y = tilePosition[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y - _figHeight;
+	position.x = tilePosition[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x;
+	position.y = tilePosition[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y;
 
 	direction[0] = 1;
 	direction[1] = 0;

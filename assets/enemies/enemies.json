@@ -3,6 +3,7 @@
 	[
 		{
 			"name": "Slug",
+			"type": 0,
 			"moveSpeed": 0.13,
 			"maxHealth": 550,
 			"attackDamage": 130,
@@ -19,6 +20,7 @@
 		},
 		{
 			"name": "Soldier",
+			"type": 1,
 			"moveSpeed": 0.15,
 			"maxHealth": 1650,
 			"attackDamage": 200,
@@ -35,6 +37,7 @@
 		},
 		{
 			"name": "Armed",
+			"type": 2,
 			"moveSpeed": 0.13,
 			"maxHealth": 2500,
 			"attackDamage": 250,
