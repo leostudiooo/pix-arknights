@@ -1,6 +1,10 @@
 // CombatEvent.h
 #pragma once
 
+#include "json.hpp"
+
+using json = nlohmann::json;
+
 // Forward declarations
 class Operator;
 class Enemy;
@@ -25,11 +29,13 @@ protected:
 	CombatEventType type;
 	std::shared_ptr<Operator> operatorInvolved;
 	std::shared_ptr<Enemy> enemyInvolved;
+	json data;
 public:
 	CombatEvent() = default;
 	~CombatEvent() = default;
 
 	CombatEvent(CombatEventType type) : type(type) {}
+	CombatEvent(CombatEventType type, json data) : type(type), data(data) {}
 	CombatEvent(CombatEventType type, std::shared_ptr<Operator> opIv) : type(type), operatorInvolved(opIv) {}
 	CombatEvent(CombatEventType type, std::shared_ptr<Enemy> enIv) : type(type), enemyInvolved(enIv) {}
 	CombatEvent(CombatEventType type, std::shared_ptr<Operator> opIv, std::shared_ptr<Enemy> enIv) : type(type), operatorInvolved(opIv), enemyInvolved(enIv) {}

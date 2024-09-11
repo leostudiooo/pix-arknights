@@ -38,6 +38,6 @@ void CombatProgress::render(sf::RenderWindow &window)
 	window.draw(killCountText);
 }
 
-void CombatProgress::handleCombatEvent(const CombatEvent &event)
+void CombatProgress::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 }

@@ -65,6 +65,6 @@ void CombatMap::render(sf::RenderWindow &window)
     }
 }
 
-void CombatMap::handleCombatEvent(const CombatEvent &event)
+void CombatMap::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 }

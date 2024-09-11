@@ -20,7 +20,7 @@ public:
 	virtual void handleEvent(const sf::Event &event) = 0;
 	virtual void update() = 0;
 	virtual void render(sf::RenderWindow &window) = 0;
-	virtual void handleCombatEvent(const CombatEvent &event) = 0;
+	virtual void handleCombatEvent(const std::shared_ptr<CombatEvent> event) = 0;
 
 	void setCombat(std::shared_ptr<Combat> combat) { this->combat = combat; }
 };

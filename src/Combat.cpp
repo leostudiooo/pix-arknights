@@ -104,10 +104,10 @@ void Combat::playMusic()
 	std::clog << "Playing combat music" << std::endl;
 }
 
-void Combat::handleCombatEvent(const CombatEvent &event)
+void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
-	if (event.getType() == CombatEventType::OPERATOR_PREDEPLOY)
+	if (event->getType() == CombatEventType::OPERATOR_PREDEPLOY)
 		status = PREDEPLOY;
-	else if (event.getType() == CombatEventType::OPERATOR_DEPLOY ||CombatEventType::OPERATOR_CANCEL_PREDEPLOY)
+	else if (event->getType() == CombatEventType::OPERATOR_DEPLOY ||CombatEventType::OPERATOR_CANCEL_PREDEPLOY)
 		status = NORMAL;
 }

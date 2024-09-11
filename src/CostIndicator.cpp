@@ -28,7 +28,7 @@ void CostIndicator::render(sf::RenderWindow &window)
 	window.draw(indicatorText);
 }
 
-void CostIndicator::handleCombatEvent(const CombatEvent &event)
+void CostIndicator::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 	// switch (event.getType())
 	// {

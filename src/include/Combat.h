@@ -24,7 +24,7 @@ protected:
 	sf::Sprite background;
 	std::vector<std::shared_ptr<CombatComponent>> components;
 
-	std::queue<CombatEvent> eventQueue;
+	std::queue<std::shared_ptr<CombatEvent> > eventQueue;
 	CombatStatus status = NORMAL;
 
 	std::string combatName;
@@ -53,6 +53,6 @@ public:
 	double getCurrCost() const { return currCost; }
 	void setCurrCost(double cost) { currCost = cost; }
 
-	void createEvent(const CombatEvent &event) { eventQueue.push(event); }
-	void handleCombatEvent(const CombatEvent &event);
+	void createEvent(const std::shared_ptr<CombatEvent> event) { eventQueue.push(event); }
+	void handleCombatEvent(const std::shared_ptr<CombatEvent> event);
 };

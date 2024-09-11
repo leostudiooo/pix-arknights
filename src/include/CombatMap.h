@@ -32,7 +32,7 @@ public:
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;
-	void handleCombatEvent(const CombatEvent &event) override;
+	void handleCombatEvent(const std::shared_ptr<CombatEvent> event) override;
 
 	void playMusic() override {} // useless
 };

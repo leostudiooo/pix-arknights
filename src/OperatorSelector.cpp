@@ -140,6 +140,6 @@ void OperatorSelector::render(sf::RenderWindow &window)
 	}
 }
 
-void OperatorSelector::handleCombatEvent(const CombatEvent &event)
+void OperatorSelector::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 }
