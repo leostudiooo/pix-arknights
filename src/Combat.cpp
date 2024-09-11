@@ -3,6 +3,7 @@
 
 #include "CombatProgress.h"
 #include "CombatMap.h"
+#include "FigureLayer.h"
 #include "CostIndicator.h"
 #include "OperatorSelector.h"
 
@@ -23,8 +24,7 @@ void Combat::initComponents()
 {
 	components.push_back(std::make_shared<CombatMap>(combatData["combatMap"], shared_from_this(), game));
 
-	auto figLayer = std::make_shared<FigureLayer>(shared_from_this(), game);
-	components.push_back(figLayer);
+	components.push_back(std::make_shared<FigureLayer>(shared_from_this(), game));
 
 	int startupCost = combatData["cost"]["startup"];
 	currCost = startupCost;
