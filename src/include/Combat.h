@@ -14,6 +14,7 @@ class CombatComponent;
 
 enum CombatStatus
 {
+	INIT,
 	NORMAL,
 	PREDEPLOY,
 	PREDEPLOY_SELECT_DIRECTION
@@ -26,7 +27,7 @@ protected:
 	std::vector<std::shared_ptr<CombatComponent>> components;
 
 	std::queue<std::shared_ptr<CombatEvent> > eventQueue;
-	CombatStatus status = NORMAL;
+	CombatStatus status = INIT;
 
 	std::string combatName;
 	nlohmann::json combatData;
@@ -34,8 +35,9 @@ protected:
 	double currCost;
 	double returnRate;
 
-	std::vector<std::shared_ptr<Operator> > operators;
-	std::vector<std::shared_ptr<Enemy> > enemies;
+	unsigned int frameCounter = 0;
+
+	std::queue <nlohmann::json> enemyQueue;
 
 public:
 	Combat() = default;

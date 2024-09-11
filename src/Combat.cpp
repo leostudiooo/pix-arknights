@@ -29,13 +29,27 @@ void Combat::initComponents()
 	components.push_back(std::make_shared<CostIndicator>(shared_from_this(), game));
 
 	int totalEnemies = 0;
+	int spawnFrame = 0;
 	for (auto &fragment : combatData["enemies"]["fragments"])
-		for(auto & enemy : fragment["actions"])
+	{
+		for (auto &enemy : fragment["actions"])
+		{
 			totalEnemies++;
+			unsigned int delay = enemy["delay"];
+			spawnFrame += delay;
+			json enemyData = enemy;
+			enemyData["route"] = fragment["route"];
+			enemyData["spawnFrame"] = spawnFrame;
+			enemyQueue.push(enemyData);
+		}
+	}
 	int defendPointLife = combatData["defendPointLife"];
 	components.push_back(std::make_shared<CombatProgress>(totalEnemies, defendPointLife, shared_from_this(), game));
 
 	components.push_back(std::make_shared<OperatorSelector>(shared_from_this(), game));
+
+	status = NORMAL;
+	frameCounter = 0;
 }
 
 void Combat::loadAssets()
@@ -69,24 +83,39 @@ void Combat::handleEvent(const sf::Event &event)
 
 void Combat::update()
 {
-	currCost += returnRate;
-	if (currCost < 0)
-		currCost = 0;
-	if (currCost > 99)
-		currCost = 99;
-	while (!eventQueue.empty())
+	if (status != INIT)
 	{
-		auto event = eventQueue.front();
-		eventQueue.pop();
-		handleCombatEvent(event);
+		frameCounter++;
+		if (!enemyQueue.empty())
+		{
+			auto enemy = enemyQueue.front();
+			if (frameCounter == enemy["spawnFrame"])
+			{
+				enemyQueue.pop();
+				createEvent(std::make_shared<CombatEvent>(CombatEventType::ENEMY_SPAWN, enemy));
+			}
+		}
+
+		currCost += returnRate;
+		if (currCost < 0)
+			currCost = 0;
+		if (currCost > 99)
+			currCost = 99;
+		
+		while (!eventQueue.empty())
+		{
+			auto event = eventQueue.front();
+			eventQueue.pop();
+			handleCombatEvent(event);
+			for (auto component : components)
+			{
+				component->handleCombatEvent(event);
+			}
+		}
 		for (auto component : components)
 		{
-			component->handleCombatEvent(event);
+			component->update();
 		}
-	}
-	for (auto component : components)
-	{
-		component->update();
 	}
 }
 

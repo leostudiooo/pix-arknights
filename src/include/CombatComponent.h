@@ -9,7 +9,7 @@
 class Combat;
 class CombatEvent;
 
-class CombatComponent : public UserInterface
+class CombatComponent : public UserInterface, public std::enable_shared_from_this<CombatComponent>
 {
 protected:
 	std::shared_ptr<Combat> combat;
@@ -23,4 +23,5 @@ public:
 	virtual void handleCombatEvent(const std::shared_ptr<CombatEvent> event) = 0;
 
 	void setCombat(std::shared_ptr<Combat> combat) { this->combat = combat; }
+	std::shared_ptr<CombatComponent> getThis() { return shared_from_this(); }
 };
