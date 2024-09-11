@@ -10,12 +10,12 @@
 			"defenseAmount": 0,
 			"blockNumber": 1,
 			"attackRange": [
-				[0, 0]
+				[0]
 			],
 			
 			"textures": [
-				"enemies/Slug/idle.png",
-				"enemies/Slug/attack.png"
+				"Slug/idle.png",
+				"Slug/attack.png"
 			]
 		},
 		{
@@ -27,12 +27,12 @@
 			"defenseAmount": 100,
 			"blockNumber": 1,
 			"attackRange": [
-				[0, 0]
+				[0]
 			],
 			
 			"textures": [
-				"enemies/Soldier/idle.png",
-				"enemies/Soldier/attack.png"
+				"Soldier/idle.png",
+				"Soldier/attack.png"
 			]
 		},
 		{
@@ -44,12 +44,12 @@
 			"defenseAmount":400,
 			"blockNumber": 1,
 			"attackRange": [
-				[0, 0]
+				[0]
 			],
 			
 			"textures": [
-				"enemies/Armed/idle.png",
-				"enemies/Armed/attack.png"
+				"Armed/idle.png",
+				"Armed/attack.png"
 			]
 		}
 	]
