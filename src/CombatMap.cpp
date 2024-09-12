@@ -88,7 +88,7 @@ void CombatMap::update()
                 {
                     json eventData;
                     eventData = currentOperator;
-                    eventData["position"] = {tile->getTileX(), tile->getTileY()};
+                    eventData["tilePosition"] = {tile->getTileX(), tile->getTileY()};
                     eventData["direction"] = {1, 0};
                     combat->createEvent(std::make_shared<CombatEvent>(OPERATOR_DEPLOY, eventData));
                     std::clog << "Create deploy event of operator " << currentOperator["name"] << " at " << tile->getTileX() << ", " << tile->getTileY() << std::endl;
@@ -146,7 +146,7 @@ void CombatMap::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
                 for (auto tile : row)
                     tile->setOverlay(NONE);
             currentOperator = event->getData();
-            auto tile = getTileAt(currentOperator["position"][0], currentOperator["position"][1]);
+            auto tile = getTileAt(currentOperator["tilePosition"][0], currentOperator["tilePosition"][1]);
             tile->setOccupied(true);
             currentOperator.clear();
             break;

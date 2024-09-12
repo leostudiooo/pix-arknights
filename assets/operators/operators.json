@@ -80,7 +80,9 @@
 			"branch": 0,
 			"blockNumber": 3,
 			"attackRange": [
-				[1]
+				[0, 0, 0],
+				[1, 0, 0],
+				[0, 0, 0]
 			],
 			"attackRangeOffset": [0, 0],
 			"cost": 11,
