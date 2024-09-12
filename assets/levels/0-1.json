@@ -68,7 +68,7 @@
 	"cost":
 	{
 		"startup": 8,
-		"returnRate": 0.05
+		"returnRate": 0.02
 	},
 	"defendPointLife": 3
 }
