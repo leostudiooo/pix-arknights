@@ -3,12 +3,12 @@
 		"main_menu_bg_img": {
 			"type": 0,
 			"name": "main_menu_bg_img",
-			"path": "main_menu/holiday.png"
+			"path": "main_menu/garden.png"
 		},
 		"main_music": {
 			"type": 1,
 			"name": "main_bg_music",
-			"path": "main_menu/ready.mp3"
+			"path": "main_menu/garden.mp3"
 		},
 		"assistant_img": {
 			"type": 0,
