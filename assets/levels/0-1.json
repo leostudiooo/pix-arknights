@@ -23,12 +23,12 @@
 					[0, 1]
 				],
 				"actions": {
-					"1": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 60 },
+					"1": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 300 },
 					"2": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 300 },
-					"3": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 30 },
+					"3": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 120 },
 					"4": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 600 },
-					"5": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 30 },
-					"6": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 30 }
+					"5": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 120 },
+					"6": { "type": "spawn", "enemyType": 0, "position": [8, 2], "delay": 120 }
 				}
 			},
 			"2": {
@@ -70,5 +70,5 @@
 		"startup": 8,
 		"returnRate": 0.02
 	},
-	"defendPointLife": 3
+	"defendPointLife": 15
 }
