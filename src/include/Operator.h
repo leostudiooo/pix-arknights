@@ -96,9 +96,10 @@ private:
 	OperatorStatus status = OP_ST_IDLE;
 
 public:
-    Operator() = default;
 	Operator(nlohmann::json opData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);
 
+	int getId() const { return id; }
+	
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;

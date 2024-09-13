@@ -25,7 +25,7 @@ class Enemy: protected Figure
 {
 private:
 	EnemyType type;
-	double moveSpeed; // in pixels per frame
+	float moveSpeed; // in pixels per frame
 	int collisionBox[4] = {8, 8, 0, 16}; // {right, left, bottom, top}, based on the bottom-center of the enemy sprite (16*16 px)
 
 	sf::Vector2f position;
@@ -40,16 +40,22 @@ private:
 	std::shared_ptr<sf::Texture> enemyTextures[2];
 	sf::Sprite enemySprite;
 
-    std::queue<std::vector<int> > route;
+    std::queue<std::vector<int> > route; // route to follow, in tile coordinates
+
+	sf::Vector2f currFrmPos;
+	sf::Vector2f nextFrmPos;
+	sf::Vector2f nextTileAbsPos;
 public:
-    Enemy() = default;
 	Enemy(nlohmann::json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);
 	~Enemy() = default;
 
 	unsigned int getReward() const { return killReward; }
+	int getId() const { return id; }
 
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;
 	void handleCombatEvent(const std::shared_ptr<CombatEvent> event);
+
+	void updatePosition();
 };

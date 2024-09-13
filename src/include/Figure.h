@@ -46,4 +46,13 @@ public:
 	virtual void update() = 0;
 	virtual void render(sf::RenderWindow &) = 0;
 	std::shared_ptr<Figure> getThis() { return shared_from_this(); }
+
+	sf::Vector2f tileToWorld(const sf::Vector2i &tilePos) const
+	{
+		return sf::Vector2f(tilePos.x * _tileSize + _tileOrigin.x + _globalDrawOffset.x, tilePos.y * _tileSize + _tileOrigin.y + _globalDrawOffset.y);
+	}
+	sf::Vector2f tileToWorld(const std::vector<int> &tilePos) const
+	{
+		return sf::Vector2f(tilePos[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x, tilePos[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y);
+	}
 };
