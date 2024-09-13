@@ -22,12 +22,15 @@ enum CombatEventType
 	ENEMY_ATTACK,
 	ENEMY_DEATH,
 	ENEMY_REACH_GOAL,
+	MISSION_ACCOMPLISHED,
+	MISSION_FAILED
 };
 
 class CombatEvent
 {
 protected:
 	CombatEventType type;
+	std::shared_ptr<Figure> figureInvolved;
 	std::shared_ptr<Operator> operatorInvolved;
 	std::shared_ptr<Enemy> enemyInvolved;
 	json data;
@@ -37,6 +40,7 @@ public:
 
 	CombatEvent(CombatEventType type) : type(type) {}
 	CombatEvent(CombatEventType type, json data) : type(type), data(data) {}
+	CombatEvent(CombatEventType type, std::shared_ptr<Figure> figIv) : type(type), figureInvolved(figIv) {}
 	CombatEvent(CombatEventType type, std::shared_ptr<Operator> opIv) : type(type), operatorInvolved(opIv) {}
 	CombatEvent(CombatEventType type, std::shared_ptr<Enemy> enIv) : type(type), enemyInvolved(enIv) {}
 	CombatEvent(CombatEventType type, std::shared_ptr<Operator> opIv, std::shared_ptr<Enemy> enIv) : type(type), operatorInvolved(opIv), enemyInvolved(enIv) {}

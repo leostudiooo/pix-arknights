@@ -2,6 +2,7 @@
 
 #include "Operator.h"
 #include "Enemy.h"
+#include "Figure.h"
 #include "Combat.h"
 
 #include <fstream>
@@ -97,6 +98,16 @@ void FigureLayer::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
         operatorData["tilePosition"] = event->getData()["tilePosition"];
 		auto op = std::make_shared<Operator>(operatorData, combat, game, shared_from_this());
 		operators.push_back(op);
+		break;
+	}
+	case ENEMY_REACH_GOAL:
+	{
+		int id = event->getData()["id"];
+		auto it = std::find_if(enemies.begin(), enemies.end(), [id](std::shared_ptr<Enemy> &en) { return en->getId() == id; });
+		if (it != enemies.end())
+		{
+			enemies.erase(it);
+		}
 		break;
 	}
 	default:

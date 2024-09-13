@@ -13,6 +13,7 @@ protected:
 	const sf::Vector2f position = sf::Vector2f(60, 0);
 	sf::RectangleShape progressBackground;
 	unsigned int killCount = 0, totalEnemies, defendPointLife;
+	bool isPerfect = true;
 	sf::Text progressText, killCountText, defendPointLifeText;
 
 public:
