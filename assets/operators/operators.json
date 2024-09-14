@@ -84,7 +84,7 @@
 				[1, 0, 0],
 				[0, 0, 0]
 			],
-			"attackRangeOffset": [0, 0],
+			"attackRangeOffset": [0, 1],
 			"cost": 11,
 			"redeployInterval": 3000,
 			"textures": [
