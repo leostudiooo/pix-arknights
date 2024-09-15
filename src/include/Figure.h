@@ -34,6 +34,8 @@ protected:
 	std::shared_ptr<Game> game;
 	std::shared_ptr<FigureLayer> figureLayer;
 
+	sf::RectangleShape healthBar;
+
 	const sf::Vector2f _globalDrawOffset = {0, -3};
     const sf::Vector2f _tileOrigin = { 24, 16 };
     const int _tileSize = 16;
