@@ -40,6 +40,7 @@ enum OperatorBranch
 enum OperatorStatus
 {
 	OP_ST_IDLE,
+	OP_ST_BLOCKING,
 	OP_ST_ATTACK
 };
 
@@ -93,12 +94,32 @@ private:
 	sf::Sprite operatorSprite;
 	sf::Vector2f position;
 
+	std::vector<std::shared_ptr<Enemy> > inRangeEnemies;
+
 	OperatorStatus status = OP_ST_IDLE;
 
 public:
 	Operator(nlohmann::json opData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);
 
 	int getId() const { return id; }
+
+	void addInRangeEnemy(std::shared_ptr<Enemy> en) { inRangeEnemies.push_back(en); }
+	void removeInRangeEnemy(int id)
+	{
+		auto it = std::find_if(inRangeEnemies.begin(), inRangeEnemies.end(), [id](const std::shared_ptr<Enemy>& enemy) {
+			return enemy && enemy->getId() == id;
+		});
+		if (it != inRangeEnemies.end()) {
+			inRangeEnemies.erase(it);
+		}
+	}
+	void removeInRangeEnemy(std::shared_ptr<Enemy> en)
+	{
+		auto it = std::find(inRangeEnemies.begin(), inRangeEnemies.end(), en);
+		if (it != inRangeEnemies.end()) {
+			inRangeEnemies.erase(it);
+		}
+	}
 	
 	void handleEvent(const sf::Event &event) override;
 	void update() override;

@@ -32,7 +32,8 @@ public:
 	void loadAssets();
 
 	bool isDeployable(unsigned int opType, std::shared_ptr<Tile> tile);
-	std::shared_ptr<Tile> getTileAt(unsigned int x, unsigned int y) { return tiles[y][x]; }
+	bool isLegalTile(unsigned int x, unsigned int y) { return (x < tiles[0].size() && y < tiles.size()); }
+	std::shared_ptr<Tile> getTileAt(unsigned int x, unsigned int y) { if (isLegalTile(x, y)) return tiles[y][x]; }
 
 	void handleEvent(const sf::Event &event) override;
 	void update() override;

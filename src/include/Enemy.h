@@ -18,6 +18,7 @@ enum EnemyStatus
 {
 	EN_ST_IDLE,
 	EN_ST_MOVE,
+	EN_ST_BLOCKED,
 	EN_ST_ATTACK
 };
 
