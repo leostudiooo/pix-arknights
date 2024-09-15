@@ -95,7 +95,7 @@ void Combat::update()
 			if (frameCounter == enemy["spawnFrame"])
 			{
 				enemyQueue.pop();
-				createEvent(std::make_shared<CombatEvent>(CombatEventType::ENEMY_SPAWN, enemy));
+				createEvent(std::make_shared<CombatEvent>(ENEMY_SPAWN, enemy));
 			}
 		}
 
@@ -145,22 +145,22 @@ void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 	switch (event->getType())
 	{
-	case CombatEventType::OPERATOR_PREDEPLOY:
+	case OPERATOR_PREDEPLOY:
 	{
 		status = PREDEPLOY;
 		break;
 	}
-	case CombatEventType::OPERATOR_SELECT_DIRECTION:
+	case OPERATOR_SELECT_DIRECTION:
 	{
 		status = PREDEPLOY_SELECT_DIRECTION;
 		break;
 	}
-	case CombatEventType::OPERATOR_CANCEL_PREDEPLOY:
+	case OPERATOR_CANCEL_PREDEPLOY:
 	{
 		status = NORMAL;
 		break;
 	}
-	case CombatEventType::OPERATOR_DEPLOY:
+	case OPERATOR_DEPLOY:
 	{
 		status = NORMAL;
 		unsigned int opCost = event->getData()["cost"];

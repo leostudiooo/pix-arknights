@@ -32,12 +32,12 @@ void CostIndicator::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 	// switch (event.getType())
 	// {
-	// 	case CombatEventType::OPERATOR_DEPLOY:
+	// 	case OPERATOR_DEPLOY:
 	// 	{
 	// 		currCost -= event.getOperator()->getCost();
 	// 		break;
 	// 	}
-	// 	case CombatEventType::ENEMY_DEATH:
+	// 	case ENEMY_DEATH:
 	// 	{
 	// 		currCost += event.getEnemy()->getReward();
 	// 		break;

@@ -140,6 +140,10 @@ void CombatMap::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
             currentOperator.clear();
             break;
         }
+        case OPERATOR_SELECT_DIRECTION:
+        {
+            break;
+        }
         case OPERATOR_DEPLOY:
         {
             for (auto row : tiles)

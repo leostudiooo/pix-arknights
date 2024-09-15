@@ -125,12 +125,12 @@ void OperatorSelector::update()
             std::clog << "Operator " << newSelectedOperatorName << " selected" << std::endl;
             json selectedOp = *findOperator(newSelectedOperatorName);
             std::clog << selectedOp << std::endl;
-            combat->createEvent(std::make_shared<CombatEvent>(CombatEventType::OPERATOR_PREDEPLOY, selectedOp));
+            combat->createEvent(std::make_shared<CombatEvent>(OPERATOR_PREDEPLOY, selectedOp));
         }
         else
         {
             std::clog << "Operator deselected" << std::endl;
-            combat->createEvent(std::make_shared<CombatEvent>(CombatEventType::OPERATOR_CANCEL_PREDEPLOY));
+            combat->createEvent(std::make_shared<CombatEvent>(OPERATOR_CANCEL_PREDEPLOY));
         }
     }
 }
@@ -148,7 +148,7 @@ void OperatorSelector::handleCombatEvent(const std::shared_ptr<CombatEvent> even
 {
     switch (event->getType())
     {
-    case CombatEventType::OPERATOR_DEPLOY:
+    case OPERATOR_DEPLOY:
     {
         std::clog << "Operator deployed" << std::endl;
         // remove the operator from the list
