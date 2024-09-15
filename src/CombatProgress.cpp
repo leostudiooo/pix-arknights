@@ -30,12 +30,7 @@ void CombatProgress::update()
 	defendPointLifeText.setString("HP " + std::to_string(defendPointLife));
 	progressBackground.setSize(sf::Vector2f(72 * (float)killCount / totalEnemies, 10));
 	if (defendPointLife == 0) combat->createEvent(std::make_shared<CombatEvent>(MISSION_FAILED));
-	else if (killCount == totalEnemies)
-	{
-		json data;
-		data["isPerfect"] = isPerfect;
-		combat->createEvent(std::make_shared<CombatEvent>(MISSION_ACCOMPLISHED));
-	}
+	else if (killCount == totalEnemies) combat->createEvent(std::make_shared<CombatEvent>(MISSION_ACCOMPLISHED));
 }
 
 void CombatProgress::render(sf::RenderWindow &window)
@@ -56,7 +51,6 @@ void CombatProgress::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 	case ENEMY_REACH_GOAL:
 		defendPointLife--;
 		killCount++;
-		isPerfect = false;
 		break;
 	default:
 		break;

@@ -19,7 +19,8 @@ enum CombatStatus
 	INIT,
 	NORMAL,
 	PREDEPLOY,
-	PREDEPLOY_SELECT_DIRECTION
+	PREDEPLOY_SELECT_DIRECTION,
+	SWITCH_TO_SETTLEMENT
 };
 
 class Combat : public UserInterface, public std::enable_shared_from_this<Combat>
@@ -38,6 +39,10 @@ protected:
 	double returnRate;
 
 	unsigned int frameCounter = 0;
+
+	bool perfectConduction = true;
+	bool noDeath = true;
+	bool missionFailed = false;
 
 	std::queue <nlohmann::json> enemyQueue;
 

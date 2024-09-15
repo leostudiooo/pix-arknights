@@ -86,7 +86,9 @@ void Combat::handleEvent(const sf::Event &event)
 
 void Combat::update()
 {
-	if (status != INIT)
+	switch (status)
+	{
+	case NORMAL:
 	{
 		frameCounter++;
 		if (!enemyQueue.empty())
@@ -104,7 +106,7 @@ void Combat::update()
 			currCost = 0;
 		if (currCost > 99)
 			currCost = 99;
-		
+
 		while (!eventQueue.empty())
 		{
 			auto event = eventQueue.front();
@@ -119,6 +121,25 @@ void Combat::update()
 		{
 			component->update();
 		}
+		break;
+	}
+	case SWITCH_TO_SETTLEMENT:
+	{
+		unsigned int rating;
+		if (missionFailed) rating = 0;
+		else
+		{
+			rating = 3;
+			if (!perfectConduction) rating--;
+			if (!noDeath) rating--;
+		}
+		// switching to settlement
+		break;
+	}
+	default:
+	{
+		break;
+	}
 	}
 }
 
@@ -165,6 +186,27 @@ void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 		status = NORMAL;
 		unsigned int opCost = event->getData()["cost"];
 		currCost -= opCost;
+		break;
+	}
+	case ENEMY_REACH_GOAL:
+	{
+		perfectConduction = false;
+		break;
+	}
+	case OPERATOR_DEATH:
+	{
+		noDeath = false;
+		break;
+	}
+	case MISSION_FAILED:
+	{
+		status = SWITCH_TO_SETTLEMENT;
+		missionFailed = true;
+		break;
+	}
+	case MISSION_ACCOMPLISHED:
+	{
+		status = SWITCH_TO_SETTLEMENT;
 		break;
 	}
 	default:
