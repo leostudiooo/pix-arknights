@@ -112,6 +112,7 @@ void Combat::update()
 		while (!eventQueue.empty())
 		{
 			auto event = eventQueue.front();
+			// std::clog << "At frame \033[1;31m" << frameCounter << "\033[0m, handling event " << event->getType() << std::endl;
 			eventQueue.pop();
 			handleCombatEvent(event);
 			for (auto component : components)

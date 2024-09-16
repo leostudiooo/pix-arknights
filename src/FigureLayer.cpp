@@ -54,16 +54,20 @@ std::shared_ptr<Enemy> FigureLayer::getEnemyById(int id)
 
 void FigureLayer::removeOperatorById(int id)
 {
-	operators.erase(std::remove_if(operators.begin(), operators.end(), [id](std::shared_ptr<Operator> &op)
-								   { return op && op->getId() == id; }),
-					operators.end());
+	auto it = std::find_if(operators.begin(), operators.end(), [id](std::shared_ptr<Operator> &op) { return op->getId() == id; });
+	if (it != operators.end())
+	{
+		operators.erase(it);
+	}
 }
 
 void FigureLayer::removeEnemyById(int id)
 {
-	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [id](std::shared_ptr<Enemy> &en)
-								 { return en && en->getId() == id; }),
-				  enemies.end());
+	auto it = std::find_if(enemies.begin(), enemies.end(), [id](std::shared_ptr<Enemy> &en) { return en->getId() == id; });
+	if (it != enemies.end())
+	{
+		enemies.erase(it);
+	}
 }
 
 void FigureLayer::handleEvent(const sf::Event &event)
