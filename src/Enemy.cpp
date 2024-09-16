@@ -100,6 +100,9 @@ void Enemy::update()
 			attackCounter = 0;
 			break;
 		}
+	}
+	else
+	{
 		json eventData;
 		eventData["id"] = id;
 		eventData["reward"] = killReward;
