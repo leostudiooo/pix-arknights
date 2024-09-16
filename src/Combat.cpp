@@ -89,6 +89,8 @@ void Combat::update()
 	switch (status)
 	{
 	case NORMAL:
+	case PREDEPLOY:
+	case PREDEPLOY_SELECT_DIRECTION:
 	{
 		frameCounter++;
 		if (!enemyQueue.empty())
