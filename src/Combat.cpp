@@ -169,6 +169,7 @@ void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 	case OPERATOR_PREDEPLOY:
 	{
 		status = PREDEPLOY;
+		std::clog << "Combat received predeploy event" << std::endl;
 		break;
 	}
 	case OPERATOR_SELECT_DIRECTION:
@@ -179,6 +180,7 @@ void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 	case OPERATOR_CANCEL_PREDEPLOY:
 	{
 		status = NORMAL;
+		std::clog << "Combat received cancel predeploy event" << std::endl;
 		break;
 	}
 	case OPERATOR_DEPLOY:
