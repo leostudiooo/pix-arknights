@@ -44,12 +44,16 @@ enum OperatorStatus
 	OP_ST_ATTACK
 };
 
+// Forward declaration
+class Enemy;
+
 class Operator : protected Figure
 {
 private:
 	OperatorType type;
 	OperatorBranch branch;
 	unsigned int blockNumber;
+	int blockingNumber = 0;
 
 	/*
 	 * `attackRange` is a 2D-array that represents the attack range of the Operator, based on the Operator's own frame (facing right).
@@ -94,6 +98,14 @@ private:
 	sf::Sprite operatorSprite;
 	sf::Vector2f position;
 
+	bool attackRangeVisible = false;
+	std::vector<sf::RectangleShape> attackRangeRects;
+
+	/*
+	 * based on the position setting of the figureSprite
+	 */
+	sf::FloatRect collisionBox;
+
 	std::vector<std::shared_ptr<Enemy> > inRangeEnemies;
 
 	OperatorStatus status = OP_ST_IDLE;
@@ -104,22 +116,14 @@ public:
 	int getId() const { return id; }
 
 	void addInRangeEnemy(std::shared_ptr<Enemy> en) { inRangeEnemies.push_back(en); }
-	void removeInRangeEnemy(int id)
-	{
-		auto it = std::find_if(inRangeEnemies.begin(), inRangeEnemies.end(), [id](const std::shared_ptr<Enemy>& enemy) {
-			return enemy && enemy->getId() == id;
-		});
-		if (it != inRangeEnemies.end()) {
-			inRangeEnemies.erase(it);
-		}
-	}
-	void removeInRangeEnemy(std::shared_ptr<Enemy> en)
-	{
-		auto it = std::find(inRangeEnemies.begin(), inRangeEnemies.end(), en);
-		if (it != inRangeEnemies.end()) {
-			inRangeEnemies.erase(it);
-		}
-	}
+	void removeInRangeEnemy(int id);
+
+	void setAttackRangeRects();
+	std::vector<sf::RectangleShape> getAttackRangeRects() const { return attackRangeRects; }
+	bool isInRange(const sf::Vector2f) const;
+
+	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.05 * damage)), damage - defenseAmount)); }
+	void attemptAttack();
 	
 	void handleEvent(const sf::Event &event) override;
 	void update() override;

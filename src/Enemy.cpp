@@ -1,6 +1,8 @@
 #include "Enemy.h"
+#include "Operator.h"
 #include "Combat.h"
 #include "FigureLayer.h"
+#include "CombatEvent.h"
 
 #include <iostream>
 
@@ -44,6 +46,23 @@ Enemy::Enemy(json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Gam
 	route.pop();
 }
 
+void Enemy::attemptAttack()
+{
+	attackCounter++;
+	if (blockingOp)
+	{
+		if (attackCounter && attackInterval == 0)
+		{
+			figureSprite.setTexture(*enemyTextures[1]);
+			blockingOp->getHit(attackDamage);
+		}
+		else if ((attackCounter % attackInterval) >= (attackInterval / 2))
+		{
+			figureSprite.setTexture(*enemyTextures[0]);
+		}
+	}
+}
+
 void Enemy::handleEvent(const sf::Event &event)
 {
 }
@@ -51,22 +70,36 @@ void Enemy::handleEvent(const sf::Event &event)
 void Enemy::update()
 {
 	frameCounter++;
-	if (status == EN_ST_MOVE)
-	{
-		updatePosition();
-		enemySprite.setPosition(position);
-		healthBar.setPosition(position.x, position.y + _figHeight + 1);
-	}
 	if (currentHealth > 0)
 	{
-		if (currentHealth > maxHealth)
-		{
-			currentHealth = maxHealth;
-		}
+		currentHealth = std::min(currentHealth, maxHealth);
 		healthBar.setSize(sf::Vector2f(16.0f * currentHealth / maxHealth, 1));
-	}
-	else
-	{
+		switch (status)
+		{
+		case EN_ST_MOVE:
+		{
+			attackCounter = 0;
+			updatePosition();
+			enemySprite.setPosition(position);
+			healthBar.setPosition(position.x, position.y + _figHeight + 1);
+
+			auto e = std::make_shared<CombatEvent>(ENEMY_MOVE);
+			json data;
+			data["id"] = id;
+			data["position"] = {position.x, position.y};
+			e->setData(data);
+			combat->createEvent(e);
+			break;
+		}
+		case EN_ST_BLOCKED:
+		{
+			attemptAttack();
+			break;
+		}
+		default:
+			attackCounter = 0;
+			break;
+		}
 		json eventData;
 		eventData["id"] = id;
 		eventData["reward"] = killReward;
@@ -84,6 +117,26 @@ void Enemy::render(sf::RenderWindow &window)
 
 void Enemy::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
+	switch (event->getType())
+	{
+	case OPERATOR_BLOCKING_ENEMY:
+	{
+		json data = event->getData();
+		int enemyId = data["enemyId"];
+		if (enemyId == id)
+		{
+			int operatorId = data["operatorId"];
+			blockingOp = figureLayer->getOperatorById(operatorId);
+			status = EN_ST_BLOCKED;
+		}
+		break;
+	}
+	default:
+	{
+		status = EN_ST_MOVE;
+		break;
+	}
+	}
 }
 
 void Enemy::updatePosition()

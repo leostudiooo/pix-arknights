@@ -40,6 +40,32 @@ void FigureLayer::loadAssets()
 	}
 }
 
+std::shared_ptr<Operator> FigureLayer::getOperatorById(int id)
+{
+	return *std::find_if(operators.begin(), operators.end(), [id](std::shared_ptr<Operator> &op)
+						 { return op && op->getId() == id; });
+}
+
+std::shared_ptr<Enemy> FigureLayer::getEnemyById(int id)
+{
+	return *std::find_if(enemies.begin(), enemies.end(), [id](std::shared_ptr<Enemy> &en)
+						 { return en && en->getId() == id; });
+}
+
+void FigureLayer::removeOperatorById(int id)
+{
+	operators.erase(std::remove_if(operators.begin(), operators.end(), [id](std::shared_ptr<Operator> &op)
+								   { return op && op->getId() == id; }),
+					operators.end());
+}
+
+void FigureLayer::removeEnemyById(int id)
+{
+	enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [id](std::shared_ptr<Enemy> &en)
+								 { return en && en->getId() == id; }),
+				  enemies.end());
+}
+
 void FigureLayer::handleEvent(const sf::Event &event)
 {
 	for (auto &op : operators)
@@ -80,34 +106,46 @@ void FigureLayer::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
 	switch (event->getType())
 	{
-	case ENEMY_SPAWN:
-	{
-        int enType = event->getData()["enemyType"];
-        auto enemyData = enemyDatabase[enType];
-		enemyData["route"] = event->getData()["route"];
-		std::clog << "Enemy " << enemyCount << " spawned" << std::endl;
-		auto enemy = std::make_shared<Enemy>(enemyData, combat, game, shared_from_this());
-		enemies.push_back(enemy);
-		enemyCount++;
-		break;
-	}
 	case OPERATOR_DEPLOY:
 	{
 		std::string operatorName = event->getData()["name"];
-		json operatorData = std::find_if(operatorDatabase.begin(), operatorDatabase.end(), [operatorName](json &op) { return op["name"] == operatorName; }).value();
-        operatorData["tilePosition"] = event->getData()["tilePosition"];
+		json operatorData = std::find_if(operatorDatabase.begin(), operatorDatabase.end(), [operatorName](json &op)
+										 { return op["name"] == operatorName; })
+								.value();
+		operatorData["tilePosition"] = event->getData()["tilePosition"];
+		operatorData["id"] = figureCount;
 		auto op = std::make_shared<Operator>(operatorData, combat, game, shared_from_this());
 		operators.push_back(op);
+		figureCount++;
+		break;
+	}
+	case OPERATOR_DEATH:
+	{
+		int id = event->getData()["id"];
+		removeOperatorById(id);
+		break;
+	}
+	case ENEMY_SPAWN:
+	{
+		int enType = event->getData()["enemyType"];
+		auto enemyData = enemyDatabase[enType];
+		enemyData["route"] = event->getData()["route"];
+		std::clog << "Enemy " << figureCount << " spawned" << std::endl;
+		auto enemy = std::make_shared<Enemy>(enemyData, combat, game, shared_from_this());
+		enemies.push_back(enemy);
+		figureCount++;
 		break;
 	}
 	case ENEMY_REACH_GOAL:
 	{
 		int id = event->getData()["id"];
-		auto it = std::find_if(enemies.begin(), enemies.end(), [id](std::shared_ptr<Enemy> &en) { return en->getId() == id; });
-		if (it != enemies.end())
-		{
-			enemies.erase(it);
-		}
+		removeEnemyById(id);
+		break;
+	}
+	case ENEMY_DEATH:
+	{
+		int id = event->getData()["id"];
+		removeEnemyById(id);
 		break;
 	}
 	default:

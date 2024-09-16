@@ -57,4 +57,7 @@ public:
 	{
 		return sf::Vector2f(tilePos[0] * _tileSize + _tileOrigin.x + _globalDrawOffset.x, tilePos[1] * _tileSize + _tileOrigin.y + _globalDrawOffset.y);
 	}
+
+	unsigned int safeSubtract(unsigned int a, unsigned int b) { return a > b ? a - b : 0; }
+	unsigned int safeAdd(unsigned int a, unsigned int b, unsigned int m) { return a + b < m ? a + b : m; }
 };

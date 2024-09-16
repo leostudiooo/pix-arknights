@@ -188,14 +188,20 @@ void Combat::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 		currCost -= opCost;
 		break;
 	}
-	case ENEMY_REACH_GOAL:
-	{
-		perfectConduction = false;
-		break;
-	}
 	case OPERATOR_DEATH:
 	{
 		noDeath = false;
+		break;
+	}
+	case ENEMY_DEATH:
+	{
+		int reward = event->getData()["reward"];
+		currCost += reward;
+		break;
+	}
+	case ENEMY_REACH_GOAL:
+	{
+		perfectConduction = false;
 		break;
 	}
 	case MISSION_FAILED:

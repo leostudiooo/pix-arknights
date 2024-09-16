@@ -16,14 +16,19 @@ protected:
 	std::vector<std::shared_ptr<Enemy> > enemies;
 	nlohmann::json operatorDatabase;
 	nlohmann::json enemyDatabase;
-	int enemyCount = 0;
+	int figureCount = 0;
 public:
 	FigureLayer(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game);
+	void loadAssets();
 
 	void addOperator(std::shared_ptr<Operator> op) { operators.push_back(op); }
 	void addEnemy(std::shared_ptr<Enemy> en) { enemies.push_back(en); }
 
-	void loadAssets();
+	std::shared_ptr<Operator> getOperatorById(int id);
+	std::shared_ptr<Enemy> getEnemyById(int id);
+
+	void removeOperatorById(int id);
+	void removeEnemyById(int id);
 
 	void handleEvent(const sf::Event &event) override;
 	void update() override;

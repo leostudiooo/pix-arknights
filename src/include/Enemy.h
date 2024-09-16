@@ -22,6 +22,9 @@ enum EnemyStatus
 	EN_ST_ATTACK
 };
 
+// Forward declaration
+class Operator;
+
 class Enemy: protected Figure
 {
 private:
@@ -46,12 +49,18 @@ private:
 	sf::Vector2f currFrmPos;
 	sf::Vector2f nextFrmPos;
 	sf::Vector2f nextTileAbsPos;
+
+	std::shared_ptr<Operator> blockingOp;
 public:
 	Enemy(nlohmann::json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);
 	~Enemy() = default;
 
 	unsigned int getReward() const { return killReward; }
 	int getId() const { return id; }
+	sf::Vector2f getPosition() const { return position; }
+
+	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.05 * damage)), damage - defenseAmount)); }
+	void attemptAttack();
 
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
