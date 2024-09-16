@@ -59,8 +59,8 @@
 					[0, 1]
 				],
 				"actions": {
-					"1": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 300 },
-					"2": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 300 }
+					"1": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 600 },
+					"2": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 900 }
 				}
 			}
 		}
