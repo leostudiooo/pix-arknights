@@ -12,6 +12,7 @@ Enemy::Enemy(json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Gam
 {
 	std::clog << enemyData << std::endl;
 	name = enemyData["name"];
+	id = enemyData["id"];
 	maxHealth = enemyData["maxHealth"];
 	currentHealth = maxHealth;
 	attackDamage = enemyData["attackDamage"];
@@ -74,6 +75,7 @@ void Enemy::update()
 	{
 		currentHealth = std::min(currentHealth, maxHealth);
 		healthBar.setSize(sf::Vector2f(16.0f * currentHealth / maxHealth, 1));
+
 		switch (status)
 		{
 		case EN_ST_MOVE:
@@ -87,6 +89,7 @@ void Enemy::update()
 			json data;
 			data["id"] = id;
 			data["position"] = {position.x, position.y};
+			data["center"] = {position.x + 0.5 * _figHeight, position.y + 0.5 * _figHeight};
 			e->setData(data);
 			combat->createEvent(e);
 			break;

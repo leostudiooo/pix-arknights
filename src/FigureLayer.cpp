@@ -108,6 +108,14 @@ void FigureLayer::render(sf::RenderWindow &window)
 
 void FigureLayer::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
+	for (auto &op : operators)
+	{
+		op->handleCombatEvent(event);
+	}
+	for (auto &en : enemies)
+	{
+		en->handleCombatEvent(event);
+	}
 	switch (event->getType())
 	{
 	case OPERATOR_DEPLOY:
@@ -134,6 +142,7 @@ void FigureLayer::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 		int enType = event->getData()["enemyType"];
 		auto enemyData = enemyDatabase[enType];
 		enemyData["route"] = event->getData()["route"];
+		enemyData["id"] = figureCount;
 		std::clog << "Enemy " << figureCount << " spawned" << std::endl;
 		auto enemy = std::make_shared<Enemy>(enemyData, combat, game, shared_from_this());
 		enemies.push_back(enemy);

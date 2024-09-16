@@ -56,11 +56,13 @@ Operator::Operator(json opData, std::shared_ptr<Combat> combat, std::shared_ptr<
 	direction[1] = 0;
 
 	setAttackRangeRects();
-	collisionBox = sf::FloatRect(position.x - _tileSize, position.y - _tileSize, _tileSize * 1.5, _tileSize * 1.5);
+	collisionBox = sf::FloatRect(position.x - 0.5f * _figHeight, position.y - 0.5f * _figHeight, _figHeight * 2, _figHeight * 2);
 
 	// Medic is always in attack status
 	if (branch == MEDIC)
 		status = OP_ST_ATTACK;
+
+	attackRangeVisible = true;
 }
 
 void Operator::removeInRangeEnemy(int id)
@@ -84,8 +86,8 @@ void Operator::setAttackRangeRects()
 			{
 				sf::RectangleShape rect;
 				rect.setSize(sf::Vector2f(_tileSize, _tileSize));
-				rect.setPosition(position.x + (j - attackRangeOffset[1] - 1) * _tileSize, position.y + (i - attackRangeOffset[0] - 1) * _tileSize);
-				rect.setFillColor(sf::Color(0xffddaa66));
+				rect.setPosition(position.x + (j - attackRangeOffset[0]) * _tileSize, position.y + (i - attackRangeOffset[1]) * _tileSize);
+				rect.setFillColor(sf::Color(0xffdd44bb));
 				attackRangeRects.push_back(rect);
 			}
 		}
@@ -104,14 +106,16 @@ void Operator::attemptAttack()
 {
 	if (status == OP_ST_ATTACK || status == OP_ST_BLOCKING)
 	{
-		attackCounter++;
 		if (attackCounter % attackInterval == 0)
 		{
-			figureSprite.setTexture(*operatorTextures[1]);
+			attackCounter = 0;
 			if (branch != MEDIC)
 			{
 				if (inRangeEnemies.size() > 0)
+				{
 					inRangeEnemies[0]->getHit(attackDamage);
+					std::clog << "Operator " << name << " attack enemy " << inRangeEnemies[0]->getId() << std::endl;
+				}
 			}
 			else // Medic send a heal event
 			{
@@ -120,46 +124,39 @@ void Operator::attemptAttack()
 				data["healAmount"] = attackDamage;
 				e->setData(data);
 				combat->createEvent(e);
+				std::clog << "Medic heal" << std::endl;
 			}
 		}
-		else if ((attackCounter % attackInterval) >= (attackInterval / 2))
-		{
-			figureSprite.setTexture(*operatorTextures[0]);
-		}
+		attackCounter++;
 	}
 }
 
 void Operator::handleEvent(const sf::Event &event)
 {
-	if (event.type == sf::Event::MouseMoved)
-	{
-		if (figureSprite.getGlobalBounds().contains(game->getMousePosition()))
-			attackRangeVisible = true;
-		else
-			attackRangeVisible = false;
-	}
+	// if (event.type == sf::Event::MouseMoved)
+	// {
+	// 	if (figureSprite.getGlobalBounds().contains(game->getMousePosition()))
+	// 		attackRangeVisible = true;
+	// 	else
+	// 		attackRangeVisible = false;
+	// }
 }
 
 void Operator::update()
 {
 	frameCounter++;
-	// Temporary attack animation
-	// if (frameCounter % attackInterval == 0)
-	// {
-	// 	attackCounter++;
-	// 	if (attackCounter % 2 == 0)
-	// 	{
-	// 		operatorSprite.setTexture(*operatorTextures[0]);
-	// 	}
-	// 	else
-	// 	{
-	// 		operatorSprite.setTexture(*operatorTextures[1]);
-	// 	}
-	// }
+	if (frameCounter > 3 * 60)
+		attackRangeVisible = false;
 	if (currentHealth > 0)
 	{
 		currentHealth = std::min(maxHealth, currentHealth);
 		healthBar.setSize(sf::Vector2f(16.0f * currentHealth / maxHealth, 1));
+
+		// Remove nullptr from inRangeEnemies
+		inRangeEnemies.erase(
+			std::remove_if(inRangeEnemies.begin(), inRangeEnemies.end(), [](const std::shared_ptr<Enemy> &enemy)
+						   { return !enemy; }),
+			inRangeEnemies.end());
 
 		// Search or block enemies in range
 		if (inRangeEnemies.size() > 0)
@@ -167,7 +164,7 @@ void Operator::update()
 			status = OP_ST_ATTACK;
 			for (auto &enemy : inRangeEnemies)
 			{
-				if (enemy && collisionBox.contains(enemy->getPosition()))
+				if (enemy && collisionBox.contains(enemy->getCenterPosition()))
 				{
 					blockingNumber = 0;
 					if (blockingNumber < blockNumber)
@@ -188,7 +185,7 @@ void Operator::update()
 		else if (branch != MEDIC) // Medic is always in attack status
 		{
 			status = OP_ST_IDLE;
-			attackCounter = 0;
+			attackCounter = -1;
 		}
 		attemptAttack();
 	}
@@ -206,6 +203,10 @@ void Operator::render(sf::RenderWindow &window)
 	if (attackRangeVisible)
 		for (auto &attackRangeRect : attackRangeRects)
 			window.draw(attackRangeRect);
+	if ((status == OP_ST_ATTACK || OP_ST_BLOCKING) && (attackCounter <= attackInterval / 2 && attackCounter >= 0))
+		operatorSprite.setTexture(*operatorTextures[1]); // attack texture
+	else
+		operatorSprite.setTexture(*operatorTextures[0]); // idle texture
 	window.draw(operatorSprite);
 	window.draw(healthBar);
 }
@@ -223,9 +224,11 @@ void Operator::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 	}
 	case ENEMY_MOVE:
 	{
+		if (branch == MEDIC)
+			break;
 		auto data = event->getData();
-		auto enemyId = data["id"];
-		auto enemyPos = data["position"];
+		int enemyId = data["id"];
+		auto enemyPos = data["center"];
 		if (isInRange(sf::Vector2f(enemyPos[0], enemyPos[1])))
 		{
 			auto enemy = figureLayer->getEnemyById(enemyId);

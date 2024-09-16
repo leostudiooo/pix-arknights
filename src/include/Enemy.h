@@ -58,6 +58,7 @@ public:
 	unsigned int getReward() const { return killReward; }
 	int getId() const { return id; }
 	sf::Vector2f getPosition() const { return position; }
+	sf::Vector2f getCenterPosition() const { return position + sf::Vector2f(0.5f * _figHeight, 0.5f * _figHeight); }
 
 	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.05 * damage)), damage - defenseAmount)); }
 	void attemptAttack();
