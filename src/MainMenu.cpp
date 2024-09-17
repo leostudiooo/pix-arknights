@@ -141,8 +141,8 @@ void MainMenu::render(sf::RenderWindow &window)
 {
 	window.draw(backgroundSprite);
 	terminalButton.render(window);
-	squadButton.render(window);
-	operatorButton.render(window);
+	// squadButton.render(window);
+	// operatorButton.render(window);
 	window.draw(assistantSprite);
 	window.draw(titleText);
 }
