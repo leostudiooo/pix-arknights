@@ -27,4 +27,6 @@ public:
 
 	void loadFont(const std::string& name, const std::string& filename);
 	std::shared_ptr<sf::Font> getFont(const std::string& name);
+
+	void cleanUnused();
 };
