@@ -49,18 +49,14 @@ Enemy::Enemy(json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Gam
 
 void Enemy::attemptAttack()
 {
-	attackCounter++;
 	if (blockingOp)
 	{
-		if (attackCounter && attackInterval == 0)
+		if (attackCounter % attackInterval == 0)
 		{
-			figureSprite.setTexture(*enemyTextures[1]);
+			attackCounter = 0;
 			blockingOp->getHit(attackDamage);
 		}
-		else if ((attackCounter % attackInterval) >= (attackInterval / 2))
-		{
-			figureSprite.setTexture(*enemyTextures[0]);
-		}
+		attackCounter++;
 	}
 }
 
@@ -76,6 +72,14 @@ void Enemy::update()
 		currentHealth = std::min(currentHealth, maxHealth);
 		healthBar.setSize(sf::Vector2f(16.0f * currentHealth / maxHealth, 1));
 
+		if (currBlockingOpId >= 0)
+			status = EN_ST_BLOCKED;
+		else
+		{
+			attackCounter = -1;
+			status = EN_ST_MOVE;
+		}
+
 		switch (status)
 		{
 		case EN_ST_MOVE:
@@ -84,14 +88,6 @@ void Enemy::update()
 			updatePosition();
 			enemySprite.setPosition(position);
 			healthBar.setPosition(position.x, position.y + _figHeight + 1);
-
-			auto e = std::make_shared<CombatEvent>(ENEMY_MOVE);
-			json data;
-			data["id"] = id;
-			data["position"] = {position.x, position.y};
-			data["center"] = {position.x + 0.5 * _figHeight, position.y + 0.5 * _figHeight};
-			e->setData(data);
-			combat->createEvent(e);
 			break;
 		}
 		case EN_ST_BLOCKED:
@@ -103,6 +99,13 @@ void Enemy::update()
 			attackCounter = 0;
 			break;
 		}
+		auto e = std::make_shared<CombatEvent>(ENEMY_MOVE);
+		json data;
+		data["id"] = id;
+		data["position"] = {position.x, position.y};
+		data["center"] = {position.x + 0.5 * _figHeight, position.y + 0.5 * _figHeight};
+		e->setData(data);
+		combat->createEvent(e);
 	}
 	else
 	{
@@ -116,6 +119,10 @@ void Enemy::update()
 void Enemy::render(sf::RenderWindow &window)
 {
 	enemySprite.setPosition(position);
+	if (attackCounter <= attackInterval / 2 && attackCounter >= 0)
+		enemySprite.setTexture(*enemyTextures[1]);
+	else
+		enemySprite.setTexture(*enemyTextures[0]);
 	window.draw(enemySprite);
 	if (currentHealth < maxHealth)
 		window.draw(healthBar);
@@ -131,11 +138,28 @@ void Enemy::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 		int enemyId = data["enemyId"];
 		if (enemyId == id)
 		{
-			int operatorId = data["operatorId"];
-			blockingOp = figureLayer->getOperatorById(operatorId);
+			currBlockingOpId = event->getData()["operatorId"];
+			blockingOp = figureLayer->getOperatorById(currBlockingOpId);
 			status = EN_ST_BLOCKED;
+			blockingLock = true;
+			// std::clog << "Enemy " << id << " blocked by operator " << currBlockingOpId << std::endl;
 		}
 		break;
+	}
+	case OPERATOR_DEATH:
+	case OPERATOR_RETREAT:
+	{
+		int eventOpId = event->getData()["id"];
+		std::clog << "Operator " << eventOpId << " died or retreated" << std::endl;
+		std::clog << "Enemy " << id << " current blocking operator id: " << currBlockingOpId << std::endl;
+		if (eventOpId == currBlockingOpId)
+		{
+			std::clog << "Enemy " << id << " is no longer blocked" << std::endl;
+			currBlockingOpId = -1;
+			blockingOp = nullptr;
+			blockingLock = false;
+		}
+		status = EN_ST_MOVE;
 	}
 	default:
 	{
