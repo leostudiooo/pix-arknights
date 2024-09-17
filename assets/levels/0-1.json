@@ -59,8 +59,8 @@
 					[0, 1]
 				],
 				"actions": {
-					"1": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 600 },
-					"2": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 900 }
+					"1": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 300 },
+					"2": { "type": "spawn", "enemyType": 2, "position": [8, 2], "delay": 600 }
 				}
 			}
 		}
@@ -70,5 +70,5 @@
 		"startup": 8,
 		"returnRate": 0.02
 	},
-	"defendPointLife": 15
+	"defendPointLife": 3
 }
