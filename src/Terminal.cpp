@@ -80,7 +80,7 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 		{
 			auto newGame = game->getGame();
 			while(newGame->popStateNoTransition());
-			newGame->pushState(std::make_unique<MainMenu>(newGame));
+			newGame->pushState(std::make_shared<MainMenu>(newGame));
 		}
 	);
 

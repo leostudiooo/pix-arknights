@@ -113,6 +113,26 @@ void Game::pushState(std::shared_ptr<UserInterface> ui, bool switchMusic) {
     }
 }
 
+void Game::pushStateHalfTransition(std::shared_ptr<UserInterface> ui, bool switchMusic)
+{
+    uiStack.push(std::move(ui));
+    if (switchMusic && bgMusic) uiStack.top()->playMusic();
+    float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
+    for (int alpha = 0; alpha <= 255; alpha += 5) {
+        handleEvent();
+        uiStack.top()->render(window); 
+        sf::RectangleShape fade(sf::Vector2f(window.getSize()));
+        fade.setFillColor(sf::Color(0, 0, 0, alpha));
+        window.draw(fade);
+        window.display();
+
+        if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
+            float vol = maxVolume * (255 - alpha) / 255.0f;
+            bgMusic->setVolume(vol);
+        }
+    }
+}
+
 bool Game::popState(bool switchMusic) {
     if (!uiStack.empty()) {
         // 创建画面和音频的淡出效果
@@ -165,6 +185,28 @@ bool Game::popState(bool switchMusic) {
 bool Game::popStateNoTransition() {
     if (!uiStack.empty()) {
         uiStack.pop();
+        return true;
+    }
+    else return false;
+}
+
+bool Game::popStateHalfTransition(bool switchMusic) {
+    if (!uiStack.empty()) {
+        float maxVolume = bgMusic ? bgMusic->getVolume() : 100.0f;
+        
+        for (int alpha = 0; alpha <= 255; alpha += 5) {
+            handleEvent();
+            uiStack.top()->render(window); 
+            sf::RectangleShape fade(sf::Vector2f(window.getSize()));
+            fade.setFillColor(sf::Color(0, 0, 0, alpha));
+            window.draw(fade);
+            window.display();
+
+            if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
+                float vol = maxVolume * (255 - alpha) / 255.0f;
+                bgMusic->setVolume(vol);
+            }
+        }
         return true;
     }
     else return false;

@@ -37,8 +37,10 @@ public:
 	sf::Vector2f getMousePosition();
 
 	void pushState(std::shared_ptr<UserInterface> ui, bool switchMusic = false);
+	void pushStateHalfTransition(std::shared_ptr<UserInterface> ui, bool switchMusic = false);
 	bool popState(bool switchMusic = false);
 	bool popStateNoTransition();
+	bool popStateHalfTransition(bool switchMusic = false);
     void setBgMusic(std::shared_ptr<sf::Music> music) { bgMusic = music; }
 
 	void init();

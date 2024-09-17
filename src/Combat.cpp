@@ -7,6 +7,8 @@
 #include "CostIndicator.h"
 #include "OperatorSelector.h"
 
+#include "Settlement.h"
+
 #include <fstream>
 #include <memory>
 
@@ -137,6 +139,10 @@ void Combat::update()
 			if (!noDeath) rating--;
 		}
 		// switching to settlement
+		auto newGame = game->getGame();
+		auto settlement = std::make_shared<Settlement>(newGame, combatName, rating);
+		newGame->popStateHalfTransition();
+		newGame->pushState(settlement, true);
 		break;
 	}
 	default:
