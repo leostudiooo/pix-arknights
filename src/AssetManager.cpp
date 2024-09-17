@@ -67,3 +67,42 @@ std::shared_ptr<sf::Font> AssetManager::getFont(const std::string& name)
 {
     return fonts[name];
 }
+
+void AssetManager::cleanUnused()
+{
+    for (auto it = textures.begin(); it != textures.end();)
+    {
+        if (it->second.use_count() == 1)
+        {
+            it = textures.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    for (auto it = music.begin(); it != music.end();)
+    {
+        if (it->second.use_count() == 1)
+        {
+            it = music.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    for (auto it = fonts.begin(); it != fonts.end();)
+    {
+        if (it->second.use_count() == 1)
+        {
+            it = fonts.erase(it);
+        }
+        else
+        {
+            ++it;
+        }
+    }
+}
