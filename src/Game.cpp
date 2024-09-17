@@ -122,12 +122,12 @@ void Game::pushStateHalfTransition(std::shared_ptr<UserInterface> ui, bool switc
         handleEvent();
         uiStack.top()->render(window); 
         sf::RectangleShape fade(sf::Vector2f(window.getSize()));
-        fade.setFillColor(sf::Color(0, 0, 0, alpha));
+        fade.setFillColor(sf::Color(0, 0, 0, 255 - alpha));
         window.draw(fade);
         window.display();
 
         if (switchMusic && bgMusic && bgMusic->getStatus() == sf::Music::Playing) {
-            float vol = maxVolume * (255 - alpha) / 255.0f;
+            float vol = maxVolume * alpha / 255.0f;
             bgMusic->setVolume(vol);
         }
     }
@@ -207,6 +207,8 @@ bool Game::popStateHalfTransition(bool switchMusic) {
                 bgMusic->setVolume(vol);
             }
         }
+        if (switchMusic) bgMusic->stop();
+        uiStack.pop();
         return true;
     }
     else return false;
