@@ -26,7 +26,7 @@ class Tile
 private:
 	TileType type;
 	OverlayType overlayType = NONE;
-	
+
 	sf::Sprite tileSprite;
 	sf::RectangleShape visualOverlay;
 

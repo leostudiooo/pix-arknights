@@ -41,19 +41,22 @@ void Tile::setOverlay(OverlayType overlayType)
 
 void Tile::update()
 {
-	if (isOccupied) isDeployable = false;
-	else if (type == GROUND || type == HIGHLAND) isDeployable = true;
-	switch(overlayType)
+	if (isOccupied)
+		isDeployable = false;
+	else if (type == GROUND || type == HIGHLAND)
+		isDeployable = true;
+	switch (overlayType)
 	{
-		case NONE:
-			visualOverlay.setFillColor(sf::Color(0x00000000));
-			break;
-		case PREVIEW_DEPLOYABLE:
-			if(isDeployable) visualOverlay.setFillColor(sf::Color(0x57ff57bb));
-			break;
-		case PREVIEW_RANGE:
-			visualOverlay.setFillColor(sf::Color(0xffab57bb));
-			break;
+	case NONE:
+		visualOverlay.setFillColor(sf::Color(0x00000000));
+		break;
+	case PREVIEW_DEPLOYABLE:
+		if (isDeployable)
+			visualOverlay.setFillColor(sf::Color(0x57ff57bb));
+		break;
+	case PREVIEW_RANGE:
+		visualOverlay.setFillColor(sf::Color(0xffab57bb));
+		break;
 	}
 }
 
@@ -74,5 +77,6 @@ void Tile::handleEvent(const sf::Event &event)
 void Tile::render(sf::RenderWindow &window)
 {
 	window.draw(tileSprite);
-	if(overlayType) window.draw(visualOverlay);
+	if (overlayType)
+		window.draw(visualOverlay);
 }

@@ -196,8 +196,7 @@ void Operator::update()
 		json eventData;
 		eventData["id"] = id;
 		combat->createEvent(std::make_shared<CombatEvent>(OPERATOR_DEATH, eventData));
-		
-	}
+		}
 }
 
 void Operator::render(sf::RenderWindow &window)

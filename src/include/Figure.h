@@ -37,9 +37,10 @@ protected:
 	sf::RectangleShape healthBar;
 
 	const sf::Vector2f _globalDrawOffset = {0, -3};
-    const sf::Vector2f _tileOrigin = { 24, 16 };
-    const int _tileSize = 16;
+	const sf::Vector2f _tileOrigin = {24, 16};
+	const int _tileSize = 16;
 	const int _figHeight = 16;
+
 public:
 	Figure(std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer) : combat(combat), game(game), figureLayer(figureLayer) {}
 	~Figure() = default;

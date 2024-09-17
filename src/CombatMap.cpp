@@ -113,49 +113,49 @@ void CombatMap::handleCombatEvent(const std::shared_ptr<CombatEvent> event)
 {
     switch (event->getType())
     {
-        case OPERATOR_PREDEPLOY:
+    case OPERATOR_PREDEPLOY:
+    {
+        json eventData = event->getData();
+        currentOperator = eventData;
+        unsigned int opType = eventData["type"];
+        std::clog << "CombatMap received predeploy event, opType " << opType << std::endl;
+        for (auto row : tiles)
         {
-            json eventData = event->getData();
-            currentOperator = eventData;
-            unsigned int opType = eventData["type"];
-            std::clog << "CombatMap received predeploy event, opType " << opType << std::endl;
-            for (auto row : tiles)
+            for (auto tile : row)
             {
-                for (auto tile : row)
+                if (isDeployable(opType, tile))
                 {
-                    if (isDeployable(opType, tile))
-                    {
-                        tile->setOverlay(PREVIEW_DEPLOYABLE);
-                        std::clog << "Tile at " << tile->getTileX() << ", " << tile->getTileY() << " is deployable" << std::endl;
-                    }
+                    tile->setOverlay(PREVIEW_DEPLOYABLE);
+                    std::clog << "Tile at " << tile->getTileX() << ", " << tile->getTileY() << " is deployable" << std::endl;
                 }
             }
-            break;
         }
-        case OPERATOR_CANCEL_PREDEPLOY:
-        {
-            for (auto row : tiles)
-                for (auto tile : row)
-                    tile->setOverlay(NONE);
-            currentOperator.clear();
-            break;
-        }
-        case OPERATOR_SELECT_DIRECTION:
-        {
-            break;
-        }
-        case OPERATOR_DEPLOY:
-        {
-            for (auto row : tiles)
-                for (auto tile : row)
-                    tile->setOverlay(NONE);
-            currentOperator = event->getData();
-            auto tile = getTileAt(currentOperator["tilePosition"][0], currentOperator["tilePosition"][1]);
-            tile->setOccupied(true);
-            currentOperator.clear();
-            break;
-        }
-        default:
-            break;
+        break;
+    }
+    case OPERATOR_CANCEL_PREDEPLOY:
+    {
+        for (auto row : tiles)
+            for (auto tile : row)
+                tile->setOverlay(NONE);
+        currentOperator.clear();
+        break;
+    }
+    case OPERATOR_SELECT_DIRECTION:
+    {
+        break;
+    }
+    case OPERATOR_DEPLOY:
+    {
+        for (auto row : tiles)
+            for (auto tile : row)
+                tile->setOverlay(NONE);
+        currentOperator = event->getData();
+        auto tile = getTileAt(currentOperator["tilePosition"][0], currentOperator["tilePosition"][1]);
+        tile->setOccupied(true);
+        currentOperator.clear();
+        break;
+    }
+    default:
+        break;
     }
 }

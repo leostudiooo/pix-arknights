@@ -4,5 +4,6 @@
 #include "Button.h"
 #include "UserInterface.h"
 
-class OperatorMenu: public UserInterface
-{};
+class OperatorMenu : public UserInterface
+{
+};

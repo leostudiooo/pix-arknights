@@ -29,10 +29,11 @@ Settlement::Settlement(std::shared_ptr<Game> game, std::string levelName, int ra
 		hexagonStars.push_back(star);
 	}
 
-    continueButton.setTextures(game->getTexture("continue_normal"), game->getTexture("continue_hover"), game->getTexture("continue_click"));
-    continueButton.setGame(game);
-    continueButton.setPosition(sf::Vector2f(160, 90));
-    continueButton.setOnClick([game]() {auto newGame = game->getGame(); newGame->popState(true); });
+	continueButton.setTextures(game->getTexture("continue_normal"), game->getTexture("continue_hover"), game->getTexture("continue_click"));
+	continueButton.setGame(game);
+	continueButton.setPosition(sf::Vector2f(160, 90));
+	continueButton.setOnClick([game]()
+							  {auto newGame = game->getGame(); newGame->popState(true); });
 }
 
 void Settlement::loadAssets()
@@ -42,10 +43,10 @@ void Settlement::loadAssets()
 	game->load(TEXTURE, "continue_normal", "settlement/continue_normal.png");
 	game->load(TEXTURE, "continue_hover", "settlement/continue_hover.png");
 	game->load(TEXTURE, "continue_pressed", "settlement/continue_click.png");
-	
+
 	game->load(TEXTURE, "star", "settlement/star.png");
 	game->load(TEXTURE, "star_empty", "settlement/star_empty.png");
-	
+
 	game->load(MUSIC, "settlement_victory", "settlement/victory.mp3");
 	game->load(MUSIC, "settlement_defeat", "settlement/defeat.mp3");
 }
@@ -72,7 +73,7 @@ void Settlement::render(sf::RenderWindow &window)
 
 void Settlement::playMusic()
 {
-    game->bgMusic = game->getMusic(rating > 0 ? "settlement_victory" : "settlement_defeat");
-    game->bgMusic->setLoop(true);
-    game->bgMusic->play();
+	game->bgMusic = game->getMusic(rating > 0 ? "settlement_victory" : "settlement_defeat");
+	game->bgMusic->setLoop(true);
+	game->bgMusic->play();
 }

@@ -12,8 +12,8 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 	loadAssets();
 	loadLevelList();
 
-	backgroundSprite.setPosition(0,0);
-	backgroundSprite.setTexture(* game->getTexture("terminal_bg"));
+	backgroundSprite.setPosition(0, 0);
+	backgroundSprite.setTexture(*game->getTexture("terminal_bg"));
 
 	float xPosition = 32.0f;
 
@@ -26,7 +26,7 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 			levelName = level["name"];
 			std::clog << "Loaded level " << levelName << std::endl;
 		}
-		catch (const std::exception&)
+		catch (const std::exception &)
 		{
 			std::cerr << "Error loading level " << level["name"] << std::endl;
 		}
@@ -43,10 +43,9 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 				auto combat = std::make_shared<Combat>(newGame, levelName);
 				newGame->pushState(combat, true);
 				combat->initComponents();
-			}
-		);
+			});
 
-		auto text = sf::Text(levelName, * game->getFont("font_small"), 8);
+		auto text = sf::Text(levelName, *game->getFont("font_small"), 8);
 		text.setPosition(xPosition + 3, 31);
 		text.setFillColor(sf::Color(0xdd, 0xdd, 0xdd));
 
@@ -64,26 +63,25 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 	backButton.setOnClick(
 		[game]()
 		{
-			auto newGame = game->getGame(); 
-			newGame->popState(); 
+			auto newGame = game->getGame();
+			newGame->popState();
 		});
 
 	homeButton.setTextures(
 		game->getTexture("home_normal"),
 		game->getTexture("home_hover"),
-		game->getTexture("home_click")
-	);
+		game->getTexture("home_click"));
 	homeButton.setGame(game);
-	homeButton.setPosition(sf::Vector2f(30,5));
+	homeButton.setPosition(sf::Vector2f(30, 5));
 	homeButton.setOnClick(
 		[game]()
 		{
 			auto newGame = game->getGame();
 			newGame->popStateHalfTransition();
-			while(newGame->popStateNoTransition());
+			while (newGame->popStateNoTransition())
+				;
 			newGame->pushStateHalfTransition(std::make_shared<MainMenu>(newGame));
-		}
-	);
+		});
 
 	game->bgMusic = game->getMusic("main_bg_music");
 }
@@ -117,7 +115,7 @@ void Terminal::update()
 	homeButton.update();
 }
 
-void Terminal::render(sf::RenderWindow& window)
+void Terminal::render(sf::RenderWindow &window)
 {
 	window.draw(backgroundSprite);
 
@@ -130,8 +128,6 @@ void Terminal::render(sf::RenderWindow& window)
 	backButton.render(window);
 	homeButton.render(window);
 }
-
-
 
 void Terminal::loadLevelList()
 {
@@ -154,7 +150,7 @@ void Terminal::loadLevelList()
 	{
 		levelData = json::parse(file);
 	}
-	catch (const std::exception&)
+	catch (const std::exception &)
 	{
 		std::cerr << "Error parsing levels.json" << std::endl;
 	}
@@ -162,9 +158,10 @@ void Terminal::loadLevelList()
 
 void Terminal::playMusic()
 {
-    if(game->bgMusic) game->bgMusic->stop();
-    game->bgMusic = game->getMusic("main_bg_music");
-    game->bgMusic->setLoop(true);
-    game->bgMusic->play();
-    std::clog << "Playing main menu music" << std::endl;
+	if (game->bgMusic)
+		game->bgMusic->stop();
+	game->bgMusic = game->getMusic("main_bg_music");
+	game->bgMusic->setLoop(true);
+	game->bgMusic->play();
+	std::clog << "Playing main menu music" << std::endl;
 }

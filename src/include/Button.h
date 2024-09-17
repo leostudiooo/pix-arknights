@@ -12,7 +12,7 @@ class Button
 {
 protected:
 	sf::Sprite buttonSprite;
-	std::vector<std::shared_ptr<sf::Texture> > textures;
+	std::vector<std::shared_ptr<sf::Texture>> textures;
 	bool isPressed = false;
 	bool isTriggered = false;
 	std::function<void()> onClick;
@@ -23,10 +23,11 @@ public:
 	Button(std::shared_ptr<sf::Texture> normal_texture, std::shared_ptr<sf::Texture> hover_texture, std::shared_ptr<sf::Texture> click_texture, sf::Vector2f position, std::shared_ptr<Game> game, std::function<void()> onClick);
 
 	void setTextures(
-		std::shared_ptr<sf::Texture> normal, std::shared_ptr<sf::Texture> hover, 
+		std::shared_ptr<sf::Texture> normal, std::shared_ptr<sf::Texture> hover,
 		std::shared_ptr<sf::Texture> click)
 	{
-		if (!textures.empty()) textures.clear();
+		if (!textures.empty())
+			textures.clear();
 		textures.push_back(normal);
 		textures.push_back(hover);
 		textures.push_back(click);
@@ -38,7 +39,7 @@ public:
 	void setGame(std::shared_ptr<Game> game) { this->game = game; }
 
 	void render(sf::RenderWindow &window);
-	
+
 	void update();
 
 	bool isMouseOver(sf::Vector2f mousePosition);

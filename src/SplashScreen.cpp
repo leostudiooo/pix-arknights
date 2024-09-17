@@ -6,23 +6,22 @@
 
 #include <iostream>
 
-SplashScreen::SplashScreen(std::shared_ptr<Game> game): UserInterface(game)
+SplashScreen::SplashScreen(std::shared_ptr<Game> game) : UserInterface(game)
 {
 	loadAssets();
 
-	backgroundSprite.setTexture(* game->getTexture("splash_bg_img"));
-	backgroundSprite.setPosition(0,0);
-	
+	backgroundSprite.setTexture(*game->getTexture("splash_bg_img"));
+	backgroundSprite.setPosition(0, 0);
+
 	startButton.setTextures(game->getTexture("start_normal"), game->getTexture("start_hover"), game->getTexture("start_click"));
-	
-	startButton.setPosition(sf::Vector2f(69,60));
+
+	startButton.setPosition(sf::Vector2f(69, 60));
 	startButton.setGame(game->getGame());
 	startButton.setOnClick([game]()
-	{
+						   {
 		auto newGame = game->getGame();
 		newGame->popState(true);
-		newGame->pushState(std::make_shared<MainMenu>(newGame), true);
-	});
+		newGame->pushState(std::make_shared<MainMenu>(newGame), true); });
 }
 
 void SplashScreen::loadAssets()
@@ -55,8 +54,8 @@ void SplashScreen::render(sf::RenderWindow &window)
 
 void SplashScreen::playMusic()
 {
-    game->bgMusic = game->getMusic("splash_bg_music");
-    game->bgMusic->setLoop(true);
-    game->bgMusic->play();
-    std::clog << "Playing splash screen music" << std::endl;
+	game->bgMusic = game->getMusic("splash_bg_music");
+	game->bgMusic->setLoop(true);
+	game->bgMusic->play();
+	std::clog << "Playing splash screen music" << std::endl;
 }

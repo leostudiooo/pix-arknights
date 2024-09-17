@@ -15,14 +15,14 @@
 // forward declarations
 class UserInterface;
 
-class Game: public std::enable_shared_from_this<Game>
+class Game : public std::enable_shared_from_this<Game>
 {
 private:
 	sf::RenderWindow window;
 	sf::View view;
 
 	std::string ASSET_PREFIX;
-	std::stack<std::shared_ptr<UserInterface> > uiStack;
+	std::stack<std::shared_ptr<UserInterface>> uiStack;
 
 public:
 	AssetManager assetManager;
@@ -43,12 +43,11 @@ public:
 	bool popState(bool switchMusic = false);
 	bool popStateNoTransition();
 	bool popStateHalfTransition(bool switchMusic = false);
-    void setBgMusic(std::shared_ptr<sf::Music> music) { bgMusic = music; }
+	void setBgMusic(std::shared_ptr<sf::Music> music) { bgMusic = music; }
 
 	void init();
 	void run();
 	void handleEvent();
-	
 
 	const std::string getAssetPrefix() const { return ASSET_PREFIX; }
 

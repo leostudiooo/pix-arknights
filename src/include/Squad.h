@@ -4,5 +4,6 @@
 #include "Button.h"
 #include "UserInterface.h"
 
-class Squad: public UserInterface
-{};
+class Squad : public UserInterface
+{
+};

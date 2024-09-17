@@ -7,7 +7,7 @@
 /*
  * `OperatorType` is an enumeration type that represents the type of the Operator.
  * It can be either `MELEE` or `RANGED`.
- * 
+ *
  * In json type code:
  * - 0: melee
  * - 1: ranged
@@ -21,7 +21,7 @@ enum OperatorType
 /*
  * `OperatorBranch` is an enumeration type that represents the branch of the Operator.
  * It can be `DEFENDER`, `GUARD`, `MEDIC`, or `SNIPER`.
- * 
+ *
  * In json branch code:
  * - 0: defender
  * - 1: guard
@@ -64,7 +64,7 @@ private:
 	 * and a typical guard has an attack range of
 	 * [[1, 1]]
 	 */
-	std::vector<std::vector<bool> > attackRange;
+	std::vector<std::vector<bool>> attackRange;
 
 	/*
 	 * `attackRangeOffset` is a 2D-array that represents the position of the operator in the attack range.
@@ -94,7 +94,7 @@ private:
 	unsigned int attackCounter = 0;
 
 	// Operator image[2]: 32*32 px, status {idle, attack}
-	std::vector<std::shared_ptr<sf::Texture> > operatorTextures;
+	std::vector<std::shared_ptr<sf::Texture>> operatorTextures;
 	sf::Sprite operatorSprite;
 	sf::Vector2f position;
 
@@ -106,7 +106,7 @@ private:
 	 */
 	sf::FloatRect collisionBox;
 
-	std::vector<std::shared_ptr<Enemy> > inRangeEnemies;
+	std::vector<std::shared_ptr<Enemy>> inRangeEnemies;
 
 	OperatorStatus status = OP_ST_IDLE;
 
@@ -124,7 +124,7 @@ public:
 
 	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.15 * damage)), damage - defenseAmount)); }
 	void attemptAttack();
-	
+
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;

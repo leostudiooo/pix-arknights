@@ -57,7 +57,8 @@ void OperatorSelectorBlock::handleEvent(const sf::Event &event)
 	{
 		if (isMouseOver())
 		{
-			if(!isPressed) isSelected = !isSelected;
+			if (!isPressed)
+				isSelected = !isSelected;
 			isPressed = !isPressed;
 		}
 	}

@@ -37,6 +37,7 @@ protected:
 	std::shared_ptr<Operator> operatorInvolved;
 	std::shared_ptr<Enemy> enemyInvolved;
 	json data;
+
 public:
 	CombatEvent() = default;
 	~CombatEvent() = default;
@@ -51,7 +52,7 @@ public:
 	CombatEventType getType() const { return type; }
 	void setData(json data) { this->data = data; }
 	json getData() const { return data; }
-	
+
 	void setInvolvedOperator(std::shared_ptr<Operator> opIv) { operatorInvolved = opIv; }
 	void setInvolvedEnemy(std::shared_ptr<Enemy> enIv) { enemyInvolved = enIv; }
 

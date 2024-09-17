@@ -131,12 +131,15 @@ void Combat::update()
 	case SWITCH_TO_SETTLEMENT:
 	{
 		unsigned int rating;
-		if (missionFailed) rating = 0;
+		if (missionFailed)
+			rating = 0;
 		else
 		{
 			rating = 3;
-			if (!perfectConduction) rating--;
-			if (!noDeath) rating--;
+			if (!perfectConduction)
+				rating--;
+			if (!noDeath)
+				rating--;
 		}
 		// switching to settlement
 		auto newGame = game->getGame();

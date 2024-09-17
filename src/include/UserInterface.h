@@ -13,6 +13,7 @@ class UserInterface
 {
 protected:
 	std::shared_ptr<Game> game;
+
 public:
 	UserInterface() = default;
 	UserInterface(std::shared_ptr<Game> game) : game(game) {}
@@ -21,7 +22,7 @@ public:
 	virtual void handleEvent(const sf::Event &event) = 0;
 	virtual void update() = 0;
 	virtual void render(sf::RenderWindow &window) = 0;
-    virtual void playMusic() = 0;
+	virtual void playMusic() = 0;
 
 	void setGame(std::shared_ptr<Game> game) { this->game = game; }
 };

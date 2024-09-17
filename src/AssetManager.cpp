@@ -4,9 +4,10 @@ AssetManager::AssetManager()
 {
 }
 
-void AssetManager::loadTexture(const std::string& name, const std::string& filename)
+void AssetManager::loadTexture(const std::string &name, const std::string &filename)
 {
-    if (textures.find(name) != textures.end()) {
+    if (textures.find(name) != textures.end())
+    {
         // remove and reload texture
         textures.erase(name);
     }
@@ -21,14 +22,15 @@ void AssetManager::loadTexture(const std::string& name, const std::string& filen
     textures[name] = texture;
 }
 
-std::shared_ptr<sf::Texture> AssetManager::getTexture(const std::string& name)
+std::shared_ptr<sf::Texture> AssetManager::getTexture(const std::string &name)
 {
     return textures[name];
 }
 
-void AssetManager::loadMusic(const std::string& name, const std::string& filename)
+void AssetManager::loadMusic(const std::string &name, const std::string &filename)
 {
-    if (music.find(name) != music.end()) {
+    if (music.find(name) != music.end())
+    {
         // remove and reload music
         music.erase(name);
     }
@@ -42,14 +44,15 @@ void AssetManager::loadMusic(const std::string& name, const std::string& filenam
     this->music[name] = music;
 }
 
-std::shared_ptr<sf::Music> AssetManager::getMusic(const std::string& name)
+std::shared_ptr<sf::Music> AssetManager::getMusic(const std::string &name)
 {
     return music[name];
 }
 
-void AssetManager::loadFont(const std::string& name, const std::string& filename)
+void AssetManager::loadFont(const std::string &name, const std::string &filename)
 {
-    if (fonts.find(name) != fonts.end()) {
+    if (fonts.find(name) != fonts.end())
+    {
         // remove and reload font
         fonts.erase(name);
     }
@@ -63,7 +66,7 @@ void AssetManager::loadFont(const std::string& name, const std::string& filename
     fonts[name] = font;
 }
 
-std::shared_ptr<sf::Font> AssetManager::getFont(const std::string& name)
+std::shared_ptr<sf::Font> AssetManager::getFont(const std::string &name)
 {
     return fonts[name];
 }

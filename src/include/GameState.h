@@ -1,4 +1,4 @@
-//GameState.h
+// GameState.h
 #pragma once
 
 enum GameState

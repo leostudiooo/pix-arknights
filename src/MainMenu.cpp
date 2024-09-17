@@ -11,56 +11,54 @@
 
 #include <memory>
 
-MainMenu::MainMenu(std::shared_ptr<Game> game): UserInterface(game)
+MainMenu::MainMenu(std::shared_ptr<Game> game) : UserInterface(game)
 {
 	loadAssets();
 
-	backgroundSprite.setTexture(* game->getTexture("main_menu_bg_img"));
-	backgroundSprite.setPosition(0,0);
+	backgroundSprite.setTexture(*game->getTexture("main_menu_bg_img"));
+	backgroundSprite.setPosition(0, 0);
 
 	terminalButton.setTextures(
-		game->getTexture("terminal_normal"), 
-		game->getTexture("terminal_hover"), 
+		game->getTexture("terminal_normal"),
+		game->getTexture("terminal_hover"),
 		game->getTexture("terminal_click"));
 	terminalButton.setPosition(sf::Vector2f(107, 6));
 	terminalButton.setGame(game);
 	terminalButton.setOnClick([game]()
-	{
+							  {
 			auto newGame = game->getGame();
-			newGame->pushState(std::make_shared<Terminal>(newGame));
-	});
+			newGame->pushState(std::make_shared<Terminal>(newGame)); });
 
 	squadButton.setTextures(
-		game->getTexture("squad_normal"), 
-		game->getTexture("squad_hover"), 
+		game->getTexture("squad_normal"),
+		game->getTexture("squad_hover"),
 		game->getTexture("squad_click"));
 	squadButton.setPosition(sf::Vector2f(102, 34));
 	squadButton.setGame(game);
 	squadButton.setOnClick([game]()
-	{
-		// game->pushState(std::make_shared<Squad>(game));
-	});
+						   {
+							   // game->pushState(std::make_shared<Squad>(game));
+						   });
 
 	operatorButton.setTextures(
-		game->getTexture("operator_normal"), 
-		game->getTexture("operator_hover"), 
+		game->getTexture("operator_normal"),
+		game->getTexture("operator_hover"),
 		game->getTexture("operator_click"));
 	operatorButton.setPosition(sf::Vector2f(145, 34));
 	operatorButton.setGame(game);
 	operatorButton.setOnClick([game]()
-	{
-		// game->pushState(std::make_shared<OperatorMenu>(game));
-	});
+							  {
+								  // game->pushState(std::make_shared<OperatorMenu>(game));
+							  });
 
-	assistantSprite.setTexture(* game->getTexture("assistant_img"));
+	assistantSprite.setTexture(*game->getTexture("assistant_img"));
 	assistantSprite.setPosition(assistantPos.first, assistantPos.second);
 
-	titleText.setFont(* game->getFont("font_small"));
+	titleText.setFont(*game->getFont("font_small"));
 	titleText.setString(L"Pixnights 开发中");
 	titleText.setCharacterSize(8); // though designed 7, set for 8 for no resampling (don't know why)
 	titleText.setFillColor(sf::Color(0xffffffff));
-	titleText.setPosition(round(120),round(92));
-
+	titleText.setPosition(round(120), round(92));
 }
 
 void MainMenu::loadAssets()
@@ -85,7 +83,7 @@ void MainMenu::loadAssets()
 		// Debug
 		std::clog << settings << std::endl;
 		// {"assets":{"assistant_img":{"name":"assistant_img","path":"main_menu/assistant.png","type":0},"main_menu_bg_img":{"name":"main_menu_bg_img","path":"main_menu/bg.png","type":0},"main_music":{"name":"main_bg_music","path":"main_menu/bg.mp3","type":1}},"assistantPos":[20,20]}
-		for (auto& asset : settings["assets"])
+		for (auto &asset : settings["assets"])
 		{
 			std::string name = asset["name"];
 			std::string path = asset["path"];
@@ -151,9 +149,10 @@ void MainMenu::render(sf::RenderWindow &window)
 
 void MainMenu::playMusic()
 {
-    if (game->bgMusic) game->bgMusic->stop();
-    game->bgMusic = game->getMusic("main_bg_music");
-    game->bgMusic->setLoop(true);
-    game->bgMusic->play();
-    std::clog << "Playing main menu music" << std::endl;
+	if (game->bgMusic)
+		game->bgMusic->stop();
+	game->bgMusic = game->getMusic("main_bg_music");
+	game->bgMusic->setLoop(true);
+	game->bgMusic->play();
+	std::clog << "Playing main menu music" << std::endl;
 }

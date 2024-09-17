@@ -25,11 +25,11 @@ enum EnemyStatus
 // Forward declaration
 class Operator;
 
-class Enemy: protected Figure
+class Enemy : protected Figure
 {
 private:
 	EnemyType type;
-	float moveSpeed; // in pixels per frame
+	float moveSpeed;					 // in pixels per frame
 	int collisionBox[4] = {8, 8, 0, 16}; // {right, left, bottom, top}, based on the bottom-center of the enemy sprite (16*16 px)
 
 	sf::Vector2f position;
@@ -39,12 +39,12 @@ private:
 	EnemyStatus status = EN_ST_MOVE;
 
 	unsigned int frameCounter = 0;
-    unsigned int attackCounter = 0;
+	unsigned int attackCounter = 0;
 	// Enemy image[3]: 32*32 px, status {move, attack}
 	std::shared_ptr<sf::Texture> enemyTextures[2];
 	sf::Sprite enemySprite;
 
-    std::queue<std::vector<int> > route; // route to follow, in tile coordinates
+	std::queue<std::vector<int>> route; // route to follow, in tile coordinates
 
 	sf::Vector2f currFrmPos;
 	sf::Vector2f nextFrmPos;
@@ -54,6 +54,7 @@ private:
 	int currBlockingOpId = -1;
 
 	bool blockingLock = false;
+
 public:
 	Enemy(nlohmann::json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);
 	~Enemy() = default;

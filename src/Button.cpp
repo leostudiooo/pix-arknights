@@ -23,7 +23,8 @@ void Button::render(sf::RenderWindow &window)
 
 void Button::update()
 {
-	if (isPressed) isTriggered = true;
+	if (isPressed)
+		isTriggered = true;
 	else if (isTriggered)
 	{
 		isTriggered = false;
@@ -56,7 +57,8 @@ void Button::handleEvent(const sf::Event &event)
 	}
 	else if (event.type == sf::Event::MouseMoved)
 	{
-		if (isPressed) return;
+		if (isPressed)
+			return;
 		if (isMouseOver(game->getMousePosition()))
 		{
 			buttonSprite.setTexture(*textures[1]);
