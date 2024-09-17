@@ -7,8 +7,8 @@ AssetManager::AssetManager()
 void AssetManager::loadTexture(const std::string& name, const std::string& filename)
 {
     if (textures.find(name) != textures.end()) {
-        // Texture already loaded
-        return;
+        // remove and reload texture
+        textures.erase(name);
     }
 
     auto texture = std::make_shared<sf::Texture>();
@@ -29,8 +29,8 @@ std::shared_ptr<sf::Texture> AssetManager::getTexture(const std::string& name)
 void AssetManager::loadMusic(const std::string& name, const std::string& filename)
 {
     if (music.find(name) != music.end()) {
-        // Music already loaded
-        return;
+        // remove and reload music
+        music.erase(name);
     }
 
     auto music = std::make_shared<sf::Music>();
@@ -50,8 +50,8 @@ std::shared_ptr<sf::Music> AssetManager::getMusic(const std::string& name)
 void AssetManager::loadFont(const std::string& name, const std::string& filename)
 {
     if (fonts.find(name) != fonts.end()) {
-        // Font already loaded
-        return;
+        // remove and reload font
+        fonts.erase(name);
     }
 
     auto font = std::make_shared<sf::Font>();

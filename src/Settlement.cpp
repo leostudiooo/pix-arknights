@@ -72,7 +72,7 @@ void Settlement::render(sf::RenderWindow &window)
 
 void Settlement::playMusic()
 {
-	game->setBgMusic(game->getMusic(rating > 0 ? "settlement_victory" : "settlement_defeat"));
-	game->bgMusic->setLoop(true);
-	game->bgMusic->play();
+    game->bgMusic = game->getMusic(rating > 0 ? "settlement_victory" : "settlement_defeat");
+    game->bgMusic->setLoop(true);
+    game->bgMusic->play();
 }
