@@ -51,6 +51,9 @@ private:
 	sf::Vector2f nextTileAbsPos;
 
 	std::shared_ptr<Operator> blockingOp;
+	int currBlockingOpId = -1;
+
+	bool blockingLock = false;
 public:
 	Enemy(nlohmann::json enemyData, std::shared_ptr<Combat> combat, std::shared_ptr<Game> game, std::shared_ptr<FigureLayer> figureLayer);
 	~Enemy() = default;
@@ -60,7 +63,7 @@ public:
 	sf::Vector2f getPosition() const { return position; }
 	sf::Vector2f getCenterPosition() const { return position + sf::Vector2f(0.5f * _figHeight, 0.5f * _figHeight); }
 
-	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.05 * damage)), damage - defenseAmount)); }
+	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.15 * damage)), damage - defenseAmount)); }
 	void attemptAttack();
 
 	void handleEvent(const sf::Event &event) override;

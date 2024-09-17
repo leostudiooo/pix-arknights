@@ -53,7 +53,7 @@ private:
 	OperatorType type;
 	OperatorBranch branch;
 	unsigned int blockNumber;
-	int blockingNumber = 0;
+	int currentBlockingNumber = 0;
 
 	/*
 	 * `attackRange` is a 2D-array that represents the attack range of the Operator, based on the Operator's own frame (facing right).
@@ -122,7 +122,7 @@ public:
 	std::vector<sf::RectangleShape> getAttackRangeRects() const { return attackRangeRects; }
 	bool isInRange(const sf::Vector2f) const;
 
-	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.05 * damage)), damage - defenseAmount)); }
+	void getHit(int damage) { currentHealth = safeSubtract(currentHealth, std::max(int(std::ceil(0.15 * damage)), damage - defenseAmount)); }
 	void attemptAttack();
 	
 	void handleEvent(const sf::Event &event) override;
