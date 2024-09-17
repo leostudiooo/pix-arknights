@@ -56,7 +56,7 @@ Operator::Operator(json opData, std::shared_ptr<Combat> combat, std::shared_ptr<
 	direction[1] = 0;
 
 	setAttackRangeRects();
-	collisionBox = sf::FloatRect(position.x - 0.5f * _figHeight, position.y - 0.5f * _figHeight, _figHeight * 2, _figHeight * 2);
+	collisionBox = sf::FloatRect(position.x - 0.1f * _figHeight, position.y - 0.1f * _figHeight, _figHeight * 1.2, _figHeight * 1.2);
 
 	// Medic is always in attack status
 	if (branch == MEDIC)
@@ -166,16 +166,18 @@ void Operator::update()
 			{
 				if (enemy && collisionBox.contains(enemy->getCenterPosition()))
 				{
-					blockingNumber = 0;
-					if (blockingNumber < blockNumber)
+					currentBlockingNumber = 0;
+					if (currentBlockingNumber < blockNumber && type == MELEE)
 					{
 						status = OP_ST_BLOCKING;
-						blockingNumber++;
+						currentBlockingNumber++;
 						auto e = std::make_shared<CombatEvent>(OPERATOR_BLOCKING_ENEMY);
 						json data;
 						data["operatorId"] = getId();
 						data["enemyId"] = enemy->getId();
 						e->setData(data);
+						combat->createEvent(e);
+						// std::clog << "Operator " << name << " blocking enemy " << enemy->getId() << std::endl;
 					}
 				}
 				else
@@ -194,6 +196,7 @@ void Operator::update()
 		json eventData;
 		eventData["id"] = id;
 		combat->createEvent(std::make_shared<CombatEvent>(OPERATOR_DEATH, eventData));
+		
 	}
 }
 
@@ -203,7 +206,7 @@ void Operator::render(sf::RenderWindow &window)
 	if (attackRangeVisible)
 		for (auto &attackRangeRect : attackRangeRects)
 			window.draw(attackRangeRect);
-	if ((status == OP_ST_ATTACK || OP_ST_BLOCKING) && (attackCounter <= attackInterval / 2 && attackCounter >= 0))
+	if (attackCounter <= attackInterval / 2 && attackCounter >= 0)
 		operatorSprite.setTexture(*operatorTextures[1]); // attack texture
 	else
 		operatorSprite.setTexture(*operatorTextures[0]); // idle texture
