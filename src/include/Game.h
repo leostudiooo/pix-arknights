@@ -21,7 +21,7 @@ private:
 	sf::RenderWindow window;
 	sf::View view;
 
-	const std::string ASSET_PREFIX = std::filesystem::current_path().string() + "/assets/";
+	std::string ASSET_PREFIX;
 	std::stack<std::shared_ptr<UserInterface> > uiStack;
 
 public:
@@ -32,6 +32,8 @@ public:
 
 	Game();
 	~Game();
+
+	void setAssetPrefix(const std::string &prefix) { ASSET_PREFIX = prefix; }
 
 	void updateView();
 	sf::Vector2f getMousePosition();
