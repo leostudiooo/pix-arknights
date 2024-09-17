@@ -84,7 +84,6 @@ void Enemy::update()
 		{
 		case EN_ST_MOVE:
 		{
-			attackCounter = 0;
 			updatePosition();
 			enemySprite.setPosition(position);
 			healthBar.setPosition(position.x, position.y + _figHeight + 1);
