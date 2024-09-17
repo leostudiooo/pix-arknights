@@ -64,7 +64,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game) : UserInterface(game)
 void MainMenu::loadAssets()
 {
 	using json = nlohmann::json;
-	std::fstream settingsFile("assets/main_menu/settings.json");
+	std::fstream settingsFile(game->getAssetPrefix() + "main_menu/settings.json");
 	if (!settingsFile.is_open())
 	{
 		std::cerr << "Failed to open main menu settings file" << std::endl;
@@ -72,7 +72,7 @@ void MainMenu::loadAssets()
 		game->load(TEXTURE, "main_menu_bg_img", "main_menu/bg.png");
 		game->load(MUSIC, "main_bg_music", "main_menu/bg.mp3");
 		// Assistant image
-		game->load(TEXTURE, "assistant_img", "Thorns_96x96.png");
+		game->load(TEXTURE, "assistant_img", "main_menu/Thorns_96x96.png");
 		assistantPos = std::make_pair(20, 20);
 	}
 	else
