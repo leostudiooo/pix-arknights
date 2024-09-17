@@ -13,7 +13,7 @@ Settlement::Settlement(std::shared_ptr<Game> game, std::string levelName, int ra
 	levelNameText.setString("Level " + levelName);
 	levelNameText.setCharacterSize(8);
 	levelNameText.setFillColor(sf::Color::White);
-	levelNameText.setPosition(10, 20);
+	levelNameText.setPosition(10, 24);
 
 	title.setFont(*game->getFont("font_small"));
 	title.setString(rating > 0 ? "Mission Complete" : "Mission Failed");
@@ -73,5 +73,6 @@ void Settlement::render(sf::RenderWindow &window)
 void Settlement::playMusic()
 {
 	game->setBgMusic(game->getMusic(rating > 0 ? "settlement_victory" : "settlement_defeat"));
+	game->bgMusic->setLoop(true);
 	game->bgMusic->play();
 }
