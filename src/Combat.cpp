@@ -141,8 +141,8 @@ void Combat::update()
 		// switching to settlement
 		auto newGame = game->getGame();
 		auto settlement = std::make_shared<Settlement>(newGame, combatName, rating);
-		newGame->popStateHalfTransition();
-		newGame->pushState(settlement, true);
+		newGame->popStateHalfTransition(true);
+		newGame->pushStateHalfTransition(settlement, true);
 		break;
 	}
 	default:
