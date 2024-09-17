@@ -10,12 +10,12 @@ Settlement::Settlement(std::shared_ptr<Game> game, std::string levelName, int ra
 	background.setPosition(0, 0);
 
 	levelNameText.setFont(*game->getFont("font_small"));
-	levelNameText.setString(levelName);
+	levelNameText.setString("Level " + levelName);
 	levelNameText.setCharacterSize(8);
 	levelNameText.setFillColor(sf::Color::White);
-	levelNameText.setPosition(10, 10);
+	levelNameText.setPosition(10, 20);
 
-	title.setFont(*game->getFont("font_large"));
+	title.setFont(*game->getFont("font_small"));
 	title.setString(rating > 0 ? "Mission Complete" : "Mission Failed");
 	title.setCharacterSize(16);
 	title.setFillColor(sf::Color::White);
@@ -29,10 +29,10 @@ Settlement::Settlement(std::shared_ptr<Game> game, std::string levelName, int ra
 		hexagonStars.push_back(star);
 	}
 
-	continueButton = Button(game->getTexture("continue_normal"), game->getTexture("continue_hover"), game->getTexture("continue_pressed"), sf::Vector2f(160, 90), game, [&game](){
-		auto newGame = game->getGame();
-		newGame->popState(true);
-	});
+    continueButton.setTextures(game->getTexture("continue_normal"), game->getTexture("continue_hover"), game->getTexture("continue_click"));
+    continueButton.setGame(game);
+    continueButton.setPosition(sf::Vector2f(160, 90));
+    continueButton.setOnClick([game]() {auto newGame = game->getGame(); newGame->popState(true); });
 }
 
 void Settlement::loadAssets()

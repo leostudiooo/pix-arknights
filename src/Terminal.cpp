@@ -79,8 +79,9 @@ Terminal::Terminal(std::shared_ptr<Game> game) : UserInterface(game)
 		[game]()
 		{
 			auto newGame = game->getGame();
+			newGame->popStateHalfTransition();
 			while(newGame->popStateNoTransition());
-			newGame->pushState(std::make_shared<MainMenu>(newGame));
+			newGame->pushStateHalfTransition(std::make_shared<MainMenu>(newGame));
 		}
 	);
 
