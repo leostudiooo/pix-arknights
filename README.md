@@ -7,7 +7,7 @@ On Windows, the SFML library should be placed at `C:\sfml\2.6.1`. If you have in
 
 On GNU/Linux, you can install the library with the package manager. For example, on Ubuntu you can run `sudo apt-get install libsfml-dev` to install the library.
 
-On macOS you can simply run `brew install sfml` to install the library.
+On macOS you can simply run `brew install sfml` to install the library. You may also need to install `llvm`, `clang` and something else.
 
 ## Build (Visual Studio 2022)
 
