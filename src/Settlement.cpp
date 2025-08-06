@@ -16,16 +16,16 @@ Settlement::Settlement(std::shared_ptr<Game> game, std::string levelName, int ra
 	levelNameText.setPosition(10, 24);
 
 	title.setFont(*game->getFont("font_small"));
-	title.setString(rating > 0 ? "Mission Complete" : "Mission Failed");
+	title.setString(rating > 0 ? L"Mission Accomplished" : L"Mission Failed");
 	title.setCharacterSize(16);
 	title.setFillColor(sf::Color::White);
-	title.setPosition(10, 30);
+	title.setPosition(10, 32);
 
 	for (int i = 0; i < 3; i++)
 	{
 		sf::Sprite star;
 		star.setTexture(*game->getTexture(i < rating ? "star" : "star_empty"));
-		star.setPosition(10 + i * 16, 50);
+		star.setPosition(10 + i * 16, 52);
 		hexagonStars.push_back(star);
 	}
 
