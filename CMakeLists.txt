@@ -7,7 +7,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # 平台检测和设置
 if(APPLE)
-    set(SFML_DIR "/opt/homebrew/Cellar/sfml/2.6.1/lib/cmake/SFML")
+    set(SFML_DIR "/opt/homebrew/Cellar/sfml@2/2.6.2_1/lib/cmake/SFML")
+    set(SFML_INCLUDE_DIR "/opt/homebrew/Cellar/sfml@2/2.6.2_1/include")
     find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 elseif(WIN32)
     set(SFML_DIR "C:/sfml/2.6.1/lib/cmake/SFML")
@@ -31,7 +32,7 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 add_executable(Pixnights ${SOURCES})
 
 # 添加头文件目录
-target_include_directories(Pixnights PUBLIC ${SFML_INCLUDE_DIRS} "src/include")
+target_include_directories(Pixnights PUBLIC ${SFML_INCLUDE_DIRS} ${SFML_INCLUDE_DIR} "src/include")
 
 # 添加链接库
 target_link_libraries(Pixnights sfml-graphics sfml-window sfml-system sfml-audio)
