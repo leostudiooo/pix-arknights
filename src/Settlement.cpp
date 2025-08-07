@@ -12,22 +12,25 @@ Settlement::Settlement(std::shared_ptr<Game> game, std::string levelName, int ra
 	levelNameText.setFont(*game->getFont("font_small"));
 	levelNameText.setString("Level " + levelName);
 	levelNameText.setCharacterSize(8);
-	levelNameText.setFillColor(sf::Color::White);
-	levelNameText.setPosition(10, 24);
+	levelNameText.setFillColor(sf::Color(255, 255, 255, 128));
+	levelNameText.setPosition(10, 16);
 
 	title.setFont(*game->getFont("font_small"));
-	title.setString(rating > 0 ? L"Mission Accomplished" : L"Mission Failed");
+	title.setString(rating > 0 ? L"Mission\nAccomplished" : L"Mission\nFailed");
 	title.setCharacterSize(16);
 	title.setFillColor(sf::Color::White);
-	title.setPosition(10, 32);
+	title.setPosition(10, 24);
 
 	for (int i = 0; i < 3; i++)
 	{
 		sf::Sprite star;
 		star.setTexture(*game->getTexture(i < rating ? "star" : "star_empty"));
-		star.setPosition(10 + i * 16, 52);
+		star.setPosition(10 + i * 16, 64);
 		hexagonStars.push_back(star);
 	}
+
+    assistantSprite.setTexture(*game->getTexture("assistant_img"));
+    assistantSprite.setPosition(96, 16);
 
 	continueButton.setTextures(game->getTexture("continue_normal"), game->getTexture("continue_hover"), game->getTexture("continue_click"));
 	continueButton.setGame(game);
@@ -68,6 +71,7 @@ void Settlement::render(sf::RenderWindow &window)
 	window.draw(title);
 	for (auto &star : hexagonStars)
 		window.draw(star);
+	window.draw(assistantSprite);
 	continueButton.render(window);
 }
 

@@ -13,13 +13,14 @@ private:
 	sf::Text levelNameText;
 	sf::Text title;
 	std::vector<sf::Sprite> hexagonStars;
+    sf::Sprite assistantSprite;
 	Button continueButton;
 public:
 	Settlement(std::shared_ptr<Game> game, std::string levelName, int rating);
 	~Settlement() = default;
 
 	void loadAssets();
-	
+
 	void handleEvent(const sf::Event &event) override;
 	void update() override;
 	void render(sf::RenderWindow &window) override;

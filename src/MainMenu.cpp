@@ -57,7 +57,7 @@ MainMenu::MainMenu(std::shared_ptr<Game> game) : UserInterface(game)
 	titleText.setFont(*game->getFont("font_small"));
 	titleText.setString(L"Pixnights 开发中");
 	titleText.setCharacterSize(8); // though designed 7, set for 8 for no resampling (don't know why)
-	titleText.setFillColor(sf::Color(0xffffffff));
+	titleText.setFillColor(sf::Color(0xffffffdd));
 	titleText.setPosition(round(120), round(92));
 }
 
@@ -141,8 +141,8 @@ void MainMenu::render(sf::RenderWindow &window)
 {
 	window.draw(backgroundSprite);
 	terminalButton.render(window);
-	// squadButton.render(window);
-	// operatorButton.render(window);
+	squadButton.render(window);
+	operatorButton.render(window);
 	window.draw(assistantSprite);
 	window.draw(titleText);
 }
