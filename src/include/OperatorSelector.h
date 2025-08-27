@@ -4,7 +4,7 @@
 #include "Operator.h"
 #include "CombatComponent.h"
 
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 // Forward declaration
 class CombatEvent;

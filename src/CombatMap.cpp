@@ -6,7 +6,7 @@
 #include "Tile.h"
 
 #include "Game.h"
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 #include <fstream>
 
 using json = nlohmann::json;

@@ -22,6 +22,18 @@ elseif(MINGW)
     find_package(SFML 2.6 REQUIRED COMPONENTS graphics window system audio)
 endif()
 
+# 查找nlohmann/json包
+find_package(nlohmann_json 3.2.0 QUIET)
+if(NOT nlohmann_json_FOUND)
+    # 如果系统找不到，则使用FetchContent下载
+    include(FetchContent)
+    FetchContent_Declare(
+        json
+        URL https://github.com/nlohmann/json/releases/download/v3.11.3/json.tar.xz
+    )
+    FetchContent_MakeAvailable(json)
+endif()
+
 # 调试 SFML
 message(STATUS "SFML found: ${SFML_FOUND}")
 
@@ -36,6 +48,9 @@ target_include_directories(Pixnights PUBLIC ${SFML_INCLUDE_DIRS} ${SFML_INCLUDE_
 
 # 添加链接库
 target_link_libraries(Pixnights sfml-graphics sfml-window sfml-system sfml-audio)
+
+# 链接nlohmann/json
+target_link_libraries(Pixnights nlohmann_json::nlohmann_json)
 
 # gcc libstdc++库
 if(MINGW)

@@ -5,7 +5,7 @@
 #include "CombatEvent.h"
 #include "OperatorSelectorBlock.h"
 
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 #include <fstream>
 #include <iostream>

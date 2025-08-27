@@ -2,7 +2,7 @@
 #pragma once
 
 #include "Figure.h"
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 
 /*
  * `OperatorType` is an enumeration type that represents the type of the Operator.

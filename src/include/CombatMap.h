@@ -3,7 +3,7 @@
 
 #include "CombatComponent.h"
 
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 #include "Tile.h"
 #include "Game.h"
 
