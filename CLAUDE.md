@@ -6,8 +6,6 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Pixnights is a C++ tower defense game inspired by Arknights, built with SFML 2.6.1. The game uses a state-based architecture with JSON-driven data for levels, operators, and enemies.
 
-**NEW: Carrot Defense Project** - A procedural variant using only code-generated graphics and synthesized audio. See `CARROT_DEFENSE_PLAN.md` for detailed implementation plan.
-
 ## Build Commands
 
 ### Windows (Visual Studio 2022)
@@ -69,7 +67,7 @@ SPLASH_SCREEN → MAIN_MENU → TERMINAL → COMBAT → SETTLEMENT
 
 ### Key Data Structures
 - **Operators** (`src/include/Operator.h`): Player units with stats, ranges, costs
-- **Enemies** (`src/include/Enemy.h`): AI units with routes and spawn patterns  
+- **Enemies** (`src/include/Enemy.h`): AI units with routes and spawn patterns
 - **Levels** (`assets/levels/*.json`): Map layouts, enemy waves, objectives
 
 ### Asset Organization
@@ -143,12 +141,12 @@ public:
 class ToneGenerator {
 public:
     enum WaveType { SINE, SQUARE, TRIANGLE, SAWTOOTH };
-    
-    static std::vector<sf::Int16> generateTone(float frequency, float duration, 
+
+    static std::vector<sf::Int16> generateTone(float frequency, float duration,
                                                WaveType type = SINE);
-    static std::vector<sf::Int16> generateChord(const std::vector<float>& frequencies, 
+    static std::vector<sf::Int16> generateChord(const std::vector<float>& frequencies,
                                                 float duration);
-    static void applyEnvelope(std::vector<sf::Int16>& samples, 
+    static void applyEnvelope(std::vector<sf::Int16>& samples,
                              float attack, float decay, float sustain, float release);
 };
 ```
@@ -160,18 +158,18 @@ public:
 sf::Texture ProceduralAssetGenerator::generateCarrotTower(const CarrotType& type) {
     sf::RenderTexture texture;
     texture.create(64, 64);
-    
+
     // Create carrot body (hexagon)
     auto body = ShapeFactory::createCarrotBody(type.size, type.color);
     body.setPosition(32, 40);
-    
+
     // Create leaves (triangles)
     auto leaves = ShapeFactory::createCarrotLeaves(type.size, 3);
     for (auto& leaf : leaves) {
         leaf.setPosition(32, 25);
         texture.draw(leaf);
     }
-    
+
     texture.draw(body);
     texture.display();
     return texture.getTexture();
@@ -183,10 +181,10 @@ sf::Texture ProceduralAssetGenerator::generateCarrotTower(const CarrotType& type
 sf::Texture ProceduralAssetGenerator::generateEnemyPest(const PestType& type) {
     sf::RenderTexture texture;
     texture.create(32, 32);
-    
+
     auto body = ShapeFactory::createPestBody(type);
     body.setPosition(16, 16);
-    
+
     // Add simple details (eyes, legs) using small shapes
     if (type.hasLegs) {
         for (int i = 0; i < 6; ++i) {
@@ -195,7 +193,7 @@ sf::Texture ProceduralAssetGenerator::generateEnemyPest(const PestType& type) {
             texture.draw(leg);
         }
     }
-    
+
     texture.draw(body);
     texture.display();
     return texture.getTexture();
@@ -210,7 +208,7 @@ sf::SoundBuffer ProceduralAssetGenerator::generateShootSound() {
     // High-frequency square wave burst
     auto samples = ToneGenerator::generateTone(800.f, 0.1f, WaveType::SQUARE);
     ToneGenerator::applyEnvelope(samples, 0.01f, 0.02f, 0.1f, 0.05f);
-    
+
     sf::SoundBuffer buffer;
     buffer.loadFromSamples(samples.data(), samples.size(), 1, 44100);
     return buffer;
@@ -222,12 +220,12 @@ sf::SoundBuffer ProceduralAssetGenerator::generateShootSound() {
 std::vector<sf::Int16> generateBackgroundLoop() {
     std::vector<sf::Int16> loop;
     std::vector<float> melody = {261.63f, 293.66f, 329.63f, 349.23f}; // C major
-    
+
     for (float note : melody) {
         auto tone = ToneGenerator::generateTone(note, 0.5f, WaveType::TRIANGLE);
         loop.insert(loop.end(), tone.begin(), tone.end());
     }
-    
+
     return loop;
 }
 ```
@@ -255,7 +253,7 @@ auto carrotTexture = assetGenerator.generateCarrotTower(basicCarrotType);
 
 #### Step 3: Audio Loading Changes
 ```cpp
-// OLD: Load from file  
+// OLD: Load from file
 // assetManager.loadMusic("combat", "assets/music/combat.ogg");
 
 // NEW: Generate procedurally
@@ -272,7 +270,7 @@ void testProceduralAssets() {
     for (const auto& type : carrotTypes) {
         carrotTextures.push_back(generator.generateCarrotTower(type));
     }
-    
+
     // Display in grid pattern for visual verification
     displayAssetGrid(carrotTextures, "Carrot Towers");
 }
@@ -284,7 +282,7 @@ void testAudioSynthesis() {
     std::vector<sf::Sound> sounds;
     sounds.emplace_back(generator.generateShootSound());
     sounds.emplace_back(generator.generateHitSound());
-    
+
     // Play sequence to verify audio quality
     for (auto& sound : sounds) {
         sound.play();
@@ -301,7 +299,7 @@ class ProceduralAssetGenerator {
 private:
     std::unordered_map<std::string, sf::Texture> textureCache;
     std::unordered_map<std::string, sf::SoundBuffer> soundCache;
-    
+
 public:
     sf::Texture& getCarrotTexture(const CarrotType& type) {
         std::string key = "carrot_" + type.name;
@@ -315,7 +313,7 @@ public:
 
 #### Generation Time Budgets
 - **Texture Generation**: <5ms per texture (cached)
-- **Sound Generation**: <1ms per sound (cached) 
+- **Sound Generation**: <1ms per sound (cached)
 - **Startup Time**: <2 seconds for all assets
 - **Runtime Generation**: <16ms per frame (60 FPS budget)
 
@@ -327,7 +325,7 @@ public:
 - Keep generation functions pure when possible
 - Document visual intent with comments
 
-#### Audio Generation  
+#### Audio Generation
 - Use constants for frequency definitions
 - Implement ADSR envelopes consistently
 - Cache frequently used sounds
